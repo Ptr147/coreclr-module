@@ -27,6 +27,6 @@ jobs:
         uses: peter-evans/repository-dispatch@v2.0.0
         with:
           token: ${{ secrets.PAT_TOKEN }}
-          repository: altmp/altv-docs
+          repository: Ptr147/altv-docs-cn
           event-type: Update C# documentation
           client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
