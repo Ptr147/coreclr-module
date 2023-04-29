@@ -17,6 +17,7 @@ namespace AltV.Net.Client
         public IEntityFactory<IPed> GetPedFactory();
         public IBaseObjectFactory<IBlip> GetBlipFactory();
         public IBaseObjectFactory<ICheckpoint> GetCheckpointFactory();
+        public IBaseObjectFactory<IColShape> GetColShapeFactory();
         public IBaseObjectFactory<IAudio> GetAudioFactory();
         public IBaseObjectFactory<IHttpClient> GetHttpClientFactory();
         public IBaseObjectFactory<IWebSocketClient> GetWebSocketClientFactory();
@@ -25,6 +26,8 @@ namespace AltV.Net.Client
         public IBaseObjectFactory<IVirtualEntity> GetVirtualEntityFactory();
         public IBaseObjectFactory<IVirtualEntityGroup> GetVirtualEntityGroupFactory();
         public IBaseObjectFactory<ITextLabel> GetTextLabelFactory();
+        public IBaseObjectFactory<ILocalVehicle> GetLocalVehicleFactory();
+        public IBaseObjectFactory<ILocalPed> GetLocalPedFactory();
         public INativeResourceFactory GetResourceFactory();
         public ILogger GetLogger(ILibrary library, IntPtr corePointer);
     }

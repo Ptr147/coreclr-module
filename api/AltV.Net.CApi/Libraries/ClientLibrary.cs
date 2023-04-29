@@ -50,6 +50,7 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, uint, byte> AudioFilter_RemoveEffect { get; }
         public delegate* unmanaged[Cdecl]<nint, uint> Blip_GetScriptID { get; }
         public delegate* unmanaged[Cdecl]<nint, byte> Blip_IsRemote { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte> Checkpoint_IsStreamedIn { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, uint, nint, void> Core_AddGXTText { get; }
         public delegate* unmanaged[Cdecl]<nint, byte> Core_AreGameControlsEnabled { get; }
         public delegate* unmanaged[Cdecl]<nint, byte> Core_AreRmlControlsEnabled { get; }
@@ -64,8 +65,10 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, nint, nint, int*, nint> Core_Client_FileRead { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, byte> Core_CopyToClipboard { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, nint, float, uint, byte, uint*, nint> Core_CreateAudio { get; }
-        public delegate* unmanaged[Cdecl]<nint, byte, Vector3, Vector3, float, float, Rgba, nint, uint*, nint> Core_CreateCheckpoint { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte, Vector3, Vector3, float, float, Rgba, uint, nint, uint*, nint> Core_CreateCheckpoint { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, uint*, nint> Core_CreateHttpClient { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint, int, Vector3, Rotation, byte, uint, nint, uint*, nint> Core_CreateLocalPed { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint, int, Vector3, Rotation, byte, uint, nint, uint*, nint> Core_CreateLocalVehicle { get; }
         public delegate* unmanaged[Cdecl]<nint, byte, Vector3, Rgba, nint, uint*, nint> Core_CreateMarker_Client { get; }
         public delegate* unmanaged[Cdecl]<nint, uint, Vector3, Vector3, byte, byte, nint, ushort*, nint> Core_CreateObject { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, nint, uint*, nint> Core_CreateRmlDocument { get; }
@@ -184,10 +187,12 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.AnyResourceErrorModuleDelegate, void> Event_SetAnyResourceErrorDelegate { get; }
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.AnyResourceStartModuleDelegate, void> Event_SetAnyResourceStartDelegate { get; }
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.AnyResourceStopModuleDelegate, void> Event_SetAnyResourceStopDelegate { get; }
+        public delegate* unmanaged[Cdecl]<nint, ClientEvents.CheckpointModuleDelegate, void> Event_SetCheckpointDelegate { get; }
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.ClientEventModuleDelegate, void> Event_SetClientEventDelegate { get; }
+        public delegate* unmanaged[Cdecl]<nint, ClientEvents.ColShapeModuleDelegate, void> Event_SetColShapeDelegate { get; }
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.ConnectionCompleteModuleDelegate, void> Event_SetConnectionCompleteDelegate { get; }
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.ConsoleCommandModuleDelegate, void> Event_SetConsoleCommandDelegate { get; }
-        public delegate* unmanaged[Cdecl]<nint, ClientEvents.CreateBaseObjectDelegate, void> Event_SetCreateBaseObjectDelegate { get; }
+        public delegate* unmanaged[Cdecl]<nint, ClientEvents.CreateBaseObjectModuleDelegate, void> Event_SetCreateBaseObjectDelegate { get; }
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.GameEntityCreateModuleDelegate, void> Event_SetGameEntityCreateDelegate { get; }
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.GameEntityDestroyModuleDelegate, void> Event_SetGameEntityDestroyDelegate { get; }
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.GlobalMetaChangeModuleDelegate, void> Event_SetGlobalMetaChangeDelegate { get; }
@@ -195,6 +200,7 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.KeyDownModuleDelegate, void> Event_SetKeyDownDelegate { get; }
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.KeyUpModuleDelegate, void> Event_SetKeyUpDelegate { get; }
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.LocalMetaChangeModuleDelegate, void> Event_SetLocalMetaChangeDelegate { get; }
+        public delegate* unmanaged[Cdecl]<nint, ClientEvents.MetaChangeModuleDelegate, void> Event_SetMetaChangeDelegate { get; }
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.NetOwnerChangeModuleDelegate, void> Event_SetNetOwnerChangeDelegate { get; }
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.PlayerChangeAnimationModuleDelegate, void> Event_SetPlayerChangeAnimationDelegate { get; }
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.PlayerChangeInteriorModuleDelegate, void> Event_SetPlayerChangeInteriorDelegate { get; }
@@ -205,7 +211,7 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.PlayerSpawnModuleDelegate, void> Event_SetPlayerSpawnDelegate { get; }
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.PlayerWeaponChangeModuleDelegate, void> Event_SetPlayerWeaponChangeDelegate { get; }
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.PlayerWeaponShootModuleDelegate, void> Event_SetPlayerWeaponShootDelegate { get; }
-        public delegate* unmanaged[Cdecl]<nint, ClientEvents.RemoveBaseObjectDelegate, void> Event_SetRemoveBaseObjectDelegate { get; }
+        public delegate* unmanaged[Cdecl]<nint, ClientEvents.RemoveBaseObjectModuleDelegate, void> Event_SetRemoveBaseObjectDelegate { get; }
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.RmlEventModuleDelegate, void> Event_SetRmlEventDelegate { get; }
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.ServerEventModuleDelegate, void> Event_SetServerEventDelegate { get; }
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.StreamSyncedMetaChangeModuleDelegate, void> Event_SetStreamSyncedMetaChangeDelegate { get; }
@@ -217,7 +223,9 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.WebViewEventModuleDelegate, void> Event_SetWebViewEventDelegate { get; }
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.WindowFocusChangeModuleDelegate, void> Event_SetWindowFocusChangeDelegate { get; }
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.WindowResolutionChangeModuleDelegate, void> Event_SetWindowResolutionChangeDelegate { get; }
-        public delegate* unmanaged[Cdecl]<nint, ClientEvents.WorldObjectPositionChangeDelegate, void> Event_SetWorldObjectPositionChangeDelegate { get; }
+        public delegate* unmanaged[Cdecl]<nint, ClientEvents.WorldObjectPositionChangeModuleDelegate, void> Event_SetWorldObjectPositionChangeDelegate { get; }
+        public delegate* unmanaged[Cdecl]<nint, ClientEvents.WorldObjectStreamInModuleDelegate, void> Event_SetWorldObjectStreamInDelegate { get; }
+        public delegate* unmanaged[Cdecl]<nint, ClientEvents.WorldObjectStreamOutModuleDelegate, void> Event_SetWorldObjectStreamOutDelegate { get; }
         public delegate* unmanaged[Cdecl]<nint, void> FreeRmlElementArray { get; }
         public delegate* unmanaged[Cdecl]<nint> GetNativeFuncTable { get; }
         public delegate* unmanaged[Cdecl]<uint, float> Handling_GetAcceleration { get; }
@@ -363,6 +371,10 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, nint, nint, ClientEvents.HttpResponseModuleDelegate, void> HttpClient_Put { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, nint, void> HttpClient_SetExtraHeader { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, nint, ClientEvents.HttpResponseModuleDelegate, void> HttpClient_Trace { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint> LocalPed_GetRemoteID { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint> LocalPed_GetScriptID { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte> LocalPed_IsRemote { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte> LocalPed_IsStreamedIn { get; }
         public delegate* unmanaged[Cdecl]<nint, ushort> LocalPlayer_GetCurrentAmmo { get; }
         public delegate* unmanaged[Cdecl]<nint, uint> LocalPlayer_GetCurrentWeaponHash { get; }
         public delegate* unmanaged[Cdecl]<nint, ushort> LocalPlayer_GetID { get; }
@@ -380,6 +392,10 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, nint, nint> LocalStorage_GetKey { get; }
         public delegate* unmanaged[Cdecl]<nint, void> LocalStorage_Save { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, nint, void> LocalStorage_SetKey { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint> LocalVehicle_GetRemoteID { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint> LocalVehicle_GetScriptID { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte> LocalVehicle_IsRemote { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte> LocalVehicle_IsStreamedIn { get; }
         public delegate* unmanaged[Cdecl]<uint, float> MapData_GetFScrollSpeed { get; }
         public delegate* unmanaged[Cdecl]<uint, float> MapData_GetFZoomScale { get; }
         public delegate* unmanaged[Cdecl]<uint, float> MapData_GetFZoomSpeed { get; }
@@ -393,6 +409,7 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, uint> Marker_GetRemoteID { get; }
         public delegate* unmanaged[Cdecl]<nint, byte> Marker_IsRemote { get; }
         public delegate* unmanaged[Cdecl]<nint, byte> Object_IsRemote { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte> Object_IsStreamedIn { get; }
         public delegate* unmanaged[Cdecl]<nint> Player_GetLocal { get; }
         public delegate* unmanaged[Cdecl]<nint, float> Player_GetMicLevel { get; }
         public delegate* unmanaged[Cdecl]<nint, float> Player_GetNonSpatialVolume { get; }
@@ -653,6 +670,7 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, byte, void> Vehicle_SetAbsLightState { get; }
         public delegate* unmanaged[Cdecl]<nint, byte, void> Vehicle_SetBatteryLightState { get; }
         public delegate* unmanaged[Cdecl]<nint, ushort, void> Vehicle_SetCurrentGear { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> Vehicle_SetCurrentRPM { get; }
         public delegate* unmanaged[Cdecl]<nint, byte, void> Vehicle_SetEngineLightState { get; }
         public delegate* unmanaged[Cdecl]<nint, float, void> Vehicle_SetEngineTemperature { get; }
         public delegate* unmanaged[Cdecl]<nint, float, void> Vehicle_SetFuelLevel { get; }
@@ -738,7 +756,7 @@ namespace AltV.Net.CApi.Libraries
 
     public unsafe class ClientLibrary : IClientLibrary
     {
-        public readonly uint Methods = 1449;
+        public readonly uint Methods = 1491;
         public delegate* unmanaged[Cdecl]<nint, nint, void> Audio_AddOutput_Entity { get; }
         public delegate* unmanaged[Cdecl]<nint, uint, void> Audio_AddOutput_ScriptId { get; }
         public delegate* unmanaged[Cdecl]<nint, nint> Audio_GetBaseObject { get; }
@@ -779,6 +797,7 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, uint, byte> AudioFilter_RemoveEffect { get; }
         public delegate* unmanaged[Cdecl]<nint, uint> Blip_GetScriptID { get; }
         public delegate* unmanaged[Cdecl]<nint, byte> Blip_IsRemote { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte> Checkpoint_IsStreamedIn { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, uint, nint, void> Core_AddGXTText { get; }
         public delegate* unmanaged[Cdecl]<nint, byte> Core_AreGameControlsEnabled { get; }
         public delegate* unmanaged[Cdecl]<nint, byte> Core_AreRmlControlsEnabled { get; }
@@ -793,8 +812,10 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, nint, nint, int*, nint> Core_Client_FileRead { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, byte> Core_CopyToClipboard { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, nint, float, uint, byte, uint*, nint> Core_CreateAudio { get; }
-        public delegate* unmanaged[Cdecl]<nint, byte, Vector3, Vector3, float, float, Rgba, nint, uint*, nint> Core_CreateCheckpoint { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte, Vector3, Vector3, float, float, Rgba, uint, nint, uint*, nint> Core_CreateCheckpoint { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, uint*, nint> Core_CreateHttpClient { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint, int, Vector3, Rotation, byte, uint, nint, uint*, nint> Core_CreateLocalPed { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint, int, Vector3, Rotation, byte, uint, nint, uint*, nint> Core_CreateLocalVehicle { get; }
         public delegate* unmanaged[Cdecl]<nint, byte, Vector3, Rgba, nint, uint*, nint> Core_CreateMarker_Client { get; }
         public delegate* unmanaged[Cdecl]<nint, uint, Vector3, Vector3, byte, byte, nint, ushort*, nint> Core_CreateObject { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, nint, uint*, nint> Core_CreateRmlDocument { get; }
@@ -913,10 +934,12 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.AnyResourceErrorModuleDelegate, void> Event_SetAnyResourceErrorDelegate { get; }
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.AnyResourceStartModuleDelegate, void> Event_SetAnyResourceStartDelegate { get; }
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.AnyResourceStopModuleDelegate, void> Event_SetAnyResourceStopDelegate { get; }
+        public delegate* unmanaged[Cdecl]<nint, ClientEvents.CheckpointModuleDelegate, void> Event_SetCheckpointDelegate { get; }
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.ClientEventModuleDelegate, void> Event_SetClientEventDelegate { get; }
+        public delegate* unmanaged[Cdecl]<nint, ClientEvents.ColShapeModuleDelegate, void> Event_SetColShapeDelegate { get; }
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.ConnectionCompleteModuleDelegate, void> Event_SetConnectionCompleteDelegate { get; }
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.ConsoleCommandModuleDelegate, void> Event_SetConsoleCommandDelegate { get; }
-        public delegate* unmanaged[Cdecl]<nint, ClientEvents.CreateBaseObjectDelegate, void> Event_SetCreateBaseObjectDelegate { get; }
+        public delegate* unmanaged[Cdecl]<nint, ClientEvents.CreateBaseObjectModuleDelegate, void> Event_SetCreateBaseObjectDelegate { get; }
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.GameEntityCreateModuleDelegate, void> Event_SetGameEntityCreateDelegate { get; }
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.GameEntityDestroyModuleDelegate, void> Event_SetGameEntityDestroyDelegate { get; }
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.GlobalMetaChangeModuleDelegate, void> Event_SetGlobalMetaChangeDelegate { get; }
@@ -924,6 +947,7 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.KeyDownModuleDelegate, void> Event_SetKeyDownDelegate { get; }
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.KeyUpModuleDelegate, void> Event_SetKeyUpDelegate { get; }
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.LocalMetaChangeModuleDelegate, void> Event_SetLocalMetaChangeDelegate { get; }
+        public delegate* unmanaged[Cdecl]<nint, ClientEvents.MetaChangeModuleDelegate, void> Event_SetMetaChangeDelegate { get; }
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.NetOwnerChangeModuleDelegate, void> Event_SetNetOwnerChangeDelegate { get; }
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.PlayerChangeAnimationModuleDelegate, void> Event_SetPlayerChangeAnimationDelegate { get; }
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.PlayerChangeInteriorModuleDelegate, void> Event_SetPlayerChangeInteriorDelegate { get; }
@@ -934,7 +958,7 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.PlayerSpawnModuleDelegate, void> Event_SetPlayerSpawnDelegate { get; }
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.PlayerWeaponChangeModuleDelegate, void> Event_SetPlayerWeaponChangeDelegate { get; }
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.PlayerWeaponShootModuleDelegate, void> Event_SetPlayerWeaponShootDelegate { get; }
-        public delegate* unmanaged[Cdecl]<nint, ClientEvents.RemoveBaseObjectDelegate, void> Event_SetRemoveBaseObjectDelegate { get; }
+        public delegate* unmanaged[Cdecl]<nint, ClientEvents.RemoveBaseObjectModuleDelegate, void> Event_SetRemoveBaseObjectDelegate { get; }
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.RmlEventModuleDelegate, void> Event_SetRmlEventDelegate { get; }
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.ServerEventModuleDelegate, void> Event_SetServerEventDelegate { get; }
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.StreamSyncedMetaChangeModuleDelegate, void> Event_SetStreamSyncedMetaChangeDelegate { get; }
@@ -946,7 +970,9 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.WebViewEventModuleDelegate, void> Event_SetWebViewEventDelegate { get; }
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.WindowFocusChangeModuleDelegate, void> Event_SetWindowFocusChangeDelegate { get; }
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.WindowResolutionChangeModuleDelegate, void> Event_SetWindowResolutionChangeDelegate { get; }
-        public delegate* unmanaged[Cdecl]<nint, ClientEvents.WorldObjectPositionChangeDelegate, void> Event_SetWorldObjectPositionChangeDelegate { get; }
+        public delegate* unmanaged[Cdecl]<nint, ClientEvents.WorldObjectPositionChangeModuleDelegate, void> Event_SetWorldObjectPositionChangeDelegate { get; }
+        public delegate* unmanaged[Cdecl]<nint, ClientEvents.WorldObjectStreamInModuleDelegate, void> Event_SetWorldObjectStreamInDelegate { get; }
+        public delegate* unmanaged[Cdecl]<nint, ClientEvents.WorldObjectStreamOutModuleDelegate, void> Event_SetWorldObjectStreamOutDelegate { get; }
         public delegate* unmanaged[Cdecl]<nint, void> FreeRmlElementArray { get; }
         public delegate* unmanaged[Cdecl]<nint> GetNativeFuncTable { get; }
         public delegate* unmanaged[Cdecl]<uint, float> Handling_GetAcceleration { get; }
@@ -1092,6 +1118,10 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, nint, nint, ClientEvents.HttpResponseModuleDelegate, void> HttpClient_Put { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, nint, void> HttpClient_SetExtraHeader { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, nint, ClientEvents.HttpResponseModuleDelegate, void> HttpClient_Trace { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint> LocalPed_GetRemoteID { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint> LocalPed_GetScriptID { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte> LocalPed_IsRemote { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte> LocalPed_IsStreamedIn { get; }
         public delegate* unmanaged[Cdecl]<nint, ushort> LocalPlayer_GetCurrentAmmo { get; }
         public delegate* unmanaged[Cdecl]<nint, uint> LocalPlayer_GetCurrentWeaponHash { get; }
         public delegate* unmanaged[Cdecl]<nint, ushort> LocalPlayer_GetID { get; }
@@ -1109,6 +1139,10 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, nint, nint> LocalStorage_GetKey { get; }
         public delegate* unmanaged[Cdecl]<nint, void> LocalStorage_Save { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, nint, void> LocalStorage_SetKey { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint> LocalVehicle_GetRemoteID { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint> LocalVehicle_GetScriptID { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte> LocalVehicle_IsRemote { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte> LocalVehicle_IsStreamedIn { get; }
         public delegate* unmanaged[Cdecl]<uint, float> MapData_GetFScrollSpeed { get; }
         public delegate* unmanaged[Cdecl]<uint, float> MapData_GetFZoomScale { get; }
         public delegate* unmanaged[Cdecl]<uint, float> MapData_GetFZoomSpeed { get; }
@@ -1122,6 +1156,7 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, uint> Marker_GetRemoteID { get; }
         public delegate* unmanaged[Cdecl]<nint, byte> Marker_IsRemote { get; }
         public delegate* unmanaged[Cdecl]<nint, byte> Object_IsRemote { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte> Object_IsStreamedIn { get; }
         public delegate* unmanaged[Cdecl]<nint> Player_GetLocal { get; }
         public delegate* unmanaged[Cdecl]<nint, float> Player_GetMicLevel { get; }
         public delegate* unmanaged[Cdecl]<nint, float> Player_GetNonSpatialVolume { get; }
@@ -1382,6 +1417,7 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, byte, void> Vehicle_SetAbsLightState { get; }
         public delegate* unmanaged[Cdecl]<nint, byte, void> Vehicle_SetBatteryLightState { get; }
         public delegate* unmanaged[Cdecl]<nint, ushort, void> Vehicle_SetCurrentGear { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> Vehicle_SetCurrentRPM { get; }
         public delegate* unmanaged[Cdecl]<nint, byte, void> Vehicle_SetEngineLightState { get; }
         public delegate* unmanaged[Cdecl]<nint, float, void> Vehicle_SetEngineTemperature { get; }
         public delegate* unmanaged[Cdecl]<nint, float, void> Vehicle_SetFuelLevel { get; }
@@ -1543,6 +1579,8 @@ namespace AltV.Net.CApi.Libraries
         private static uint Blip_GetScriptIDFallback(nint _blip) => throw new Exceptions.OutdatedSdkException("Blip_GetScriptID", "Blip_GetScriptID SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte Blip_IsRemoteDelegate(nint _blip);
         private static byte Blip_IsRemoteFallback(nint _blip) => throw new Exceptions.OutdatedSdkException("Blip_IsRemote", "Blip_IsRemote SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte Checkpoint_IsStreamedInDelegate(nint _checkpoint);
+        private static byte Checkpoint_IsStreamedInFallback(nint _checkpoint) => throw new Exceptions.OutdatedSdkException("Checkpoint_IsStreamedIn", "Checkpoint_IsStreamedIn SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Core_AddGXTTextDelegate(nint _core, nint _resource, uint _key, nint _value);
         private static void Core_AddGXTTextFallback(nint _core, nint _resource, uint _key, nint _value) => throw new Exceptions.OutdatedSdkException("Core_AddGXTText", "Core_AddGXTText SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte Core_AreGameControlsEnabledDelegate(nint _core);
@@ -1571,10 +1609,14 @@ namespace AltV.Net.CApi.Libraries
         private static byte Core_CopyToClipboardFallback(nint _core, nint _value) => throw new Exceptions.OutdatedSdkException("Core_CopyToClipboard", "Core_CopyToClipboard SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate nint Core_CreateAudioDelegate(nint _core, nint _resource, nint _source, float _volume, uint _category, byte _frontend, uint* _id);
         private static nint Core_CreateAudioFallback(nint _core, nint _resource, nint _source, float _volume, uint _category, byte _frontend, uint* _id) => throw new Exceptions.OutdatedSdkException("Core_CreateAudio", "Core_CreateAudio SDK method is outdated. Please update your module nuget");
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate nint Core_CreateCheckpointDelegate(nint _server, byte _type, Vector3 _pos, Vector3 _nextPos, float _radius, float _height, Rgba _color, nint _resource, uint* _id);
-        private static nint Core_CreateCheckpointFallback(nint _server, byte _type, Vector3 _pos, Vector3 _nextPos, float _radius, float _height, Rgba _color, nint _resource, uint* _id) => throw new Exceptions.OutdatedSdkException("Core_CreateCheckpoint", "Core_CreateCheckpoint SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate nint Core_CreateCheckpointDelegate(nint _server, byte _type, Vector3 _pos, Vector3 _nextPos, float _radius, float _height, Rgba _color, uint _streamingDistance, nint _resource, uint* _id);
+        private static nint Core_CreateCheckpointFallback(nint _server, byte _type, Vector3 _pos, Vector3 _nextPos, float _radius, float _height, Rgba _color, uint _streamingDistance, nint _resource, uint* _id) => throw new Exceptions.OutdatedSdkException("Core_CreateCheckpoint", "Core_CreateCheckpoint SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate nint Core_CreateHttpClientDelegate(nint _core, nint _resource, uint* _id);
         private static nint Core_CreateHttpClientFallback(nint _core, nint _resource, uint* _id) => throw new Exceptions.OutdatedSdkException("Core_CreateHttpClient", "Core_CreateHttpClient SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate nint Core_CreateLocalPedDelegate(nint _core, uint _modelHash, int _dimension, Vector3 _pos, Rotation _rot, byte _useStreaming, uint _streamingDistance, nint _resource, uint* _id);
+        private static nint Core_CreateLocalPedFallback(nint _core, uint _modelHash, int _dimension, Vector3 _pos, Rotation _rot, byte _useStreaming, uint _streamingDistance, nint _resource, uint* _id) => throw new Exceptions.OutdatedSdkException("Core_CreateLocalPed", "Core_CreateLocalPed SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate nint Core_CreateLocalVehicleDelegate(nint _core, uint _modelHash, int _dimension, Vector3 _pos, Rotation _rot, byte _useStreaming, uint _streamingDistance, nint _resource, uint* _id);
+        private static nint Core_CreateLocalVehicleFallback(nint _core, uint _modelHash, int _dimension, Vector3 _pos, Rotation _rot, byte _useStreaming, uint _streamingDistance, nint _resource, uint* _id) => throw new Exceptions.OutdatedSdkException("Core_CreateLocalVehicle", "Core_CreateLocalVehicle SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate nint Core_CreateMarker_ClientDelegate(nint _core, byte _type, Vector3 _pos, Rgba _color, nint _resource, uint* _id);
         private static nint Core_CreateMarker_ClientFallback(nint _core, byte _type, Vector3 _pos, Rgba _color, nint _resource, uint* _id) => throw new Exceptions.OutdatedSdkException("Core_CreateMarker_Client", "Core_CreateMarker_Client SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate nint Core_CreateObjectDelegate(nint _core, uint _modelHash, Vector3 _position, Vector3 _rot, byte _noOffset, byte _dynamic, nint _resource, ushort* _id);
@@ -1811,14 +1853,18 @@ namespace AltV.Net.CApi.Libraries
         private static void Event_SetAnyResourceStartDelegateFallback(nint _resource, ClientEvents.AnyResourceStartModuleDelegate _delegate) => throw new Exceptions.OutdatedSdkException("Event_SetAnyResourceStartDelegate", "Event_SetAnyResourceStartDelegate SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Event_SetAnyResourceStopDelegateDelegate(nint _resource, ClientEvents.AnyResourceStopModuleDelegate _delegate);
         private static void Event_SetAnyResourceStopDelegateFallback(nint _resource, ClientEvents.AnyResourceStopModuleDelegate _delegate) => throw new Exceptions.OutdatedSdkException("Event_SetAnyResourceStopDelegate", "Event_SetAnyResourceStopDelegate SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Event_SetCheckpointDelegateDelegate(nint _resource, ClientEvents.CheckpointModuleDelegate _delegate);
+        private static void Event_SetCheckpointDelegateFallback(nint _resource, ClientEvents.CheckpointModuleDelegate _delegate) => throw new Exceptions.OutdatedSdkException("Event_SetCheckpointDelegate", "Event_SetCheckpointDelegate SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Event_SetClientEventDelegateDelegate(nint _resource, ClientEvents.ClientEventModuleDelegate _delegate);
         private static void Event_SetClientEventDelegateFallback(nint _resource, ClientEvents.ClientEventModuleDelegate _delegate) => throw new Exceptions.OutdatedSdkException("Event_SetClientEventDelegate", "Event_SetClientEventDelegate SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Event_SetColShapeDelegateDelegate(nint _resource, ClientEvents.ColShapeModuleDelegate _delegate);
+        private static void Event_SetColShapeDelegateFallback(nint _resource, ClientEvents.ColShapeModuleDelegate _delegate) => throw new Exceptions.OutdatedSdkException("Event_SetColShapeDelegate", "Event_SetColShapeDelegate SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Event_SetConnectionCompleteDelegateDelegate(nint _resource, ClientEvents.ConnectionCompleteModuleDelegate _delegate);
         private static void Event_SetConnectionCompleteDelegateFallback(nint _resource, ClientEvents.ConnectionCompleteModuleDelegate _delegate) => throw new Exceptions.OutdatedSdkException("Event_SetConnectionCompleteDelegate", "Event_SetConnectionCompleteDelegate SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Event_SetConsoleCommandDelegateDelegate(nint _resource, ClientEvents.ConsoleCommandModuleDelegate _delegate);
         private static void Event_SetConsoleCommandDelegateFallback(nint _resource, ClientEvents.ConsoleCommandModuleDelegate _delegate) => throw new Exceptions.OutdatedSdkException("Event_SetConsoleCommandDelegate", "Event_SetConsoleCommandDelegate SDK method is outdated. Please update your module nuget");
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Event_SetCreateBaseObjectDelegateDelegate(nint _resource, ClientEvents.CreateBaseObjectDelegate _delegate);
-        private static void Event_SetCreateBaseObjectDelegateFallback(nint _resource, ClientEvents.CreateBaseObjectDelegate _delegate) => throw new Exceptions.OutdatedSdkException("Event_SetCreateBaseObjectDelegate", "Event_SetCreateBaseObjectDelegate SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Event_SetCreateBaseObjectDelegateDelegate(nint _resource, ClientEvents.CreateBaseObjectModuleDelegate _delegate);
+        private static void Event_SetCreateBaseObjectDelegateFallback(nint _resource, ClientEvents.CreateBaseObjectModuleDelegate _delegate) => throw new Exceptions.OutdatedSdkException("Event_SetCreateBaseObjectDelegate", "Event_SetCreateBaseObjectDelegate SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Event_SetGameEntityCreateDelegateDelegate(nint _resource, ClientEvents.GameEntityCreateModuleDelegate _delegate);
         private static void Event_SetGameEntityCreateDelegateFallback(nint _resource, ClientEvents.GameEntityCreateModuleDelegate _delegate) => throw new Exceptions.OutdatedSdkException("Event_SetGameEntityCreateDelegate", "Event_SetGameEntityCreateDelegate SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Event_SetGameEntityDestroyDelegateDelegate(nint _resource, ClientEvents.GameEntityDestroyModuleDelegate _delegate);
@@ -1833,6 +1879,8 @@ namespace AltV.Net.CApi.Libraries
         private static void Event_SetKeyUpDelegateFallback(nint _resource, ClientEvents.KeyUpModuleDelegate _delegate) => throw new Exceptions.OutdatedSdkException("Event_SetKeyUpDelegate", "Event_SetKeyUpDelegate SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Event_SetLocalMetaChangeDelegateDelegate(nint _resource, ClientEvents.LocalMetaChangeModuleDelegate _delegate);
         private static void Event_SetLocalMetaChangeDelegateFallback(nint _resource, ClientEvents.LocalMetaChangeModuleDelegate _delegate) => throw new Exceptions.OutdatedSdkException("Event_SetLocalMetaChangeDelegate", "Event_SetLocalMetaChangeDelegate SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Event_SetMetaChangeDelegateDelegate(nint _resource, ClientEvents.MetaChangeModuleDelegate _delegate);
+        private static void Event_SetMetaChangeDelegateFallback(nint _resource, ClientEvents.MetaChangeModuleDelegate _delegate) => throw new Exceptions.OutdatedSdkException("Event_SetMetaChangeDelegate", "Event_SetMetaChangeDelegate SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Event_SetNetOwnerChangeDelegateDelegate(nint _resource, ClientEvents.NetOwnerChangeModuleDelegate _delegate);
         private static void Event_SetNetOwnerChangeDelegateFallback(nint _resource, ClientEvents.NetOwnerChangeModuleDelegate _delegate) => throw new Exceptions.OutdatedSdkException("Event_SetNetOwnerChangeDelegate", "Event_SetNetOwnerChangeDelegate SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Event_SetPlayerChangeAnimationDelegateDelegate(nint _resource, ClientEvents.PlayerChangeAnimationModuleDelegate _delegate);
@@ -1853,8 +1901,8 @@ namespace AltV.Net.CApi.Libraries
         private static void Event_SetPlayerWeaponChangeDelegateFallback(nint _resource, ClientEvents.PlayerWeaponChangeModuleDelegate _delegate) => throw new Exceptions.OutdatedSdkException("Event_SetPlayerWeaponChangeDelegate", "Event_SetPlayerWeaponChangeDelegate SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Event_SetPlayerWeaponShootDelegateDelegate(nint _resource, ClientEvents.PlayerWeaponShootModuleDelegate _delegate);
         private static void Event_SetPlayerWeaponShootDelegateFallback(nint _resource, ClientEvents.PlayerWeaponShootModuleDelegate _delegate) => throw new Exceptions.OutdatedSdkException("Event_SetPlayerWeaponShootDelegate", "Event_SetPlayerWeaponShootDelegate SDK method is outdated. Please update your module nuget");
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Event_SetRemoveBaseObjectDelegateDelegate(nint _resource, ClientEvents.RemoveBaseObjectDelegate _delegate);
-        private static void Event_SetRemoveBaseObjectDelegateFallback(nint _resource, ClientEvents.RemoveBaseObjectDelegate _delegate) => throw new Exceptions.OutdatedSdkException("Event_SetRemoveBaseObjectDelegate", "Event_SetRemoveBaseObjectDelegate SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Event_SetRemoveBaseObjectDelegateDelegate(nint _resource, ClientEvents.RemoveBaseObjectModuleDelegate _delegate);
+        private static void Event_SetRemoveBaseObjectDelegateFallback(nint _resource, ClientEvents.RemoveBaseObjectModuleDelegate _delegate) => throw new Exceptions.OutdatedSdkException("Event_SetRemoveBaseObjectDelegate", "Event_SetRemoveBaseObjectDelegate SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Event_SetRmlEventDelegateDelegate(nint _resource, ClientEvents.RmlEventModuleDelegate _delegate);
         private static void Event_SetRmlEventDelegateFallback(nint _resource, ClientEvents.RmlEventModuleDelegate _delegate) => throw new Exceptions.OutdatedSdkException("Event_SetRmlEventDelegate", "Event_SetRmlEventDelegate SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Event_SetServerEventDelegateDelegate(nint _resource, ClientEvents.ServerEventModuleDelegate _delegate);
@@ -1877,8 +1925,12 @@ namespace AltV.Net.CApi.Libraries
         private static void Event_SetWindowFocusChangeDelegateFallback(nint _resource, ClientEvents.WindowFocusChangeModuleDelegate _delegate) => throw new Exceptions.OutdatedSdkException("Event_SetWindowFocusChangeDelegate", "Event_SetWindowFocusChangeDelegate SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Event_SetWindowResolutionChangeDelegateDelegate(nint _resource, ClientEvents.WindowResolutionChangeModuleDelegate _delegate);
         private static void Event_SetWindowResolutionChangeDelegateFallback(nint _resource, ClientEvents.WindowResolutionChangeModuleDelegate _delegate) => throw new Exceptions.OutdatedSdkException("Event_SetWindowResolutionChangeDelegate", "Event_SetWindowResolutionChangeDelegate SDK method is outdated. Please update your module nuget");
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Event_SetWorldObjectPositionChangeDelegateDelegate(nint _resource, ClientEvents.WorldObjectPositionChangeDelegate _delegate);
-        private static void Event_SetWorldObjectPositionChangeDelegateFallback(nint _resource, ClientEvents.WorldObjectPositionChangeDelegate _delegate) => throw new Exceptions.OutdatedSdkException("Event_SetWorldObjectPositionChangeDelegate", "Event_SetWorldObjectPositionChangeDelegate SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Event_SetWorldObjectPositionChangeDelegateDelegate(nint _resource, ClientEvents.WorldObjectPositionChangeModuleDelegate _delegate);
+        private static void Event_SetWorldObjectPositionChangeDelegateFallback(nint _resource, ClientEvents.WorldObjectPositionChangeModuleDelegate _delegate) => throw new Exceptions.OutdatedSdkException("Event_SetWorldObjectPositionChangeDelegate", "Event_SetWorldObjectPositionChangeDelegate SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Event_SetWorldObjectStreamInDelegateDelegate(nint _resource, ClientEvents.WorldObjectStreamInModuleDelegate _delegate);
+        private static void Event_SetWorldObjectStreamInDelegateFallback(nint _resource, ClientEvents.WorldObjectStreamInModuleDelegate _delegate) => throw new Exceptions.OutdatedSdkException("Event_SetWorldObjectStreamInDelegate", "Event_SetWorldObjectStreamInDelegate SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Event_SetWorldObjectStreamOutDelegateDelegate(nint _resource, ClientEvents.WorldObjectStreamOutModuleDelegate _delegate);
+        private static void Event_SetWorldObjectStreamOutDelegateFallback(nint _resource, ClientEvents.WorldObjectStreamOutModuleDelegate _delegate) => throw new Exceptions.OutdatedSdkException("Event_SetWorldObjectStreamOutDelegate", "Event_SetWorldObjectStreamOutDelegate SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void FreeRmlElementArrayDelegate(nint _rmlElementArray);
         private static void FreeRmlElementArrayFallback(nint _rmlElementArray) => throw new Exceptions.OutdatedSdkException("FreeRmlElementArray", "FreeRmlElementArray SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate nint GetNativeFuncTableDelegate();
@@ -2169,6 +2221,14 @@ namespace AltV.Net.CApi.Libraries
         private static void HttpClient_SetExtraHeaderFallback(nint _httpClient, nint _key, nint _value) => throw new Exceptions.OutdatedSdkException("HttpClient_SetExtraHeader", "HttpClient_SetExtraHeader SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void HttpClient_TraceDelegate(nint _httpClient, nint _url, nint _body, ClientEvents.HttpResponseModuleDelegate _callback);
         private static void HttpClient_TraceFallback(nint _httpClient, nint _url, nint _body, ClientEvents.HttpResponseModuleDelegate _callback) => throw new Exceptions.OutdatedSdkException("HttpClient_Trace", "HttpClient_Trace SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate uint LocalPed_GetRemoteIDDelegate(nint _localPed);
+        private static uint LocalPed_GetRemoteIDFallback(nint _localPed) => throw new Exceptions.OutdatedSdkException("LocalPed_GetRemoteID", "LocalPed_GetRemoteID SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate uint LocalPed_GetScriptIDDelegate(nint _localPed);
+        private static uint LocalPed_GetScriptIDFallback(nint _localPed) => throw new Exceptions.OutdatedSdkException("LocalPed_GetScriptID", "LocalPed_GetScriptID SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte LocalPed_IsRemoteDelegate(nint _localPed);
+        private static byte LocalPed_IsRemoteFallback(nint _localPed) => throw new Exceptions.OutdatedSdkException("LocalPed_IsRemote", "LocalPed_IsRemote SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte LocalPed_IsStreamedInDelegate(nint _localPed);
+        private static byte LocalPed_IsStreamedInFallback(nint _localPed) => throw new Exceptions.OutdatedSdkException("LocalPed_IsStreamedIn", "LocalPed_IsStreamedIn SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate ushort LocalPlayer_GetCurrentAmmoDelegate(nint _localPlayer);
         private static ushort LocalPlayer_GetCurrentAmmoFallback(nint _localPlayer) => throw new Exceptions.OutdatedSdkException("LocalPlayer_GetCurrentAmmo", "LocalPlayer_GetCurrentAmmo SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate uint LocalPlayer_GetCurrentWeaponHashDelegate(nint _localPlayer);
@@ -2203,6 +2263,14 @@ namespace AltV.Net.CApi.Libraries
         private static void LocalStorage_SaveFallback(nint _localStorage) => throw new Exceptions.OutdatedSdkException("LocalStorage_Save", "LocalStorage_Save SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalStorage_SetKeyDelegate(nint _localStorage, nint _key, nint _value);
         private static void LocalStorage_SetKeyFallback(nint _localStorage, nint _key, nint _value) => throw new Exceptions.OutdatedSdkException("LocalStorage_SetKey", "LocalStorage_SetKey SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate uint LocalVehicle_GetRemoteIDDelegate(nint _localVehicle);
+        private static uint LocalVehicle_GetRemoteIDFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_GetRemoteID", "LocalVehicle_GetRemoteID SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate uint LocalVehicle_GetScriptIDDelegate(nint _localVehicle);
+        private static uint LocalVehicle_GetScriptIDFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_GetScriptID", "LocalVehicle_GetScriptID SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte LocalVehicle_IsRemoteDelegate(nint _localVehicle);
+        private static byte LocalVehicle_IsRemoteFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_IsRemote", "LocalVehicle_IsRemote SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte LocalVehicle_IsStreamedInDelegate(nint _localVehicle);
+        private static byte LocalVehicle_IsStreamedInFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_IsStreamedIn", "LocalVehicle_IsStreamedIn SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float MapData_GetFScrollSpeedDelegate(uint _id);
         private static float MapData_GetFScrollSpeedFallback(uint _id) => throw new Exceptions.OutdatedSdkException("MapData_GetFScrollSpeed", "MapData_GetFScrollSpeed SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float MapData_GetFZoomScaleDelegate(uint _id);
@@ -2229,6 +2297,8 @@ namespace AltV.Net.CApi.Libraries
         private static byte Marker_IsRemoteFallback(nint _marker) => throw new Exceptions.OutdatedSdkException("Marker_IsRemote", "Marker_IsRemote SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte Object_IsRemoteDelegate(nint _object);
         private static byte Object_IsRemoteFallback(nint _object) => throw new Exceptions.OutdatedSdkException("Object_IsRemote", "Object_IsRemote SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte Object_IsStreamedInDelegate(nint _object);
+        private static byte Object_IsStreamedInFallback(nint _object) => throw new Exceptions.OutdatedSdkException("Object_IsStreamedIn", "Object_IsStreamedIn SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate nint Player_GetLocalDelegate();
         private static nint Player_GetLocalFallback() => throw new Exceptions.OutdatedSdkException("Player_GetLocal", "Player_GetLocal SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float Player_GetMicLevelDelegate(nint _player);
@@ -2749,6 +2819,8 @@ namespace AltV.Net.CApi.Libraries
         private static void Vehicle_SetBatteryLightStateFallback(nint _vehicle, byte _state) => throw new Exceptions.OutdatedSdkException("Vehicle_SetBatteryLightState", "Vehicle_SetBatteryLightState SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Vehicle_SetCurrentGearDelegate(nint _vehicle, ushort _value);
         private static void Vehicle_SetCurrentGearFallback(nint _vehicle, ushort _value) => throw new Exceptions.OutdatedSdkException("Vehicle_SetCurrentGear", "Vehicle_SetCurrentGear SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Vehicle_SetCurrentRPMDelegate(nint _vehicle, float _rpm);
+        private static void Vehicle_SetCurrentRPMFallback(nint _vehicle, float _rpm) => throw new Exceptions.OutdatedSdkException("Vehicle_SetCurrentRPM", "Vehicle_SetCurrentRPM SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Vehicle_SetEngineLightStateDelegate(nint _vehicle, byte _state);
         private static void Vehicle_SetEngineLightStateFallback(nint _vehicle, byte _state) => throw new Exceptions.OutdatedSdkException("Vehicle_SetEngineLightState", "Vehicle_SetEngineLightState SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Vehicle_SetEngineTemperatureDelegate(nint _vehicle, float _value);
@@ -2920,7 +2992,7 @@ namespace AltV.Net.CApi.Libraries
         public ClientLibrary(Dictionary<ulong, IntPtr> funcTable)
         {
             if (!funcTable.TryGetValue(0, out var capiHash)) Outdated = true;
-            else if (capiHash == IntPtr.Zero || *(ulong*)capiHash != 15744010004292872755UL) Outdated = true;
+            else if (capiHash == IntPtr.Zero || *(ulong*)capiHash != 18085891344785532001UL) Outdated = true;
             Audio_AddOutput_Entity = (delegate* unmanaged[Cdecl]<nint, nint, void>) GetUnmanagedPtr<Audio_AddOutput_EntityDelegate>(funcTable, 9879036518735269522UL, Audio_AddOutput_EntityFallback);
             Audio_AddOutput_ScriptId = (delegate* unmanaged[Cdecl]<nint, uint, void>) GetUnmanagedPtr<Audio_AddOutput_ScriptIdDelegate>(funcTable, 14116998947805478300UL, Audio_AddOutput_ScriptIdFallback);
             Audio_GetBaseObject = (delegate* unmanaged[Cdecl]<nint, nint>) GetUnmanagedPtr<Audio_GetBaseObjectDelegate>(funcTable, 6330360502401226894UL, Audio_GetBaseObjectFallback);
@@ -2961,6 +3033,7 @@ namespace AltV.Net.CApi.Libraries
             AudioFilter_RemoveEffect = (delegate* unmanaged[Cdecl]<nint, uint, byte>) GetUnmanagedPtr<AudioFilter_RemoveEffectDelegate>(funcTable, 4769953165963999553UL, AudioFilter_RemoveEffectFallback);
             Blip_GetScriptID = (delegate* unmanaged[Cdecl]<nint, uint>) GetUnmanagedPtr<Blip_GetScriptIDDelegate>(funcTable, 16517785578451896264UL, Blip_GetScriptIDFallback);
             Blip_IsRemote = (delegate* unmanaged[Cdecl]<nint, byte>) GetUnmanagedPtr<Blip_IsRemoteDelegate>(funcTable, 16853945182069856363UL, Blip_IsRemoteFallback);
+            Checkpoint_IsStreamedIn = (delegate* unmanaged[Cdecl]<nint, byte>) GetUnmanagedPtr<Checkpoint_IsStreamedInDelegate>(funcTable, 11169437175796680635UL, Checkpoint_IsStreamedInFallback);
             Core_AddGXTText = (delegate* unmanaged[Cdecl]<nint, nint, uint, nint, void>) GetUnmanagedPtr<Core_AddGXTTextDelegate>(funcTable, 15861482869617048160UL, Core_AddGXTTextFallback);
             Core_AreGameControlsEnabled = (delegate* unmanaged[Cdecl]<nint, byte>) GetUnmanagedPtr<Core_AreGameControlsEnabledDelegate>(funcTable, 332214446285856938UL, Core_AreGameControlsEnabledFallback);
             Core_AreRmlControlsEnabled = (delegate* unmanaged[Cdecl]<nint, byte>) GetUnmanagedPtr<Core_AreRmlControlsEnabledDelegate>(funcTable, 6617672605820539119UL, Core_AreRmlControlsEnabledFallback);
@@ -2975,8 +3048,10 @@ namespace AltV.Net.CApi.Libraries
             Core_Client_FileRead = (delegate* unmanaged[Cdecl]<nint, nint, nint, int*, nint>) GetUnmanagedPtr<Core_Client_FileReadDelegate>(funcTable, 6889820282703247958UL, Core_Client_FileReadFallback);
             Core_CopyToClipboard = (delegate* unmanaged[Cdecl]<nint, nint, byte>) GetUnmanagedPtr<Core_CopyToClipboardDelegate>(funcTable, 5818638619878077112UL, Core_CopyToClipboardFallback);
             Core_CreateAudio = (delegate* unmanaged[Cdecl]<nint, nint, nint, float, uint, byte, uint*, nint>) GetUnmanagedPtr<Core_CreateAudioDelegate>(funcTable, 7736168136360038277UL, Core_CreateAudioFallback);
-            Core_CreateCheckpoint = (delegate* unmanaged[Cdecl]<nint, byte, Vector3, Vector3, float, float, Rgba, nint, uint*, nint>) GetUnmanagedPtr<Core_CreateCheckpointDelegate>(funcTable, 16485029339771645828UL, Core_CreateCheckpointFallback);
+            Core_CreateCheckpoint = (delegate* unmanaged[Cdecl]<nint, byte, Vector3, Vector3, float, float, Rgba, uint, nint, uint*, nint>) GetUnmanagedPtr<Core_CreateCheckpointDelegate>(funcTable, 10431723440614759657UL, Core_CreateCheckpointFallback);
             Core_CreateHttpClient = (delegate* unmanaged[Cdecl]<nint, nint, uint*, nint>) GetUnmanagedPtr<Core_CreateHttpClientDelegate>(funcTable, 18346481764601280220UL, Core_CreateHttpClientFallback);
+            Core_CreateLocalPed = (delegate* unmanaged[Cdecl]<nint, uint, int, Vector3, Rotation, byte, uint, nint, uint*, nint>) GetUnmanagedPtr<Core_CreateLocalPedDelegate>(funcTable, 17592230005859506401UL, Core_CreateLocalPedFallback);
+            Core_CreateLocalVehicle = (delegate* unmanaged[Cdecl]<nint, uint, int, Vector3, Rotation, byte, uint, nint, uint*, nint>) GetUnmanagedPtr<Core_CreateLocalVehicleDelegate>(funcTable, 12946643233919435339UL, Core_CreateLocalVehicleFallback);
             Core_CreateMarker_Client = (delegate* unmanaged[Cdecl]<nint, byte, Vector3, Rgba, nint, uint*, nint>) GetUnmanagedPtr<Core_CreateMarker_ClientDelegate>(funcTable, 3957829277222763273UL, Core_CreateMarker_ClientFallback);
             Core_CreateObject = (delegate* unmanaged[Cdecl]<nint, uint, Vector3, Vector3, byte, byte, nint, ushort*, nint>) GetUnmanagedPtr<Core_CreateObjectDelegate>(funcTable, 12959857024542892545UL, Core_CreateObjectFallback);
             Core_CreateRmlDocument = (delegate* unmanaged[Cdecl]<nint, nint, nint, uint*, nint>) GetUnmanagedPtr<Core_CreateRmlDocumentDelegate>(funcTable, 6616548211992387591UL, Core_CreateRmlDocumentFallback);
@@ -3095,10 +3170,12 @@ namespace AltV.Net.CApi.Libraries
             Event_SetAnyResourceErrorDelegate = (delegate* unmanaged[Cdecl]<nint, ClientEvents.AnyResourceErrorModuleDelegate, void>) GetUnmanagedPtr<Event_SetAnyResourceErrorDelegateDelegate>(funcTable, 14079997901958077241UL, Event_SetAnyResourceErrorDelegateFallback);
             Event_SetAnyResourceStartDelegate = (delegate* unmanaged[Cdecl]<nint, ClientEvents.AnyResourceStartModuleDelegate, void>) GetUnmanagedPtr<Event_SetAnyResourceStartDelegateDelegate>(funcTable, 18259284189737259993UL, Event_SetAnyResourceStartDelegateFallback);
             Event_SetAnyResourceStopDelegate = (delegate* unmanaged[Cdecl]<nint, ClientEvents.AnyResourceStopModuleDelegate, void>) GetUnmanagedPtr<Event_SetAnyResourceStopDelegateDelegate>(funcTable, 13707820718504089625UL, Event_SetAnyResourceStopDelegateFallback);
+            Event_SetCheckpointDelegate = (delegate* unmanaged[Cdecl]<nint, ClientEvents.CheckpointModuleDelegate, void>) GetUnmanagedPtr<Event_SetCheckpointDelegateDelegate>(funcTable, 9134925632861949057UL, Event_SetCheckpointDelegateFallback);
             Event_SetClientEventDelegate = (delegate* unmanaged[Cdecl]<nint, ClientEvents.ClientEventModuleDelegate, void>) GetUnmanagedPtr<Event_SetClientEventDelegateDelegate>(funcTable, 8284770729125093177UL, Event_SetClientEventDelegateFallback);
+            Event_SetColShapeDelegate = (delegate* unmanaged[Cdecl]<nint, ClientEvents.ColShapeModuleDelegate, void>) GetUnmanagedPtr<Event_SetColShapeDelegateDelegate>(funcTable, 1859619355480397883UL, Event_SetColShapeDelegateFallback);
             Event_SetConnectionCompleteDelegate = (delegate* unmanaged[Cdecl]<nint, ClientEvents.ConnectionCompleteModuleDelegate, void>) GetUnmanagedPtr<Event_SetConnectionCompleteDelegateDelegate>(funcTable, 12310767706503758111UL, Event_SetConnectionCompleteDelegateFallback);
             Event_SetConsoleCommandDelegate = (delegate* unmanaged[Cdecl]<nint, ClientEvents.ConsoleCommandModuleDelegate, void>) GetUnmanagedPtr<Event_SetConsoleCommandDelegateDelegate>(funcTable, 11736526557039894433UL, Event_SetConsoleCommandDelegateFallback);
-            Event_SetCreateBaseObjectDelegate = (delegate* unmanaged[Cdecl]<nint, ClientEvents.CreateBaseObjectDelegate, void>) GetUnmanagedPtr<Event_SetCreateBaseObjectDelegateDelegate>(funcTable, 3079581392961204745UL, Event_SetCreateBaseObjectDelegateFallback);
+            Event_SetCreateBaseObjectDelegate = (delegate* unmanaged[Cdecl]<nint, ClientEvents.CreateBaseObjectModuleDelegate, void>) GetUnmanagedPtr<Event_SetCreateBaseObjectDelegateDelegate>(funcTable, 3079581392961204745UL, Event_SetCreateBaseObjectDelegateFallback);
             Event_SetGameEntityCreateDelegate = (delegate* unmanaged[Cdecl]<nint, ClientEvents.GameEntityCreateModuleDelegate, void>) GetUnmanagedPtr<Event_SetGameEntityCreateDelegateDelegate>(funcTable, 8846162864874241135UL, Event_SetGameEntityCreateDelegateFallback);
             Event_SetGameEntityDestroyDelegate = (delegate* unmanaged[Cdecl]<nint, ClientEvents.GameEntityDestroyModuleDelegate, void>) GetUnmanagedPtr<Event_SetGameEntityDestroyDelegateDelegate>(funcTable, 16291703028607344173UL, Event_SetGameEntityDestroyDelegateFallback);
             Event_SetGlobalMetaChangeDelegate = (delegate* unmanaged[Cdecl]<nint, ClientEvents.GlobalMetaChangeModuleDelegate, void>) GetUnmanagedPtr<Event_SetGlobalMetaChangeDelegateDelegate>(funcTable, 263634197021329745UL, Event_SetGlobalMetaChangeDelegateFallback);
@@ -3106,6 +3183,7 @@ namespace AltV.Net.CApi.Libraries
             Event_SetKeyDownDelegate = (delegate* unmanaged[Cdecl]<nint, ClientEvents.KeyDownModuleDelegate, void>) GetUnmanagedPtr<Event_SetKeyDownDelegateDelegate>(funcTable, 9792688891158114141UL, Event_SetKeyDownDelegateFallback);
             Event_SetKeyUpDelegate = (delegate* unmanaged[Cdecl]<nint, ClientEvents.KeyUpModuleDelegate, void>) GetUnmanagedPtr<Event_SetKeyUpDelegateDelegate>(funcTable, 13013609938360144345UL, Event_SetKeyUpDelegateFallback);
             Event_SetLocalMetaChangeDelegate = (delegate* unmanaged[Cdecl]<nint, ClientEvents.LocalMetaChangeModuleDelegate, void>) GetUnmanagedPtr<Event_SetLocalMetaChangeDelegateDelegate>(funcTable, 1555813148561817401UL, Event_SetLocalMetaChangeDelegateFallback);
+            Event_SetMetaChangeDelegate = (delegate* unmanaged[Cdecl]<nint, ClientEvents.MetaChangeModuleDelegate, void>) GetUnmanagedPtr<Event_SetMetaChangeDelegateDelegate>(funcTable, 10052271841742065911UL, Event_SetMetaChangeDelegateFallback);
             Event_SetNetOwnerChangeDelegate = (delegate* unmanaged[Cdecl]<nint, ClientEvents.NetOwnerChangeModuleDelegate, void>) GetUnmanagedPtr<Event_SetNetOwnerChangeDelegateDelegate>(funcTable, 15651483423859541657UL, Event_SetNetOwnerChangeDelegateFallback);
             Event_SetPlayerChangeAnimationDelegate = (delegate* unmanaged[Cdecl]<nint, ClientEvents.PlayerChangeAnimationModuleDelegate, void>) GetUnmanagedPtr<Event_SetPlayerChangeAnimationDelegateDelegate>(funcTable, 1013031841840963141UL, Event_SetPlayerChangeAnimationDelegateFallback);
             Event_SetPlayerChangeInteriorDelegate = (delegate* unmanaged[Cdecl]<nint, ClientEvents.PlayerChangeInteriorModuleDelegate, void>) GetUnmanagedPtr<Event_SetPlayerChangeInteriorDelegateDelegate>(funcTable, 10641081887455190199UL, Event_SetPlayerChangeInteriorDelegateFallback);
@@ -3116,7 +3194,7 @@ namespace AltV.Net.CApi.Libraries
             Event_SetPlayerSpawnDelegate = (delegate* unmanaged[Cdecl]<nint, ClientEvents.PlayerSpawnModuleDelegate, void>) GetUnmanagedPtr<Event_SetPlayerSpawnDelegateDelegate>(funcTable, 2502988276907442605UL, Event_SetPlayerSpawnDelegateFallback);
             Event_SetPlayerWeaponChangeDelegate = (delegate* unmanaged[Cdecl]<nint, ClientEvents.PlayerWeaponChangeModuleDelegate, void>) GetUnmanagedPtr<Event_SetPlayerWeaponChangeDelegateDelegate>(funcTable, 5096554163307275927UL, Event_SetPlayerWeaponChangeDelegateFallback);
             Event_SetPlayerWeaponShootDelegate = (delegate* unmanaged[Cdecl]<nint, ClientEvents.PlayerWeaponShootModuleDelegate, void>) GetUnmanagedPtr<Event_SetPlayerWeaponShootDelegateDelegate>(funcTable, 12142428092035142689UL, Event_SetPlayerWeaponShootDelegateFallback);
-            Event_SetRemoveBaseObjectDelegate = (delegate* unmanaged[Cdecl]<nint, ClientEvents.RemoveBaseObjectDelegate, void>) GetUnmanagedPtr<Event_SetRemoveBaseObjectDelegateDelegate>(funcTable, 8121512912272945641UL, Event_SetRemoveBaseObjectDelegateFallback);
+            Event_SetRemoveBaseObjectDelegate = (delegate* unmanaged[Cdecl]<nint, ClientEvents.RemoveBaseObjectModuleDelegate, void>) GetUnmanagedPtr<Event_SetRemoveBaseObjectDelegateDelegate>(funcTable, 8121512912272945641UL, Event_SetRemoveBaseObjectDelegateFallback);
             Event_SetRmlEventDelegate = (delegate* unmanaged[Cdecl]<nint, ClientEvents.RmlEventModuleDelegate, void>) GetUnmanagedPtr<Event_SetRmlEventDelegateDelegate>(funcTable, 1513529985252499227UL, Event_SetRmlEventDelegateFallback);
             Event_SetServerEventDelegate = (delegate* unmanaged[Cdecl]<nint, ClientEvents.ServerEventModuleDelegate, void>) GetUnmanagedPtr<Event_SetServerEventDelegateDelegate>(funcTable, 5521055548998327457UL, Event_SetServerEventDelegateFallback);
             Event_SetStreamSyncedMetaChangeDelegate = (delegate* unmanaged[Cdecl]<nint, ClientEvents.StreamSyncedMetaChangeModuleDelegate, void>) GetUnmanagedPtr<Event_SetStreamSyncedMetaChangeDelegateDelegate>(funcTable, 8576321635222028243UL, Event_SetStreamSyncedMetaChangeDelegateFallback);
@@ -3128,7 +3206,9 @@ namespace AltV.Net.CApi.Libraries
             Event_SetWebViewEventDelegate = (delegate* unmanaged[Cdecl]<nint, ClientEvents.WebViewEventModuleDelegate, void>) GetUnmanagedPtr<Event_SetWebViewEventDelegateDelegate>(funcTable, 12568421593610200155UL, Event_SetWebViewEventDelegateFallback);
             Event_SetWindowFocusChangeDelegate = (delegate* unmanaged[Cdecl]<nint, ClientEvents.WindowFocusChangeModuleDelegate, void>) GetUnmanagedPtr<Event_SetWindowFocusChangeDelegateDelegate>(funcTable, 3313131202173863273UL, Event_SetWindowFocusChangeDelegateFallback);
             Event_SetWindowResolutionChangeDelegate = (delegate* unmanaged[Cdecl]<nint, ClientEvents.WindowResolutionChangeModuleDelegate, void>) GetUnmanagedPtr<Event_SetWindowResolutionChangeDelegateDelegate>(funcTable, 15282055500069881033UL, Event_SetWindowResolutionChangeDelegateFallback);
-            Event_SetWorldObjectPositionChangeDelegate = (delegate* unmanaged[Cdecl]<nint, ClientEvents.WorldObjectPositionChangeDelegate, void>) GetUnmanagedPtr<Event_SetWorldObjectPositionChangeDelegateDelegate>(funcTable, 8085309467174887077UL, Event_SetWorldObjectPositionChangeDelegateFallback);
+            Event_SetWorldObjectPositionChangeDelegate = (delegate* unmanaged[Cdecl]<nint, ClientEvents.WorldObjectPositionChangeModuleDelegate, void>) GetUnmanagedPtr<Event_SetWorldObjectPositionChangeDelegateDelegate>(funcTable, 8085309467174887077UL, Event_SetWorldObjectPositionChangeDelegateFallback);
+            Event_SetWorldObjectStreamInDelegate = (delegate* unmanaged[Cdecl]<nint, ClientEvents.WorldObjectStreamInModuleDelegate, void>) GetUnmanagedPtr<Event_SetWorldObjectStreamInDelegateDelegate>(funcTable, 12189198227473694261UL, Event_SetWorldObjectStreamInDelegateFallback);
+            Event_SetWorldObjectStreamOutDelegate = (delegate* unmanaged[Cdecl]<nint, ClientEvents.WorldObjectStreamOutModuleDelegate, void>) GetUnmanagedPtr<Event_SetWorldObjectStreamOutDelegateDelegate>(funcTable, 1153552198753902363UL, Event_SetWorldObjectStreamOutDelegateFallback);
             FreeRmlElementArray = (delegate* unmanaged[Cdecl]<nint, void>) GetUnmanagedPtr<FreeRmlElementArrayDelegate>(funcTable, 14086618333811829142UL, FreeRmlElementArrayFallback);
             GetNativeFuncTable = (delegate* unmanaged[Cdecl]<nint>) GetUnmanagedPtr<GetNativeFuncTableDelegate>(funcTable, 15955613981878964089UL, GetNativeFuncTableFallback);
             Handling_GetAcceleration = (delegate* unmanaged[Cdecl]<uint, float>) GetUnmanagedPtr<Handling_GetAccelerationDelegate>(funcTable, 13640121750592766571UL, Handling_GetAccelerationFallback);
@@ -3274,6 +3354,10 @@ namespace AltV.Net.CApi.Libraries
             HttpClient_Put = (delegate* unmanaged[Cdecl]<nint, nint, nint, ClientEvents.HttpResponseModuleDelegate, void>) GetUnmanagedPtr<HttpClient_PutDelegate>(funcTable, 8280976854604120523UL, HttpClient_PutFallback);
             HttpClient_SetExtraHeader = (delegate* unmanaged[Cdecl]<nint, nint, nint, void>) GetUnmanagedPtr<HttpClient_SetExtraHeaderDelegate>(funcTable, 4939806300942583161UL, HttpClient_SetExtraHeaderFallback);
             HttpClient_Trace = (delegate* unmanaged[Cdecl]<nint, nint, nint, ClientEvents.HttpResponseModuleDelegate, void>) GetUnmanagedPtr<HttpClient_TraceDelegate>(funcTable, 12260251650657662947UL, HttpClient_TraceFallback);
+            LocalPed_GetRemoteID = (delegate* unmanaged[Cdecl]<nint, uint>) GetUnmanagedPtr<LocalPed_GetRemoteIDDelegate>(funcTable, 3556889050580092677UL, LocalPed_GetRemoteIDFallback);
+            LocalPed_GetScriptID = (delegate* unmanaged[Cdecl]<nint, uint>) GetUnmanagedPtr<LocalPed_GetScriptIDDelegate>(funcTable, 11244098567921137770UL, LocalPed_GetScriptIDFallback);
+            LocalPed_IsRemote = (delegate* unmanaged[Cdecl]<nint, byte>) GetUnmanagedPtr<LocalPed_IsRemoteDelegate>(funcTable, 8774830374925011759UL, LocalPed_IsRemoteFallback);
+            LocalPed_IsStreamedIn = (delegate* unmanaged[Cdecl]<nint, byte>) GetUnmanagedPtr<LocalPed_IsStreamedInDelegate>(funcTable, 17855389711155670583UL, LocalPed_IsStreamedInFallback);
             LocalPlayer_GetCurrentAmmo = (delegate* unmanaged[Cdecl]<nint, ushort>) GetUnmanagedPtr<LocalPlayer_GetCurrentAmmoDelegate>(funcTable, 18043294013722431113UL, LocalPlayer_GetCurrentAmmoFallback);
             LocalPlayer_GetCurrentWeaponHash = (delegate* unmanaged[Cdecl]<nint, uint>) GetUnmanagedPtr<LocalPlayer_GetCurrentWeaponHashDelegate>(funcTable, 10510537453292567897UL, LocalPlayer_GetCurrentWeaponHashFallback);
             LocalPlayer_GetID = (delegate* unmanaged[Cdecl]<nint, ushort>) GetUnmanagedPtr<LocalPlayer_GetIDDelegate>(funcTable, 11619807947618676643UL, LocalPlayer_GetIDFallback);
@@ -3291,6 +3375,10 @@ namespace AltV.Net.CApi.Libraries
             LocalStorage_GetKey = (delegate* unmanaged[Cdecl]<nint, nint, nint>) GetUnmanagedPtr<LocalStorage_GetKeyDelegate>(funcTable, 13895693989408516536UL, LocalStorage_GetKeyFallback);
             LocalStorage_Save = (delegate* unmanaged[Cdecl]<nint, void>) GetUnmanagedPtr<LocalStorage_SaveDelegate>(funcTable, 15681738723671545643UL, LocalStorage_SaveFallback);
             LocalStorage_SetKey = (delegate* unmanaged[Cdecl]<nint, nint, nint, void>) GetUnmanagedPtr<LocalStorage_SetKeyDelegate>(funcTable, 9720785834619501975UL, LocalStorage_SetKeyFallback);
+            LocalVehicle_GetRemoteID = (delegate* unmanaged[Cdecl]<nint, uint>) GetUnmanagedPtr<LocalVehicle_GetRemoteIDDelegate>(funcTable, 9770939955199624595UL, LocalVehicle_GetRemoteIDFallback);
+            LocalVehicle_GetScriptID = (delegate* unmanaged[Cdecl]<nint, uint>) GetUnmanagedPtr<LocalVehicle_GetScriptIDDelegate>(funcTable, 1209681771302240080UL, LocalVehicle_GetScriptIDFallback);
+            LocalVehicle_IsRemote = (delegate* unmanaged[Cdecl]<nint, byte>) GetUnmanagedPtr<LocalVehicle_IsRemoteDelegate>(funcTable, 13777437884824800799UL, LocalVehicle_IsRemoteFallback);
+            LocalVehicle_IsStreamedIn = (delegate* unmanaged[Cdecl]<nint, byte>) GetUnmanagedPtr<LocalVehicle_IsStreamedInDelegate>(funcTable, 15389369330489891823UL, LocalVehicle_IsStreamedInFallback);
             MapData_GetFScrollSpeed = (delegate* unmanaged[Cdecl]<uint, float>) GetUnmanagedPtr<MapData_GetFScrollSpeedDelegate>(funcTable, 5153918154812676518UL, MapData_GetFScrollSpeedFallback);
             MapData_GetFZoomScale = (delegate* unmanaged[Cdecl]<uint, float>) GetUnmanagedPtr<MapData_GetFZoomScaleDelegate>(funcTable, 9310461554478426287UL, MapData_GetFZoomScaleFallback);
             MapData_GetFZoomSpeed = (delegate* unmanaged[Cdecl]<uint, float>) GetUnmanagedPtr<MapData_GetFZoomSpeedDelegate>(funcTable, 13681270171346140740UL, MapData_GetFZoomSpeedFallback);
@@ -3304,6 +3392,7 @@ namespace AltV.Net.CApi.Libraries
             Marker_GetRemoteID = (delegate* unmanaged[Cdecl]<nint, uint>) GetUnmanagedPtr<Marker_GetRemoteIDDelegate>(funcTable, 4030920042457960705UL, Marker_GetRemoteIDFallback);
             Marker_IsRemote = (delegate* unmanaged[Cdecl]<nint, byte>) GetUnmanagedPtr<Marker_IsRemoteDelegate>(funcTable, 4843710155211034967UL, Marker_IsRemoteFallback);
             Object_IsRemote = (delegate* unmanaged[Cdecl]<nint, byte>) GetUnmanagedPtr<Object_IsRemoteDelegate>(funcTable, 9871487800950929995UL, Object_IsRemoteFallback);
+            Object_IsStreamedIn = (delegate* unmanaged[Cdecl]<nint, byte>) GetUnmanagedPtr<Object_IsStreamedInDelegate>(funcTable, 14733844975814872903UL, Object_IsStreamedInFallback);
             Player_GetLocal = (delegate* unmanaged[Cdecl]<nint>) GetUnmanagedPtr<Player_GetLocalDelegate>(funcTable, 4153837117751475501UL, Player_GetLocalFallback);
             Player_GetMicLevel = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<Player_GetMicLevelDelegate>(funcTable, 15449156962697427469UL, Player_GetMicLevelFallback);
             Player_GetNonSpatialVolume = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<Player_GetNonSpatialVolumeDelegate>(funcTable, 3333598534924196965UL, Player_GetNonSpatialVolumeFallback);
@@ -3564,6 +3653,7 @@ namespace AltV.Net.CApi.Libraries
             Vehicle_SetAbsLightState = (delegate* unmanaged[Cdecl]<nint, byte, void>) GetUnmanagedPtr<Vehicle_SetAbsLightStateDelegate>(funcTable, 4563279063364526693UL, Vehicle_SetAbsLightStateFallback);
             Vehicle_SetBatteryLightState = (delegate* unmanaged[Cdecl]<nint, byte, void>) GetUnmanagedPtr<Vehicle_SetBatteryLightStateDelegate>(funcTable, 2853437131811490624UL, Vehicle_SetBatteryLightStateFallback);
             Vehicle_SetCurrentGear = (delegate* unmanaged[Cdecl]<nint, ushort, void>) GetUnmanagedPtr<Vehicle_SetCurrentGearDelegate>(funcTable, 12232454538624166963UL, Vehicle_SetCurrentGearFallback);
+            Vehicle_SetCurrentRPM = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<Vehicle_SetCurrentRPMDelegate>(funcTable, 13116174141655747505UL, Vehicle_SetCurrentRPMFallback);
             Vehicle_SetEngineLightState = (delegate* unmanaged[Cdecl]<nint, byte, void>) GetUnmanagedPtr<Vehicle_SetEngineLightStateDelegate>(funcTable, 15206512772388781191UL, Vehicle_SetEngineLightStateFallback);
             Vehicle_SetEngineTemperature = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<Vehicle_SetEngineTemperatureDelegate>(funcTable, 347347259026240651UL, Vehicle_SetEngineTemperatureFallback);
             Vehicle_SetFuelLevel = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<Vehicle_SetFuelLevelDelegate>(funcTable, 1181039797416690365UL, Vehicle_SetFuelLevelFallback);

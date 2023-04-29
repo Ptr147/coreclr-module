@@ -340,21 +340,21 @@ namespace AltV.Net.Client
             return PoolManager.RmlDocument.Create(this, ptr, id);
         }
 
-        public IntPtr CreateCheckpointPtr(out uint id, CheckpointType type, Vector3 pos, Vector3 nextPos, float radius, float height, Rgba color)
+        public IntPtr CreateCheckpointPtr(out uint id, CheckpointType type, Vector3 pos, Vector3 nextPos, float radius, float height, Rgba color, uint streamingDistance)
         {
             unsafe
             {
                 uint pId = default;
-                var checkPoint = Library.Client.Core_CreateCheckpoint(NativePointer, (byte) type, pos, nextPos, radius, height, color, Resource.NativePointer, &pId);
+                var checkPoint = Library.Client.Core_CreateCheckpoint(NativePointer, (byte) type, pos, nextPos, radius, height, color, streamingDistance, Resource.NativePointer, &pId);
                 id = pId;
 
                 return checkPoint;
             }
         }
 
-        public ICheckpoint CreateCheckpoint(CheckpointType type, Vector3 pos, Vector3 nextPos, float radius, float height, Rgba color)
+        public ICheckpoint CreateCheckpoint(CheckpointType type, Vector3 pos, Vector3 nextPos, float radius, float height, Rgba color, uint streamingDistance)
         {
-            var ptr = CreateCheckpointPtr(out var id, type, pos, nextPos, radius, height, color);
+            var ptr = CreateCheckpointPtr(out var id, type, pos, nextPos, radius, height, color, streamingDistance);
             if (ptr == IntPtr.Zero) return null;
             return PoolManager.Checkpoint.Create(this, ptr, id);
         }
@@ -666,6 +666,69 @@ namespace AltV.Net.Client
                 Marshal.FreeHGlobal(namePtr);
                 Marshal.FreeHGlobal(fontSizePtr);
                 return textLabelMarker;
+            }
+        }
+
+        public IntPtr CreateVirtualEntityEntity(out uint id, IVirtualEntityGroup group, Position position, uint streamingDistance,
+            Dictionary<string, object> dataDict)
+        {
+            unsafe
+            {
+                var data = new Dictionary<IntPtr, MValueConst>();
+
+                foreach (var dataValue in dataDict)
+                {
+                    var stringPtr = AltNative.StringUtils.StringToHGlobalUtf8(dataValue.Key);
+                    Alt.Core.CreateMValue(out var mValue, dataValue);
+                    data.Add(stringPtr, mValue);
+                }
+
+                uint pId = default;
+                var ptr = Library.Shared.Core_CreateVirtualEntity(NativePointer, group.NativePointer, position, streamingDistance, data.Keys.ToArray(), data.Values.Select(x => x.nativePointer).ToArray(), (uint)data.Count, &pId);
+                id = pId;
+
+                foreach (var dataValue in data)
+                {
+                    dataValue.Value.Dispose();
+                    Marshal.FreeHGlobal(dataValue.Key);
+                }
+
+                return ptr;
+            }
+        }
+
+        public IntPtr CreateVirtualEntityGroupEntity(out uint id, uint streamingDistance)
+        {
+            unsafe
+            {
+                uint pId = default;
+                var ptr = Library.Shared.Core_CreateVirtualEntityGroup(NativePointer, streamingDistance, &pId);
+                id = pId;
+                return ptr;
+            }
+        }
+
+        public IntPtr CreateLocalVehiclePtr(out uint id, uint modelHash, int dimension, Position position, Rotation rotation,
+            bool useStreaming, uint streamingDistance)
+        {
+            unsafe
+            {
+                uint pId = default;
+                var ptr = Library.Client.Core_CreateLocalVehicle(NativePointer, modelHash, dimension, position, rotation, useStreaming ? (byte)1:(byte)0, streamingDistance, Resource.NativePointer, &pId);
+                id = pId;
+                return ptr;
+            }
+        }
+
+        public IntPtr CreateLocalPedPtr(out uint id, uint modelHash, int dimension, Position position, Rotation rotation,
+            bool useStreaming, uint streamingDistance)
+        {
+            unsafe
+            {
+                uint pId = default;
+                var ptr = Library.Client.Core_CreateLocalPed(NativePointer, modelHash, dimension, position, rotation, useStreaming ? (byte)1:(byte)0, streamingDistance, Resource.NativePointer, &pId);
+                id = pId;
+                return ptr;
             }
         }
 

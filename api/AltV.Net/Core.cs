@@ -602,14 +602,14 @@ namespace AltV.Net
         }
 
         public ICheckpoint CreateCheckpoint(byte type, Position pos, float radius, float height,
-            Rgba color)
+            Rgba color, uint streamingDistance)
         {
             unsafe
             {
                 CheckIfCallIsValid();
                 CheckIfThreadIsValid();
                 uint id = default;
-                var ptr = Library.Server.Core_CreateCheckpoint(NativePointer, type, pos, radius, height, color, &id);
+                var ptr = Library.Server.Core_CreateCheckpoint(NativePointer, type, pos, radius, height, color, streamingDistance, &id);
                 if (ptr == IntPtr.Zero) return null;
                 return (ICheckpoint)PoolManager.Checkpoint.GetOrCreate(this, ptr, id);
             }
@@ -1183,15 +1183,32 @@ namespace AltV.Net
             }
         }
 
-        public IntPtr CreateVirtualEntityEntity(out uint id, IVirtualEntityGroup group, Position position, uint streamingDistance)
+        public IntPtr CreateVirtualEntityEntity(out uint id, IVirtualEntityGroup group, Position position, uint streamingDistance, Dictionary<string, object> dataDict)
         {
             unsafe
             {
                 CheckIfCallIsValid();
                 CheckIfThreadIsValid();
+
+                var data = new Dictionary<IntPtr, MValueConst>();
+
+                foreach (var dataValue in dataDict)
+                {
+                    var stringPtr = AltNative.StringUtils.StringToHGlobalUtf8(dataValue.Key);
+                    Alt.Core.CreateMValue(out var mValue, dataValue);
+                    data.Add(stringPtr, mValue);
+                }
+
                 uint pId = default;
-                var ptr = Library.Shared.Core_CreateVirtualEntity(NativePointer, group.NativePointer, position, streamingDistance, &pId);
+                var ptr = Library.Shared.Core_CreateVirtualEntity(NativePointer, group.NativePointer, position, streamingDistance, data.Keys.ToArray(), data.Values.Select(x => x.nativePointer).ToArray(), (uint)data.Count, &pId);
                 id = pId;
+
+                foreach (var dataValue in data)
+                {
+                    dataValue.Value.Dispose();
+                    Marshal.FreeHGlobal(dataValue.Key);
+                }
+
                 return ptr;
             }
         }

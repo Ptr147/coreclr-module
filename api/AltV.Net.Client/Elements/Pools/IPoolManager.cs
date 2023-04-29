@@ -19,6 +19,7 @@ namespace AltV.Net.Client.Elements.Pools
         new IBaseObjectPool<IVirtualEntity> VirtualEntity { get; }
         new IBaseObjectPool<IVirtualEntityGroup> VirtualEntityGroup { get; }
         new IBaseObjectPool<IMarker> Marker { get; }
+        new IBaseObjectPool<IColShape> ColShape { get; }
         IBaseObjectPool<IRmlDocument> RmlDocument { get; }
         IBaseObjectPool<IRmlElement> RmlElement { get; }
         IBaseObjectPool<IAudio> Audio { get; }
@@ -26,6 +27,8 @@ namespace AltV.Net.Client.Elements.Pools
         IBaseObjectPool<IWebSocketClient> WebSocketClient { get; }
         IBaseObjectPool<IWebView> WebView { get; }
         IBaseObjectPool<ITextLabel> TextLabel {get;}
+        IBaseObjectPool<ILocalVehicle> LocalVehicle {get;}
+        IBaseObjectPool<ILocalPed> LocalPed {get;}
 
         IBaseObject GetOrCreate(ICore core, IntPtr entityPointer, BaseObjectType baseObjectType, uint entityId);
         IBaseObject GetOrCreate(ICore core, IntPtr entityPointer, BaseObjectType baseObjectType);

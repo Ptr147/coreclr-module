@@ -52,6 +52,11 @@ namespace AltV.Net.Client
             return new CheckpointFactory();
         }
 
+        public IBaseObjectFactory<IColShape> GetColShapeFactory()
+        {
+            return new ColShapeFactory();
+        }
+
         public virtual IBaseObjectFactory<IWebView> GetWebViewFactory()
         {
             return new WebViewFactory();
@@ -75,6 +80,16 @@ namespace AltV.Net.Client
         public IBaseObjectFactory<ITextLabel> GetTextLabelFactory()
         {
             return new TextLabelFactory();
+        }
+
+        public IBaseObjectFactory<ILocalVehicle> GetLocalVehicleFactory()
+        {
+            return new LocalVehicleFactory();
+        }
+
+        public IBaseObjectFactory<ILocalPed> GetLocalPedFactory()
+        {
+            return new LocalPedFactory();
         }
 
         public virtual IBaseObjectFactory<IAudio> GetAudioFactory()
