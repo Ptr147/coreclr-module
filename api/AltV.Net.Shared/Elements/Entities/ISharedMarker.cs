@@ -15,4 +15,7 @@ public interface ISharedMarker : ISharedWorldObject
     Position Scale { get; set; }
     Rotation Rotation { get; set; }
     Position Direction { get; set; }
+
+    uint StreamingDistance { get; }
+    bool IsFaceCamera { get; set; }
 }

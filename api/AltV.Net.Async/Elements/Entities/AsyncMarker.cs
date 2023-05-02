@@ -25,6 +25,14 @@ namespace AltV.Net.Async.Elements.Entities
         {
         }
 
+        public AsyncMarker(ICore core, MarkerType type, Position pos, Rgba color) : this(new Marker(core, type, pos, color), null)
+        {
+        }
+
+        public AsyncMarker(ICore core, IPlayer player, MarkerType type, Position pos, Rgba color) : this(new Marker(core, player, type, pos, color), null)
+        {
+        }
+
         [Obsolete("Use new async API instead")]
         public IMarker ToAsync(IAsyncContext asyncContext)
         {
@@ -167,6 +175,38 @@ namespace AltV.Net.Async.Elements.Entities
                 {
                     if (!AsyncContext.CheckIfExistsNullable(Marker)) return;
                     Marker.Direction = value;
+                }
+            }
+        }
+
+        public uint StreamingDistance
+        {
+            get
+            {
+                lock (Marker)
+                {
+                    if (!AsyncContext.CheckIfExistsNullable(Marker)) return default;
+                    return Marker.StreamingDistance;
+                }
+            }
+        }
+
+        public bool IsFaceCamera
+        {
+            get
+            {
+                lock (Marker)
+                {
+                    if (!AsyncContext.CheckIfExistsNullable(Marker)) return default;
+                    return Marker.IsFaceCamera;
+                }
+            }
+            set
+            {
+                lock (Marker)
+                {
+                    if (!AsyncContext.CheckIfExistsNullable(Marker)) return;
+                    Marker.IsFaceCamera = value;
                 }
             }
         }

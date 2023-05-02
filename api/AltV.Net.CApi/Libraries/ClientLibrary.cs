@@ -69,7 +69,7 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, nint, uint*, nint> Core_CreateHttpClient { get; }
         public delegate* unmanaged[Cdecl]<nint, uint, int, Vector3, Rotation, byte, uint, nint, uint*, nint> Core_CreateLocalPed { get; }
         public delegate* unmanaged[Cdecl]<nint, uint, int, Vector3, Rotation, byte, uint, nint, uint*, nint> Core_CreateLocalVehicle { get; }
-        public delegate* unmanaged[Cdecl]<nint, byte, Vector3, Rgba, nint, uint*, nint> Core_CreateMarker_Client { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte, Vector3, Rgba, byte, uint, nint, uint*, nint> Core_CreateMarker_Client { get; }
         public delegate* unmanaged[Cdecl]<nint, uint, Vector3, Vector3, byte, byte, nint, ushort*, nint> Core_CreateObject { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, nint, uint*, nint> Core_CreateRmlDocument { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, nint, float, float, Vector3, Rotation, Rgba, float, Rgba, nint, uint*, nint> Core_CreateTextLabel { get; }
@@ -118,6 +118,7 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, uint> Core_GetTotalPacketsLost { get; }
         public delegate* unmanaged[Cdecl]<nint, ulong> Core_GetTotalPacketsSent { get; }
         public delegate* unmanaged[Cdecl]<nint, uint> Core_GetVoiceActivationKey { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> Core_GetVoiceActivationLevel { get; }
         public delegate* unmanaged[Cdecl]<nint, byte> Core_GetVoiceInputMuted { get; }
         public delegate* unmanaged[Cdecl]<nint, ulong> Core_GetWebViewCount { get; }
         public delegate* unmanaged[Cdecl]<nint, nint[], ulong, void> Core_GetWebViews { get; }
@@ -132,6 +133,7 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, uint, byte> Core_IsKeyDown { get; }
         public delegate* unmanaged[Cdecl]<nint, uint, byte> Core_IsKeyToggled { get; }
         public delegate* unmanaged[Cdecl]<nint, byte> Core_IsMenuOpened { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte> Core_IsNoiseSuppressionEnabled { get; }
         public delegate* unmanaged[Cdecl]<nint, Vector3, byte> Core_IsPointOnScreen { get; }
         public delegate* unmanaged[Cdecl]<nint, uint, nint, byte> Core_IsTextureExistInArchetype { get; }
         public delegate* unmanaged[Cdecl]<nint, byte> Core_IsVoiceActivityInputEnabled { get; }
@@ -167,6 +169,7 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, nint, uint, void> Core_SetStatUInt32 { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, ulong, void> Core_SetStatUInt64 { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, byte, void> Core_SetStatUInt8 { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, byte> Core_SetVoiceActivationLevel { get; }
         public delegate* unmanaged[Cdecl]<nint, byte, void> Core_SetVoiceInputMuted { get; }
         public delegate* unmanaged[Cdecl]<nint, byte, void> Core_SetWatermarkPosition { get; }
         public delegate* unmanaged[Cdecl]<nint, byte[], int, byte[], int, void> Core_SetWeatherCycle { get; }
@@ -176,8 +179,11 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.ScreenshotResultModuleDelegate, byte> Core_TakeScreenshot { get; }
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.ScreenshotResultModuleDelegate, byte> Core_TakeScreenshotGameOnly { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, byte, void> Core_ToggleGameControls { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte, byte> Core_ToggleNoiseSuppression { get; }
         public delegate* unmanaged[Cdecl]<nint, byte, void> Core_ToggleRmlControls { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte, byte> Core_ToggleVoiceActivation { get; }
         public delegate* unmanaged[Cdecl]<nint, byte, void> Core_ToggleVoiceControls { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte, byte> Core_ToggleVoiceInput { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, nint[], int, void> Core_TriggerServerEvent { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, nint[], int, void> Core_TriggerServerEventUnreliable { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, nint, nint[], int, void> Core_TriggerWebViewEvent { get; }
@@ -392,10 +398,190 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, nint, nint> LocalStorage_GetKey { get; }
         public delegate* unmanaged[Cdecl]<nint, void> LocalStorage_Save { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, nint, void> LocalStorage_SetKey { get; }
+        public delegate* unmanaged[Cdecl]<nint, ushort> LocalVehicle_GetCurrentGear { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_GetCurrentRPM { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_GetEngineTemperature { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_GetFuelLevel { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint> LocalVehicle_GetID { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte> LocalVehicle_GetLightsIndicator { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte> LocalVehicle_GetLockState { get; }
+        public delegate* unmanaged[Cdecl]<nint, ushort> LocalVehicle_GetMaxGear { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint> LocalVehicle_GetModel { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte> LocalVehicle_GetOccupiedSeatsCount { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_GetOilLevel { get; }
+        public delegate* unmanaged[Cdecl]<nint, int> LocalVehicle_GetPetrolTankHealth { get; }
         public delegate* unmanaged[Cdecl]<nint, uint> LocalVehicle_GetRemoteID { get; }
+        public delegate* unmanaged[Cdecl]<nint, Rotation*, void> LocalVehicle_GetRotation { get; }
         public delegate* unmanaged[Cdecl]<nint, uint> LocalVehicle_GetScriptID { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte> LocalVehicle_GetSeatCount { get; }
+        public delegate* unmanaged[Cdecl]<nint, Vector3*, void> LocalVehicle_GetSpeedVector { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint> LocalVehicle_GetStreamingDistance { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte, float> LocalVehicle_GetWheelCamber { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte, float> LocalVehicle_GetWheelHeight { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte, float> LocalVehicle_GetWheelRimRadius { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte> LocalVehicle_GetWheelsCount { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_GetWheelSpeed { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte, uint> LocalVehicle_GetWheelSurfaceMaterial { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte, float> LocalVehicle_GetWheelTrackWidth { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte, float> LocalVehicle_GetWheelTyreRadius { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte, float> LocalVehicle_GetWheelTyreWidth { get; }
+        public delegate* unmanaged[Cdecl]<nint, nint> LocalVehicle_GetWorldObject { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetAcceleration { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetAntiRollBarBiasFront { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetAntiRollBarBiasRear { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetAntiRollBarForce { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetBrakeBiasFront { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetBrakeBiasRear { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetBrakeForce { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetCamberStiffness { get; }
+        public delegate* unmanaged[Cdecl]<nint, Vector3*, void> LocalVehicle_Handling_GetCentreOfMassOffset { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetClutchChangeRateScaleDownShift { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetClutchChangeRateScaleUpShift { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetCollisionDamageMult { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint> LocalVehicle_Handling_GetDamageFlags { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetDeformationDamageMult { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetDownforceModifier { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetDriveBiasFront { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetDriveInertia { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetDriveMaxFlatVel { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetEngineDamageMult { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetHandBrakeForce { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint> LocalVehicle_Handling_GetHandlingFlags { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint> LocalVehicle_Handling_GetHandlingNameHash { get; }
+        public delegate* unmanaged[Cdecl]<nint, Vector3*, void> LocalVehicle_Handling_GetInertiaMultiplier { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetInitialDragCoeff { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetInitialDriveForce { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint> LocalVehicle_Handling_GetInitialDriveGears { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetInitialDriveMaxFlatVel { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetLowSpeedTractionLossMult { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetMass { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint> LocalVehicle_Handling_GetModelFlags { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint> LocalVehicle_Handling_GetMonetaryValue { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetOilVolume { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetPercentSubmerged { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetPercentSubmergedRatio { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetPetrolTankVolume { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetRollCentreHeightFront { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetRollCentreHeightRear { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetSeatOffsetDistX { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetSeatOffsetDistY { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetSeatOffsetDistZ { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetSteeringLock { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetSteeringLockRatio { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetSuspensionBiasFront { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetSuspensionBiasRear { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetSuspensionCompDamp { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetSuspensionForce { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetSuspensionLowerLimit { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetSuspensionRaise { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetSuspensionReboundDamp { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetSuspensionUpperLimit { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetTractionBiasFront { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetTractionBiasRear { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetTractionCurveLateral { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetTractionCurveLateralRatio { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetTractionCurveMax { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetTractionCurveMaxRatio { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetTractionCurveMin { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetTractionCurveMinRatio { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetTractionLossMult { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetTractionSpringDeltaMax { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetTractionSpringDeltaMaxRatio { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetunkFloat1 { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetunkFloat2 { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetunkFloat4 { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetunkFloat5 { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetWeaponDamageMult { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetAcceleration { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetAntiRollBarBiasFront { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetAntiRollBarBiasRear { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetAntiRollBarForce { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetBrakeBiasFront { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetBrakeBiasRear { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetBrakeForce { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetCamberStiffness { get; }
+        public delegate* unmanaged[Cdecl]<nint, Vector3, void> LocalVehicle_Handling_SetCentreOfMassOffset { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetClutchChangeRateScaleDownShift { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetClutchChangeRateScaleUpShift { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetCollisionDamageMult { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint, void> LocalVehicle_Handling_SetDamageFlags { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetDeformationDamageMult { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetDownforceModifier { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetDriveBiasFront { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetDriveInertia { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetDriveMaxFlatVel { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetEngineDamageMult { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetHandBrakeForce { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint, void> LocalVehicle_Handling_SetHandlingFlags { get; }
+        public delegate* unmanaged[Cdecl]<nint, Vector3, void> LocalVehicle_Handling_SetInertiaMultiplier { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetInitialDragCoeff { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetInitialDriveForce { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint, void> LocalVehicle_Handling_SetInitialDriveGears { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetInitialDriveMaxFlatVel { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetLowSpeedTractionLossMult { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetMass { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint, void> LocalVehicle_Handling_SetModelFlags { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint, void> LocalVehicle_Handling_SetMonetaryValue { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetOilVolume { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetPercentSubmerged { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetPercentSubmergedRatio { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetPetrolTankVolume { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetRollCentreHeightFront { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetRollCentreHeightRear { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetSeatOffsetDistX { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetSeatOffsetDistY { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetSeatOffsetDistZ { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetSteeringLock { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetSteeringLockRatio { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetSuspensionBiasFront { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetSuspensionBiasRear { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetSuspensionCompDamp { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetSuspensionForce { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetSuspensionLowerLimit { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetSuspensionRaise { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetSuspensionReboundDamp { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetSuspensionUpperLimit { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetTractionBiasFront { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetTractionBiasRear { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetTractionCurveLateral { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetTractionCurveLateralRatio { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetTractionCurveMax { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetTractionCurveMaxRatio { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetTractionCurveMin { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetTractionCurveMinRatio { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetTractionLossMult { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetTractionSpringDeltaMax { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetTractionSpringDeltaMaxRatio { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetunkFloat1 { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetunkFloat2 { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetunkFloat4 { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetunkFloat5 { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetWeaponDamageMult { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte> LocalVehicle_IsEngineOn { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte> LocalVehicle_IsHandlingModified { get; }
         public delegate* unmanaged[Cdecl]<nint, byte> LocalVehicle_IsRemote { get; }
         public delegate* unmanaged[Cdecl]<nint, byte> LocalVehicle_IsStreamedIn { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte> LocalVehicle_IsTaxiLightOn { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte> LocalVehicle_IsVisible { get; }
+        public delegate* unmanaged[Cdecl]<nint, void> LocalVehicle_ReplaceHandling { get; }
+        public delegate* unmanaged[Cdecl]<nint, void> LocalVehicle_ResetHandling { get; }
+        public delegate* unmanaged[Cdecl]<nint, ushort, void> LocalVehicle_SetCurrentGear { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_SetCurrentRPM { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_SetEngineTemperature { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_SetFuelLevel { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte, void> LocalVehicle_SetLightsIndicator { get; }
+        public delegate* unmanaged[Cdecl]<nint, ushort, void> LocalVehicle_SetMaxGear { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_SetOilLevel { get; }
+        public delegate* unmanaged[Cdecl]<nint, Rotation, void> LocalVehicle_SetRotation { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte, void> LocalVehicle_SetVisible { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte, float, void> LocalVehicle_SetWheelCamber { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte, float, void> LocalVehicle_SetWheelHeight { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte, float, void> LocalVehicle_SetWheelRimRadius { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte, float, void> LocalVehicle_SetWheelTrackWidth { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte, float, void> LocalVehicle_SetWheelTyreRadius { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte, float, void> LocalVehicle_SetWheelTyreWidth { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte, byte, void> LocalVehicle_ToggleExtra { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte, void> LocalVehicle_ToggleTaxiLight { get; }
         public delegate* unmanaged[Cdecl]<uint, float> MapData_GetFScrollSpeed { get; }
         public delegate* unmanaged[Cdecl]<uint, float> MapData_GetFZoomScale { get; }
         public delegate* unmanaged[Cdecl]<uint, float> MapData_GetFZoomSpeed { get; }
@@ -408,8 +594,10 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<uint, float, void> MapData_SetVTilesY { get; }
         public delegate* unmanaged[Cdecl]<nint, uint> Marker_GetRemoteID { get; }
         public delegate* unmanaged[Cdecl]<nint, byte> Marker_IsRemote { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte> Marker_IsStreamedIn { get; }
         public delegate* unmanaged[Cdecl]<nint, byte> Object_IsRemote { get; }
         public delegate* unmanaged[Cdecl]<nint, byte> Object_IsStreamedIn { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte> Object_UsesStreaming { get; }
         public delegate* unmanaged[Cdecl]<nint> Player_GetLocal { get; }
         public delegate* unmanaged[Cdecl]<nint, float> Player_GetMicLevel { get; }
         public delegate* unmanaged[Cdecl]<nint, float> Player_GetNonSpatialVolume { get; }
@@ -756,7 +944,7 @@ namespace AltV.Net.CApi.Libraries
 
     public unsafe class ClientLibrary : IClientLibrary
     {
-        public readonly uint Methods = 1493;
+        public readonly uint Methods = 1676;
         public delegate* unmanaged[Cdecl]<nint, nint, void> Audio_AddOutput_Entity { get; }
         public delegate* unmanaged[Cdecl]<nint, uint, void> Audio_AddOutput_ScriptId { get; }
         public delegate* unmanaged[Cdecl]<nint, nint> Audio_GetBaseObject { get; }
@@ -816,7 +1004,7 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, nint, uint*, nint> Core_CreateHttpClient { get; }
         public delegate* unmanaged[Cdecl]<nint, uint, int, Vector3, Rotation, byte, uint, nint, uint*, nint> Core_CreateLocalPed { get; }
         public delegate* unmanaged[Cdecl]<nint, uint, int, Vector3, Rotation, byte, uint, nint, uint*, nint> Core_CreateLocalVehicle { get; }
-        public delegate* unmanaged[Cdecl]<nint, byte, Vector3, Rgba, nint, uint*, nint> Core_CreateMarker_Client { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte, Vector3, Rgba, byte, uint, nint, uint*, nint> Core_CreateMarker_Client { get; }
         public delegate* unmanaged[Cdecl]<nint, uint, Vector3, Vector3, byte, byte, nint, ushort*, nint> Core_CreateObject { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, nint, uint*, nint> Core_CreateRmlDocument { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, nint, float, float, Vector3, Rotation, Rgba, float, Rgba, nint, uint*, nint> Core_CreateTextLabel { get; }
@@ -865,6 +1053,7 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, uint> Core_GetTotalPacketsLost { get; }
         public delegate* unmanaged[Cdecl]<nint, ulong> Core_GetTotalPacketsSent { get; }
         public delegate* unmanaged[Cdecl]<nint, uint> Core_GetVoiceActivationKey { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> Core_GetVoiceActivationLevel { get; }
         public delegate* unmanaged[Cdecl]<nint, byte> Core_GetVoiceInputMuted { get; }
         public delegate* unmanaged[Cdecl]<nint, ulong> Core_GetWebViewCount { get; }
         public delegate* unmanaged[Cdecl]<nint, nint[], ulong, void> Core_GetWebViews { get; }
@@ -879,6 +1068,7 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, uint, byte> Core_IsKeyDown { get; }
         public delegate* unmanaged[Cdecl]<nint, uint, byte> Core_IsKeyToggled { get; }
         public delegate* unmanaged[Cdecl]<nint, byte> Core_IsMenuOpened { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte> Core_IsNoiseSuppressionEnabled { get; }
         public delegate* unmanaged[Cdecl]<nint, Vector3, byte> Core_IsPointOnScreen { get; }
         public delegate* unmanaged[Cdecl]<nint, uint, nint, byte> Core_IsTextureExistInArchetype { get; }
         public delegate* unmanaged[Cdecl]<nint, byte> Core_IsVoiceActivityInputEnabled { get; }
@@ -914,6 +1104,7 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, nint, uint, void> Core_SetStatUInt32 { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, ulong, void> Core_SetStatUInt64 { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, byte, void> Core_SetStatUInt8 { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, byte> Core_SetVoiceActivationLevel { get; }
         public delegate* unmanaged[Cdecl]<nint, byte, void> Core_SetVoiceInputMuted { get; }
         public delegate* unmanaged[Cdecl]<nint, byte, void> Core_SetWatermarkPosition { get; }
         public delegate* unmanaged[Cdecl]<nint, byte[], int, byte[], int, void> Core_SetWeatherCycle { get; }
@@ -923,8 +1114,11 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.ScreenshotResultModuleDelegate, byte> Core_TakeScreenshot { get; }
         public delegate* unmanaged[Cdecl]<nint, ClientEvents.ScreenshotResultModuleDelegate, byte> Core_TakeScreenshotGameOnly { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, byte, void> Core_ToggleGameControls { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte, byte> Core_ToggleNoiseSuppression { get; }
         public delegate* unmanaged[Cdecl]<nint, byte, void> Core_ToggleRmlControls { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte, byte> Core_ToggleVoiceActivation { get; }
         public delegate* unmanaged[Cdecl]<nint, byte, void> Core_ToggleVoiceControls { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte, byte> Core_ToggleVoiceInput { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, nint[], int, void> Core_TriggerServerEvent { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, nint[], int, void> Core_TriggerServerEventUnreliable { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, nint, nint[], int, void> Core_TriggerWebViewEvent { get; }
@@ -1139,10 +1333,190 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, nint, nint> LocalStorage_GetKey { get; }
         public delegate* unmanaged[Cdecl]<nint, void> LocalStorage_Save { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, nint, void> LocalStorage_SetKey { get; }
+        public delegate* unmanaged[Cdecl]<nint, ushort> LocalVehicle_GetCurrentGear { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_GetCurrentRPM { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_GetEngineTemperature { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_GetFuelLevel { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint> LocalVehicle_GetID { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte> LocalVehicle_GetLightsIndicator { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte> LocalVehicle_GetLockState { get; }
+        public delegate* unmanaged[Cdecl]<nint, ushort> LocalVehicle_GetMaxGear { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint> LocalVehicle_GetModel { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte> LocalVehicle_GetOccupiedSeatsCount { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_GetOilLevel { get; }
+        public delegate* unmanaged[Cdecl]<nint, int> LocalVehicle_GetPetrolTankHealth { get; }
         public delegate* unmanaged[Cdecl]<nint, uint> LocalVehicle_GetRemoteID { get; }
+        public delegate* unmanaged[Cdecl]<nint, Rotation*, void> LocalVehicle_GetRotation { get; }
         public delegate* unmanaged[Cdecl]<nint, uint> LocalVehicle_GetScriptID { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte> LocalVehicle_GetSeatCount { get; }
+        public delegate* unmanaged[Cdecl]<nint, Vector3*, void> LocalVehicle_GetSpeedVector { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint> LocalVehicle_GetStreamingDistance { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte, float> LocalVehicle_GetWheelCamber { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte, float> LocalVehicle_GetWheelHeight { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte, float> LocalVehicle_GetWheelRimRadius { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte> LocalVehicle_GetWheelsCount { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_GetWheelSpeed { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte, uint> LocalVehicle_GetWheelSurfaceMaterial { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte, float> LocalVehicle_GetWheelTrackWidth { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte, float> LocalVehicle_GetWheelTyreRadius { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte, float> LocalVehicle_GetWheelTyreWidth { get; }
+        public delegate* unmanaged[Cdecl]<nint, nint> LocalVehicle_GetWorldObject { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetAcceleration { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetAntiRollBarBiasFront { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetAntiRollBarBiasRear { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetAntiRollBarForce { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetBrakeBiasFront { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetBrakeBiasRear { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetBrakeForce { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetCamberStiffness { get; }
+        public delegate* unmanaged[Cdecl]<nint, Vector3*, void> LocalVehicle_Handling_GetCentreOfMassOffset { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetClutchChangeRateScaleDownShift { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetClutchChangeRateScaleUpShift { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetCollisionDamageMult { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint> LocalVehicle_Handling_GetDamageFlags { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetDeformationDamageMult { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetDownforceModifier { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetDriveBiasFront { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetDriveInertia { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetDriveMaxFlatVel { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetEngineDamageMult { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetHandBrakeForce { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint> LocalVehicle_Handling_GetHandlingFlags { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint> LocalVehicle_Handling_GetHandlingNameHash { get; }
+        public delegate* unmanaged[Cdecl]<nint, Vector3*, void> LocalVehicle_Handling_GetInertiaMultiplier { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetInitialDragCoeff { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetInitialDriveForce { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint> LocalVehicle_Handling_GetInitialDriveGears { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetInitialDriveMaxFlatVel { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetLowSpeedTractionLossMult { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetMass { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint> LocalVehicle_Handling_GetModelFlags { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint> LocalVehicle_Handling_GetMonetaryValue { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetOilVolume { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetPercentSubmerged { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetPercentSubmergedRatio { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetPetrolTankVolume { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetRollCentreHeightFront { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetRollCentreHeightRear { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetSeatOffsetDistX { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetSeatOffsetDistY { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetSeatOffsetDistZ { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetSteeringLock { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetSteeringLockRatio { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetSuspensionBiasFront { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetSuspensionBiasRear { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetSuspensionCompDamp { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetSuspensionForce { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetSuspensionLowerLimit { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetSuspensionRaise { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetSuspensionReboundDamp { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetSuspensionUpperLimit { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetTractionBiasFront { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetTractionBiasRear { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetTractionCurveLateral { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetTractionCurveLateralRatio { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetTractionCurveMax { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetTractionCurveMaxRatio { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetTractionCurveMin { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetTractionCurveMinRatio { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetTractionLossMult { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetTractionSpringDeltaMax { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetTractionSpringDeltaMaxRatio { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetunkFloat1 { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetunkFloat2 { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetunkFloat4 { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetunkFloat5 { get; }
+        public delegate* unmanaged[Cdecl]<nint, float> LocalVehicle_Handling_GetWeaponDamageMult { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetAcceleration { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetAntiRollBarBiasFront { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetAntiRollBarBiasRear { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetAntiRollBarForce { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetBrakeBiasFront { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetBrakeBiasRear { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetBrakeForce { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetCamberStiffness { get; }
+        public delegate* unmanaged[Cdecl]<nint, Vector3, void> LocalVehicle_Handling_SetCentreOfMassOffset { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetClutchChangeRateScaleDownShift { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetClutchChangeRateScaleUpShift { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetCollisionDamageMult { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint, void> LocalVehicle_Handling_SetDamageFlags { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetDeformationDamageMult { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetDownforceModifier { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetDriveBiasFront { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetDriveInertia { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetDriveMaxFlatVel { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetEngineDamageMult { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetHandBrakeForce { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint, void> LocalVehicle_Handling_SetHandlingFlags { get; }
+        public delegate* unmanaged[Cdecl]<nint, Vector3, void> LocalVehicle_Handling_SetInertiaMultiplier { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetInitialDragCoeff { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetInitialDriveForce { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint, void> LocalVehicle_Handling_SetInitialDriveGears { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetInitialDriveMaxFlatVel { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetLowSpeedTractionLossMult { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetMass { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint, void> LocalVehicle_Handling_SetModelFlags { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint, void> LocalVehicle_Handling_SetMonetaryValue { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetOilVolume { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetPercentSubmerged { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetPercentSubmergedRatio { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetPetrolTankVolume { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetRollCentreHeightFront { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetRollCentreHeightRear { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetSeatOffsetDistX { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetSeatOffsetDistY { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetSeatOffsetDistZ { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetSteeringLock { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetSteeringLockRatio { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetSuspensionBiasFront { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetSuspensionBiasRear { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetSuspensionCompDamp { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetSuspensionForce { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetSuspensionLowerLimit { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetSuspensionRaise { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetSuspensionReboundDamp { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetSuspensionUpperLimit { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetTractionBiasFront { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetTractionBiasRear { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetTractionCurveLateral { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetTractionCurveLateralRatio { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetTractionCurveMax { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetTractionCurveMaxRatio { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetTractionCurveMin { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetTractionCurveMinRatio { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetTractionLossMult { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetTractionSpringDeltaMax { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetTractionSpringDeltaMaxRatio { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetunkFloat1 { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetunkFloat2 { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetunkFloat4 { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetunkFloat5 { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_Handling_SetWeaponDamageMult { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte> LocalVehicle_IsEngineOn { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte> LocalVehicle_IsHandlingModified { get; }
         public delegate* unmanaged[Cdecl]<nint, byte> LocalVehicle_IsRemote { get; }
         public delegate* unmanaged[Cdecl]<nint, byte> LocalVehicle_IsStreamedIn { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte> LocalVehicle_IsTaxiLightOn { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte> LocalVehicle_IsVisible { get; }
+        public delegate* unmanaged[Cdecl]<nint, void> LocalVehicle_ReplaceHandling { get; }
+        public delegate* unmanaged[Cdecl]<nint, void> LocalVehicle_ResetHandling { get; }
+        public delegate* unmanaged[Cdecl]<nint, ushort, void> LocalVehicle_SetCurrentGear { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_SetCurrentRPM { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_SetEngineTemperature { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_SetFuelLevel { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte, void> LocalVehicle_SetLightsIndicator { get; }
+        public delegate* unmanaged[Cdecl]<nint, ushort, void> LocalVehicle_SetMaxGear { get; }
+        public delegate* unmanaged[Cdecl]<nint, float, void> LocalVehicle_SetOilLevel { get; }
+        public delegate* unmanaged[Cdecl]<nint, Rotation, void> LocalVehicle_SetRotation { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte, void> LocalVehicle_SetVisible { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte, float, void> LocalVehicle_SetWheelCamber { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte, float, void> LocalVehicle_SetWheelHeight { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte, float, void> LocalVehicle_SetWheelRimRadius { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte, float, void> LocalVehicle_SetWheelTrackWidth { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte, float, void> LocalVehicle_SetWheelTyreRadius { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte, float, void> LocalVehicle_SetWheelTyreWidth { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte, byte, void> LocalVehicle_ToggleExtra { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte, void> LocalVehicle_ToggleTaxiLight { get; }
         public delegate* unmanaged[Cdecl]<uint, float> MapData_GetFScrollSpeed { get; }
         public delegate* unmanaged[Cdecl]<uint, float> MapData_GetFZoomScale { get; }
         public delegate* unmanaged[Cdecl]<uint, float> MapData_GetFZoomSpeed { get; }
@@ -1155,8 +1529,10 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<uint, float, void> MapData_SetVTilesY { get; }
         public delegate* unmanaged[Cdecl]<nint, uint> Marker_GetRemoteID { get; }
         public delegate* unmanaged[Cdecl]<nint, byte> Marker_IsRemote { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte> Marker_IsStreamedIn { get; }
         public delegate* unmanaged[Cdecl]<nint, byte> Object_IsRemote { get; }
         public delegate* unmanaged[Cdecl]<nint, byte> Object_IsStreamedIn { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte> Object_UsesStreaming { get; }
         public delegate* unmanaged[Cdecl]<nint> Player_GetLocal { get; }
         public delegate* unmanaged[Cdecl]<nint, float> Player_GetMicLevel { get; }
         public delegate* unmanaged[Cdecl]<nint, float> Player_GetNonSpatialVolume { get; }
@@ -1617,8 +1993,8 @@ namespace AltV.Net.CApi.Libraries
         private static nint Core_CreateLocalPedFallback(nint _core, uint _modelHash, int _dimension, Vector3 _pos, Rotation _rot, byte _useStreaming, uint _streamingDistance, nint _resource, uint* _id) => throw new Exceptions.OutdatedSdkException("Core_CreateLocalPed", "Core_CreateLocalPed SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate nint Core_CreateLocalVehicleDelegate(nint _core, uint _modelHash, int _dimension, Vector3 _pos, Rotation _rot, byte _useStreaming, uint _streamingDistance, nint _resource, uint* _id);
         private static nint Core_CreateLocalVehicleFallback(nint _core, uint _modelHash, int _dimension, Vector3 _pos, Rotation _rot, byte _useStreaming, uint _streamingDistance, nint _resource, uint* _id) => throw new Exceptions.OutdatedSdkException("Core_CreateLocalVehicle", "Core_CreateLocalVehicle SDK method is outdated. Please update your module nuget");
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate nint Core_CreateMarker_ClientDelegate(nint _core, byte _type, Vector3 _pos, Rgba _color, nint _resource, uint* _id);
-        private static nint Core_CreateMarker_ClientFallback(nint _core, byte _type, Vector3 _pos, Rgba _color, nint _resource, uint* _id) => throw new Exceptions.OutdatedSdkException("Core_CreateMarker_Client", "Core_CreateMarker_Client SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate nint Core_CreateMarker_ClientDelegate(nint _core, byte _type, Vector3 _pos, Rgba _color, byte _useStreaming, uint _streamingDistance, nint _resource, uint* _id);
+        private static nint Core_CreateMarker_ClientFallback(nint _core, byte _type, Vector3 _pos, Rgba _color, byte _useStreaming, uint _streamingDistance, nint _resource, uint* _id) => throw new Exceptions.OutdatedSdkException("Core_CreateMarker_Client", "Core_CreateMarker_Client SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate nint Core_CreateObjectDelegate(nint _core, uint _modelHash, Vector3 _position, Vector3 _rot, byte _noOffset, byte _dynamic, nint _resource, ushort* _id);
         private static nint Core_CreateObjectFallback(nint _core, uint _modelHash, Vector3 _position, Vector3 _rot, byte _noOffset, byte _dynamic, nint _resource, ushort* _id) => throw new Exceptions.OutdatedSdkException("Core_CreateObject", "Core_CreateObject SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate nint Core_CreateRmlDocumentDelegate(nint _core, nint _resource, nint _url, uint* _id);
@@ -1715,6 +2091,8 @@ namespace AltV.Net.CApi.Libraries
         private static ulong Core_GetTotalPacketsSentFallback(nint _core) => throw new Exceptions.OutdatedSdkException("Core_GetTotalPacketsSent", "Core_GetTotalPacketsSent SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate uint Core_GetVoiceActivationKeyDelegate(nint _core);
         private static uint Core_GetVoiceActivationKeyFallback(nint _core) => throw new Exceptions.OutdatedSdkException("Core_GetVoiceActivationKey", "Core_GetVoiceActivationKey SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float Core_GetVoiceActivationLevelDelegate(nint _core);
+        private static float Core_GetVoiceActivationLevelFallback(nint _core) => throw new Exceptions.OutdatedSdkException("Core_GetVoiceActivationLevel", "Core_GetVoiceActivationLevel SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte Core_GetVoiceInputMutedDelegate(nint _core);
         private static byte Core_GetVoiceInputMutedFallback(nint _core) => throw new Exceptions.OutdatedSdkException("Core_GetVoiceInputMuted", "Core_GetVoiceInputMuted SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate ulong Core_GetWebViewCountDelegate(nint _core);
@@ -1743,6 +2121,8 @@ namespace AltV.Net.CApi.Libraries
         private static byte Core_IsKeyToggledFallback(nint _core, uint _key) => throw new Exceptions.OutdatedSdkException("Core_IsKeyToggled", "Core_IsKeyToggled SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte Core_IsMenuOpenedDelegate(nint _core);
         private static byte Core_IsMenuOpenedFallback(nint _core) => throw new Exceptions.OutdatedSdkException("Core_IsMenuOpened", "Core_IsMenuOpened SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte Core_IsNoiseSuppressionEnabledDelegate(nint _core);
+        private static byte Core_IsNoiseSuppressionEnabledFallback(nint _core) => throw new Exceptions.OutdatedSdkException("Core_IsNoiseSuppressionEnabled", "Core_IsNoiseSuppressionEnabled SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte Core_IsPointOnScreenDelegate(nint _core, Vector3 _pos);
         private static byte Core_IsPointOnScreenFallback(nint _core, Vector3 _pos) => throw new Exceptions.OutdatedSdkException("Core_IsPointOnScreen", "Core_IsPointOnScreen SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte Core_IsTextureExistInArchetypeDelegate(nint _core, uint _modelHash, nint _targetTextureName);
@@ -1813,6 +2193,8 @@ namespace AltV.Net.CApi.Libraries
         private static void Core_SetStatUInt64Fallback(nint _core, nint _stat, ulong _value) => throw new Exceptions.OutdatedSdkException("Core_SetStatUInt64", "Core_SetStatUInt64 SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Core_SetStatUInt8Delegate(nint _core, nint _stat, byte _value);
         private static void Core_SetStatUInt8Fallback(nint _core, nint _stat, byte _value) => throw new Exceptions.OutdatedSdkException("Core_SetStatUInt8", "Core_SetStatUInt8 SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte Core_SetVoiceActivationLevelDelegate(nint _core, float _level);
+        private static byte Core_SetVoiceActivationLevelFallback(nint _core, float _level) => throw new Exceptions.OutdatedSdkException("Core_SetVoiceActivationLevel", "Core_SetVoiceActivationLevel SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Core_SetVoiceInputMutedDelegate(nint _core, byte _value);
         private static void Core_SetVoiceInputMutedFallback(nint _core, byte _value) => throw new Exceptions.OutdatedSdkException("Core_SetVoiceInputMuted", "Core_SetVoiceInputMuted SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Core_SetWatermarkPositionDelegate(nint _core, byte _position);
@@ -1831,10 +2213,16 @@ namespace AltV.Net.CApi.Libraries
         private static byte Core_TakeScreenshotGameOnlyFallback(nint _core, ClientEvents.ScreenshotResultModuleDelegate _delegate) => throw new Exceptions.OutdatedSdkException("Core_TakeScreenshotGameOnly", "Core_TakeScreenshotGameOnly SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Core_ToggleGameControlsDelegate(nint _core, nint _resource, byte _state);
         private static void Core_ToggleGameControlsFallback(nint _core, nint _resource, byte _state) => throw new Exceptions.OutdatedSdkException("Core_ToggleGameControls", "Core_ToggleGameControls SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte Core_ToggleNoiseSuppressionDelegate(nint _core, byte _state);
+        private static byte Core_ToggleNoiseSuppressionFallback(nint _core, byte _state) => throw new Exceptions.OutdatedSdkException("Core_ToggleNoiseSuppression", "Core_ToggleNoiseSuppression SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Core_ToggleRmlControlsDelegate(nint _core, byte _state);
         private static void Core_ToggleRmlControlsFallback(nint _core, byte _state) => throw new Exceptions.OutdatedSdkException("Core_ToggleRmlControls", "Core_ToggleRmlControls SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte Core_ToggleVoiceActivationDelegate(nint _core, byte _state);
+        private static byte Core_ToggleVoiceActivationFallback(nint _core, byte _state) => throw new Exceptions.OutdatedSdkException("Core_ToggleVoiceActivation", "Core_ToggleVoiceActivation SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Core_ToggleVoiceControlsDelegate(nint _core, byte _state);
         private static void Core_ToggleVoiceControlsFallback(nint _core, byte _state) => throw new Exceptions.OutdatedSdkException("Core_ToggleVoiceControls", "Core_ToggleVoiceControls SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte Core_ToggleVoiceInputDelegate(nint _core, byte _state);
+        private static byte Core_ToggleVoiceInputFallback(nint _core, byte _state) => throw new Exceptions.OutdatedSdkException("Core_ToggleVoiceInput", "Core_ToggleVoiceInput SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Core_TriggerServerEventDelegate(nint _core, nint _event, nint[] args, int _size);
         private static void Core_TriggerServerEventFallback(nint _core, nint _event, nint[] args, int _size) => throw new Exceptions.OutdatedSdkException("Core_TriggerServerEvent", "Core_TriggerServerEvent SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Core_TriggerServerEventUnreliableDelegate(nint _core, nint _event, nint[] args, int _size);
@@ -2263,14 +2651,374 @@ namespace AltV.Net.CApi.Libraries
         private static void LocalStorage_SaveFallback(nint _localStorage) => throw new Exceptions.OutdatedSdkException("LocalStorage_Save", "LocalStorage_Save SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalStorage_SetKeyDelegate(nint _localStorage, nint _key, nint _value);
         private static void LocalStorage_SetKeyFallback(nint _localStorage, nint _key, nint _value) => throw new Exceptions.OutdatedSdkException("LocalStorage_SetKey", "LocalStorage_SetKey SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate ushort LocalVehicle_GetCurrentGearDelegate(nint _localVehicle);
+        private static ushort LocalVehicle_GetCurrentGearFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_GetCurrentGear", "LocalVehicle_GetCurrentGear SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_GetCurrentRPMDelegate(nint _localVehicle);
+        private static float LocalVehicle_GetCurrentRPMFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_GetCurrentRPM", "LocalVehicle_GetCurrentRPM SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_GetEngineTemperatureDelegate(nint _localVehicle);
+        private static float LocalVehicle_GetEngineTemperatureFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_GetEngineTemperature", "LocalVehicle_GetEngineTemperature SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_GetFuelLevelDelegate(nint _localVehicle);
+        private static float LocalVehicle_GetFuelLevelFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_GetFuelLevel", "LocalVehicle_GetFuelLevel SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate uint LocalVehicle_GetIDDelegate(nint _localVehicle);
+        private static uint LocalVehicle_GetIDFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_GetID", "LocalVehicle_GetID SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte LocalVehicle_GetLightsIndicatorDelegate(nint _localVehicle);
+        private static byte LocalVehicle_GetLightsIndicatorFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_GetLightsIndicator", "LocalVehicle_GetLightsIndicator SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte LocalVehicle_GetLockStateDelegate(nint _localVehicle);
+        private static byte LocalVehicle_GetLockStateFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_GetLockState", "LocalVehicle_GetLockState SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate ushort LocalVehicle_GetMaxGearDelegate(nint _localVehicle);
+        private static ushort LocalVehicle_GetMaxGearFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_GetMaxGear", "LocalVehicle_GetMaxGear SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate uint LocalVehicle_GetModelDelegate(nint _localVehicle);
+        private static uint LocalVehicle_GetModelFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_GetModel", "LocalVehicle_GetModel SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte LocalVehicle_GetOccupiedSeatsCountDelegate(nint _localVehicle);
+        private static byte LocalVehicle_GetOccupiedSeatsCountFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_GetOccupiedSeatsCount", "LocalVehicle_GetOccupiedSeatsCount SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_GetOilLevelDelegate(nint _localVehicle);
+        private static float LocalVehicle_GetOilLevelFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_GetOilLevel", "LocalVehicle_GetOilLevel SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate int LocalVehicle_GetPetrolTankHealthDelegate(nint _localVehicle);
+        private static int LocalVehicle_GetPetrolTankHealthFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_GetPetrolTankHealth", "LocalVehicle_GetPetrolTankHealth SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate uint LocalVehicle_GetRemoteIDDelegate(nint _localVehicle);
         private static uint LocalVehicle_GetRemoteIDFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_GetRemoteID", "LocalVehicle_GetRemoteID SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_GetRotationDelegate(nint _localVehicle, Rotation* _rot);
+        private static void LocalVehicle_GetRotationFallback(nint _localVehicle, Rotation* _rot) => throw new Exceptions.OutdatedSdkException("LocalVehicle_GetRotation", "LocalVehicle_GetRotation SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate uint LocalVehicle_GetScriptIDDelegate(nint _localVehicle);
         private static uint LocalVehicle_GetScriptIDFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_GetScriptID", "LocalVehicle_GetScriptID SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte LocalVehicle_GetSeatCountDelegate(nint _localVehicle);
+        private static byte LocalVehicle_GetSeatCountFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_GetSeatCount", "LocalVehicle_GetSeatCount SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_GetSpeedVectorDelegate(nint _localVehicle, Vector3* _vector);
+        private static void LocalVehicle_GetSpeedVectorFallback(nint _localVehicle, Vector3* _vector) => throw new Exceptions.OutdatedSdkException("LocalVehicle_GetSpeedVector", "LocalVehicle_GetSpeedVector SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate uint LocalVehicle_GetStreamingDistanceDelegate(nint _localVehicle);
+        private static uint LocalVehicle_GetStreamingDistanceFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_GetStreamingDistance", "LocalVehicle_GetStreamingDistance SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_GetWheelCamberDelegate(nint _localVehicle, byte _wheel);
+        private static float LocalVehicle_GetWheelCamberFallback(nint _localVehicle, byte _wheel) => throw new Exceptions.OutdatedSdkException("LocalVehicle_GetWheelCamber", "LocalVehicle_GetWheelCamber SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_GetWheelHeightDelegate(nint _localVehicle, byte _wheel);
+        private static float LocalVehicle_GetWheelHeightFallback(nint _localVehicle, byte _wheel) => throw new Exceptions.OutdatedSdkException("LocalVehicle_GetWheelHeight", "LocalVehicle_GetWheelHeight SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_GetWheelRimRadiusDelegate(nint _localVehicle, byte _wheel);
+        private static float LocalVehicle_GetWheelRimRadiusFallback(nint _localVehicle, byte _wheel) => throw new Exceptions.OutdatedSdkException("LocalVehicle_GetWheelRimRadius", "LocalVehicle_GetWheelRimRadius SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte LocalVehicle_GetWheelsCountDelegate(nint _localVehicle);
+        private static byte LocalVehicle_GetWheelsCountFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_GetWheelsCount", "LocalVehicle_GetWheelsCount SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_GetWheelSpeedDelegate(nint _localVehicle);
+        private static float LocalVehicle_GetWheelSpeedFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_GetWheelSpeed", "LocalVehicle_GetWheelSpeed SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate uint LocalVehicle_GetWheelSurfaceMaterialDelegate(nint _localVehicle, byte _wheel);
+        private static uint LocalVehicle_GetWheelSurfaceMaterialFallback(nint _localVehicle, byte _wheel) => throw new Exceptions.OutdatedSdkException("LocalVehicle_GetWheelSurfaceMaterial", "LocalVehicle_GetWheelSurfaceMaterial SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_GetWheelTrackWidthDelegate(nint _localVehicle, byte _wheel);
+        private static float LocalVehicle_GetWheelTrackWidthFallback(nint _localVehicle, byte _wheel) => throw new Exceptions.OutdatedSdkException("LocalVehicle_GetWheelTrackWidth", "LocalVehicle_GetWheelTrackWidth SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_GetWheelTyreRadiusDelegate(nint _localVehicle, byte _wheel);
+        private static float LocalVehicle_GetWheelTyreRadiusFallback(nint _localVehicle, byte _wheel) => throw new Exceptions.OutdatedSdkException("LocalVehicle_GetWheelTyreRadius", "LocalVehicle_GetWheelTyreRadius SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_GetWheelTyreWidthDelegate(nint _localVehicle, byte _wheel);
+        private static float LocalVehicle_GetWheelTyreWidthFallback(nint _localVehicle, byte _wheel) => throw new Exceptions.OutdatedSdkException("LocalVehicle_GetWheelTyreWidth", "LocalVehicle_GetWheelTyreWidth SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate nint LocalVehicle_GetWorldObjectDelegate(nint _localVehicle);
+        private static nint LocalVehicle_GetWorldObjectFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_GetWorldObject", "LocalVehicle_GetWorldObject SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetAccelerationDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetAccelerationFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetAcceleration", "LocalVehicle_Handling_GetAcceleration SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetAntiRollBarBiasFrontDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetAntiRollBarBiasFrontFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetAntiRollBarBiasFront", "LocalVehicle_Handling_GetAntiRollBarBiasFront SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetAntiRollBarBiasRearDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetAntiRollBarBiasRearFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetAntiRollBarBiasRear", "LocalVehicle_Handling_GetAntiRollBarBiasRear SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetAntiRollBarForceDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetAntiRollBarForceFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetAntiRollBarForce", "LocalVehicle_Handling_GetAntiRollBarForce SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetBrakeBiasFrontDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetBrakeBiasFrontFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetBrakeBiasFront", "LocalVehicle_Handling_GetBrakeBiasFront SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetBrakeBiasRearDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetBrakeBiasRearFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetBrakeBiasRear", "LocalVehicle_Handling_GetBrakeBiasRear SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetBrakeForceDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetBrakeForceFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetBrakeForce", "LocalVehicle_Handling_GetBrakeForce SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetCamberStiffnessDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetCamberStiffnessFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetCamberStiffness", "LocalVehicle_Handling_GetCamberStiffness SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_GetCentreOfMassOffsetDelegate(nint _localVehicle, Vector3* _offset);
+        private static void LocalVehicle_Handling_GetCentreOfMassOffsetFallback(nint _localVehicle, Vector3* _offset) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetCentreOfMassOffset", "LocalVehicle_Handling_GetCentreOfMassOffset SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetClutchChangeRateScaleDownShiftDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetClutchChangeRateScaleDownShiftFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetClutchChangeRateScaleDownShift", "LocalVehicle_Handling_GetClutchChangeRateScaleDownShift SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetClutchChangeRateScaleUpShiftDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetClutchChangeRateScaleUpShiftFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetClutchChangeRateScaleUpShift", "LocalVehicle_Handling_GetClutchChangeRateScaleUpShift SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetCollisionDamageMultDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetCollisionDamageMultFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetCollisionDamageMult", "LocalVehicle_Handling_GetCollisionDamageMult SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate uint LocalVehicle_Handling_GetDamageFlagsDelegate(nint _localVehicle);
+        private static uint LocalVehicle_Handling_GetDamageFlagsFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetDamageFlags", "LocalVehicle_Handling_GetDamageFlags SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetDeformationDamageMultDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetDeformationDamageMultFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetDeformationDamageMult", "LocalVehicle_Handling_GetDeformationDamageMult SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetDownforceModifierDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetDownforceModifierFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetDownforceModifier", "LocalVehicle_Handling_GetDownforceModifier SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetDriveBiasFrontDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetDriveBiasFrontFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetDriveBiasFront", "LocalVehicle_Handling_GetDriveBiasFront SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetDriveInertiaDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetDriveInertiaFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetDriveInertia", "LocalVehicle_Handling_GetDriveInertia SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetDriveMaxFlatVelDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetDriveMaxFlatVelFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetDriveMaxFlatVel", "LocalVehicle_Handling_GetDriveMaxFlatVel SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetEngineDamageMultDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetEngineDamageMultFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetEngineDamageMult", "LocalVehicle_Handling_GetEngineDamageMult SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetHandBrakeForceDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetHandBrakeForceFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetHandBrakeForce", "LocalVehicle_Handling_GetHandBrakeForce SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate uint LocalVehicle_Handling_GetHandlingFlagsDelegate(nint _localVehicle);
+        private static uint LocalVehicle_Handling_GetHandlingFlagsFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetHandlingFlags", "LocalVehicle_Handling_GetHandlingFlags SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate uint LocalVehicle_Handling_GetHandlingNameHashDelegate(nint _localVehicle);
+        private static uint LocalVehicle_Handling_GetHandlingNameHashFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetHandlingNameHash", "LocalVehicle_Handling_GetHandlingNameHash SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_GetInertiaMultiplierDelegate(nint _localVehicle, Vector3* _offset);
+        private static void LocalVehicle_Handling_GetInertiaMultiplierFallback(nint _localVehicle, Vector3* _offset) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetInertiaMultiplier", "LocalVehicle_Handling_GetInertiaMultiplier SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetInitialDragCoeffDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetInitialDragCoeffFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetInitialDragCoeff", "LocalVehicle_Handling_GetInitialDragCoeff SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetInitialDriveForceDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetInitialDriveForceFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetInitialDriveForce", "LocalVehicle_Handling_GetInitialDriveForce SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate uint LocalVehicle_Handling_GetInitialDriveGearsDelegate(nint _localVehicle);
+        private static uint LocalVehicle_Handling_GetInitialDriveGearsFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetInitialDriveGears", "LocalVehicle_Handling_GetInitialDriveGears SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetInitialDriveMaxFlatVelDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetInitialDriveMaxFlatVelFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetInitialDriveMaxFlatVel", "LocalVehicle_Handling_GetInitialDriveMaxFlatVel SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetLowSpeedTractionLossMultDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetLowSpeedTractionLossMultFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetLowSpeedTractionLossMult", "LocalVehicle_Handling_GetLowSpeedTractionLossMult SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetMassDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetMassFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetMass", "LocalVehicle_Handling_GetMass SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate uint LocalVehicle_Handling_GetModelFlagsDelegate(nint _localVehicle);
+        private static uint LocalVehicle_Handling_GetModelFlagsFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetModelFlags", "LocalVehicle_Handling_GetModelFlags SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate uint LocalVehicle_Handling_GetMonetaryValueDelegate(nint _localVehicle);
+        private static uint LocalVehicle_Handling_GetMonetaryValueFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetMonetaryValue", "LocalVehicle_Handling_GetMonetaryValue SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetOilVolumeDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetOilVolumeFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetOilVolume", "LocalVehicle_Handling_GetOilVolume SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetPercentSubmergedDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetPercentSubmergedFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetPercentSubmerged", "LocalVehicle_Handling_GetPercentSubmerged SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetPercentSubmergedRatioDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetPercentSubmergedRatioFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetPercentSubmergedRatio", "LocalVehicle_Handling_GetPercentSubmergedRatio SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetPetrolTankVolumeDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetPetrolTankVolumeFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetPetrolTankVolume", "LocalVehicle_Handling_GetPetrolTankVolume SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetRollCentreHeightFrontDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetRollCentreHeightFrontFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetRollCentreHeightFront", "LocalVehicle_Handling_GetRollCentreHeightFront SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetRollCentreHeightRearDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetRollCentreHeightRearFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetRollCentreHeightRear", "LocalVehicle_Handling_GetRollCentreHeightRear SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetSeatOffsetDistXDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetSeatOffsetDistXFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetSeatOffsetDistX", "LocalVehicle_Handling_GetSeatOffsetDistX SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetSeatOffsetDistYDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetSeatOffsetDistYFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetSeatOffsetDistY", "LocalVehicle_Handling_GetSeatOffsetDistY SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetSeatOffsetDistZDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetSeatOffsetDistZFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetSeatOffsetDistZ", "LocalVehicle_Handling_GetSeatOffsetDistZ SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetSteeringLockDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetSteeringLockFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetSteeringLock", "LocalVehicle_Handling_GetSteeringLock SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetSteeringLockRatioDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetSteeringLockRatioFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetSteeringLockRatio", "LocalVehicle_Handling_GetSteeringLockRatio SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetSuspensionBiasFrontDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetSuspensionBiasFrontFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetSuspensionBiasFront", "LocalVehicle_Handling_GetSuspensionBiasFront SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetSuspensionBiasRearDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetSuspensionBiasRearFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetSuspensionBiasRear", "LocalVehicle_Handling_GetSuspensionBiasRear SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetSuspensionCompDampDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetSuspensionCompDampFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetSuspensionCompDamp", "LocalVehicle_Handling_GetSuspensionCompDamp SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetSuspensionForceDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetSuspensionForceFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetSuspensionForce", "LocalVehicle_Handling_GetSuspensionForce SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetSuspensionLowerLimitDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetSuspensionLowerLimitFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetSuspensionLowerLimit", "LocalVehicle_Handling_GetSuspensionLowerLimit SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetSuspensionRaiseDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetSuspensionRaiseFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetSuspensionRaise", "LocalVehicle_Handling_GetSuspensionRaise SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetSuspensionReboundDampDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetSuspensionReboundDampFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetSuspensionReboundDamp", "LocalVehicle_Handling_GetSuspensionReboundDamp SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetSuspensionUpperLimitDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetSuspensionUpperLimitFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetSuspensionUpperLimit", "LocalVehicle_Handling_GetSuspensionUpperLimit SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetTractionBiasFrontDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetTractionBiasFrontFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetTractionBiasFront", "LocalVehicle_Handling_GetTractionBiasFront SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetTractionBiasRearDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetTractionBiasRearFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetTractionBiasRear", "LocalVehicle_Handling_GetTractionBiasRear SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetTractionCurveLateralDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetTractionCurveLateralFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetTractionCurveLateral", "LocalVehicle_Handling_GetTractionCurveLateral SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetTractionCurveLateralRatioDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetTractionCurveLateralRatioFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetTractionCurveLateralRatio", "LocalVehicle_Handling_GetTractionCurveLateralRatio SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetTractionCurveMaxDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetTractionCurveMaxFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetTractionCurveMax", "LocalVehicle_Handling_GetTractionCurveMax SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetTractionCurveMaxRatioDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetTractionCurveMaxRatioFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetTractionCurveMaxRatio", "LocalVehicle_Handling_GetTractionCurveMaxRatio SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetTractionCurveMinDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetTractionCurveMinFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetTractionCurveMin", "LocalVehicle_Handling_GetTractionCurveMin SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetTractionCurveMinRatioDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetTractionCurveMinRatioFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetTractionCurveMinRatio", "LocalVehicle_Handling_GetTractionCurveMinRatio SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetTractionLossMultDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetTractionLossMultFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetTractionLossMult", "LocalVehicle_Handling_GetTractionLossMult SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetTractionSpringDeltaMaxDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetTractionSpringDeltaMaxFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetTractionSpringDeltaMax", "LocalVehicle_Handling_GetTractionSpringDeltaMax SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetTractionSpringDeltaMaxRatioDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetTractionSpringDeltaMaxRatioFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetTractionSpringDeltaMaxRatio", "LocalVehicle_Handling_GetTractionSpringDeltaMaxRatio SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetunkFloat1Delegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetunkFloat1Fallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetunkFloat1", "LocalVehicle_Handling_GetunkFloat1 SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetunkFloat2Delegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetunkFloat2Fallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetunkFloat2", "LocalVehicle_Handling_GetunkFloat2 SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetunkFloat4Delegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetunkFloat4Fallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetunkFloat4", "LocalVehicle_Handling_GetunkFloat4 SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetunkFloat5Delegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetunkFloat5Fallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetunkFloat5", "LocalVehicle_Handling_GetunkFloat5 SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float LocalVehicle_Handling_GetWeaponDamageMultDelegate(nint _localVehicle);
+        private static float LocalVehicle_Handling_GetWeaponDamageMultFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_GetWeaponDamageMult", "LocalVehicle_Handling_GetWeaponDamageMult SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetAccelerationDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetAccelerationFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetAcceleration", "LocalVehicle_Handling_SetAcceleration SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetAntiRollBarBiasFrontDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetAntiRollBarBiasFrontFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetAntiRollBarBiasFront", "LocalVehicle_Handling_SetAntiRollBarBiasFront SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetAntiRollBarBiasRearDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetAntiRollBarBiasRearFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetAntiRollBarBiasRear", "LocalVehicle_Handling_SetAntiRollBarBiasRear SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetAntiRollBarForceDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetAntiRollBarForceFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetAntiRollBarForce", "LocalVehicle_Handling_SetAntiRollBarForce SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetBrakeBiasFrontDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetBrakeBiasFrontFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetBrakeBiasFront", "LocalVehicle_Handling_SetBrakeBiasFront SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetBrakeBiasRearDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetBrakeBiasRearFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetBrakeBiasRear", "LocalVehicle_Handling_SetBrakeBiasRear SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetBrakeForceDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetBrakeForceFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetBrakeForce", "LocalVehicle_Handling_SetBrakeForce SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetCamberStiffnessDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetCamberStiffnessFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetCamberStiffness", "LocalVehicle_Handling_SetCamberStiffness SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetCentreOfMassOffsetDelegate(nint _localVehicle, Vector3 _value);
+        private static void LocalVehicle_Handling_SetCentreOfMassOffsetFallback(nint _localVehicle, Vector3 _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetCentreOfMassOffset", "LocalVehicle_Handling_SetCentreOfMassOffset SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetClutchChangeRateScaleDownShiftDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetClutchChangeRateScaleDownShiftFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetClutchChangeRateScaleDownShift", "LocalVehicle_Handling_SetClutchChangeRateScaleDownShift SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetClutchChangeRateScaleUpShiftDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetClutchChangeRateScaleUpShiftFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetClutchChangeRateScaleUpShift", "LocalVehicle_Handling_SetClutchChangeRateScaleUpShift SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetCollisionDamageMultDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetCollisionDamageMultFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetCollisionDamageMult", "LocalVehicle_Handling_SetCollisionDamageMult SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetDamageFlagsDelegate(nint _localVehicle, uint _value);
+        private static void LocalVehicle_Handling_SetDamageFlagsFallback(nint _localVehicle, uint _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetDamageFlags", "LocalVehicle_Handling_SetDamageFlags SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetDeformationDamageMultDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetDeformationDamageMultFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetDeformationDamageMult", "LocalVehicle_Handling_SetDeformationDamageMult SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetDownforceModifierDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetDownforceModifierFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetDownforceModifier", "LocalVehicle_Handling_SetDownforceModifier SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetDriveBiasFrontDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetDriveBiasFrontFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetDriveBiasFront", "LocalVehicle_Handling_SetDriveBiasFront SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetDriveInertiaDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetDriveInertiaFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetDriveInertia", "LocalVehicle_Handling_SetDriveInertia SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetDriveMaxFlatVelDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetDriveMaxFlatVelFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetDriveMaxFlatVel", "LocalVehicle_Handling_SetDriveMaxFlatVel SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetEngineDamageMultDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetEngineDamageMultFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetEngineDamageMult", "LocalVehicle_Handling_SetEngineDamageMult SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetHandBrakeForceDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetHandBrakeForceFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetHandBrakeForce", "LocalVehicle_Handling_SetHandBrakeForce SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetHandlingFlagsDelegate(nint _localVehicle, uint _value);
+        private static void LocalVehicle_Handling_SetHandlingFlagsFallback(nint _localVehicle, uint _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetHandlingFlags", "LocalVehicle_Handling_SetHandlingFlags SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetInertiaMultiplierDelegate(nint _localVehicle, Vector3 _value);
+        private static void LocalVehicle_Handling_SetInertiaMultiplierFallback(nint _localVehicle, Vector3 _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetInertiaMultiplier", "LocalVehicle_Handling_SetInertiaMultiplier SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetInitialDragCoeffDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetInitialDragCoeffFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetInitialDragCoeff", "LocalVehicle_Handling_SetInitialDragCoeff SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetInitialDriveForceDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetInitialDriveForceFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetInitialDriveForce", "LocalVehicle_Handling_SetInitialDriveForce SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetInitialDriveGearsDelegate(nint _localVehicle, uint _value);
+        private static void LocalVehicle_Handling_SetInitialDriveGearsFallback(nint _localVehicle, uint _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetInitialDriveGears", "LocalVehicle_Handling_SetInitialDriveGears SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetInitialDriveMaxFlatVelDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetInitialDriveMaxFlatVelFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetInitialDriveMaxFlatVel", "LocalVehicle_Handling_SetInitialDriveMaxFlatVel SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetLowSpeedTractionLossMultDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetLowSpeedTractionLossMultFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetLowSpeedTractionLossMult", "LocalVehicle_Handling_SetLowSpeedTractionLossMult SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetMassDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetMassFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetMass", "LocalVehicle_Handling_SetMass SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetModelFlagsDelegate(nint _localVehicle, uint _value);
+        private static void LocalVehicle_Handling_SetModelFlagsFallback(nint _localVehicle, uint _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetModelFlags", "LocalVehicle_Handling_SetModelFlags SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetMonetaryValueDelegate(nint _localVehicle, uint _value);
+        private static void LocalVehicle_Handling_SetMonetaryValueFallback(nint _localVehicle, uint _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetMonetaryValue", "LocalVehicle_Handling_SetMonetaryValue SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetOilVolumeDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetOilVolumeFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetOilVolume", "LocalVehicle_Handling_SetOilVolume SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetPercentSubmergedDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetPercentSubmergedFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetPercentSubmerged", "LocalVehicle_Handling_SetPercentSubmerged SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetPercentSubmergedRatioDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetPercentSubmergedRatioFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetPercentSubmergedRatio", "LocalVehicle_Handling_SetPercentSubmergedRatio SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetPetrolTankVolumeDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetPetrolTankVolumeFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetPetrolTankVolume", "LocalVehicle_Handling_SetPetrolTankVolume SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetRollCentreHeightFrontDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetRollCentreHeightFrontFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetRollCentreHeightFront", "LocalVehicle_Handling_SetRollCentreHeightFront SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetRollCentreHeightRearDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetRollCentreHeightRearFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetRollCentreHeightRear", "LocalVehicle_Handling_SetRollCentreHeightRear SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetSeatOffsetDistXDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetSeatOffsetDistXFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetSeatOffsetDistX", "LocalVehicle_Handling_SetSeatOffsetDistX SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetSeatOffsetDistYDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetSeatOffsetDistYFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetSeatOffsetDistY", "LocalVehicle_Handling_SetSeatOffsetDistY SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetSeatOffsetDistZDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetSeatOffsetDistZFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetSeatOffsetDistZ", "LocalVehicle_Handling_SetSeatOffsetDistZ SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetSteeringLockDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetSteeringLockFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetSteeringLock", "LocalVehicle_Handling_SetSteeringLock SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetSteeringLockRatioDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetSteeringLockRatioFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetSteeringLockRatio", "LocalVehicle_Handling_SetSteeringLockRatio SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetSuspensionBiasFrontDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetSuspensionBiasFrontFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetSuspensionBiasFront", "LocalVehicle_Handling_SetSuspensionBiasFront SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetSuspensionBiasRearDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetSuspensionBiasRearFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetSuspensionBiasRear", "LocalVehicle_Handling_SetSuspensionBiasRear SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetSuspensionCompDampDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetSuspensionCompDampFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetSuspensionCompDamp", "LocalVehicle_Handling_SetSuspensionCompDamp SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetSuspensionForceDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetSuspensionForceFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetSuspensionForce", "LocalVehicle_Handling_SetSuspensionForce SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetSuspensionLowerLimitDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetSuspensionLowerLimitFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetSuspensionLowerLimit", "LocalVehicle_Handling_SetSuspensionLowerLimit SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetSuspensionRaiseDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetSuspensionRaiseFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetSuspensionRaise", "LocalVehicle_Handling_SetSuspensionRaise SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetSuspensionReboundDampDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetSuspensionReboundDampFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetSuspensionReboundDamp", "LocalVehicle_Handling_SetSuspensionReboundDamp SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetSuspensionUpperLimitDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetSuspensionUpperLimitFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetSuspensionUpperLimit", "LocalVehicle_Handling_SetSuspensionUpperLimit SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetTractionBiasFrontDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetTractionBiasFrontFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetTractionBiasFront", "LocalVehicle_Handling_SetTractionBiasFront SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetTractionBiasRearDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetTractionBiasRearFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetTractionBiasRear", "LocalVehicle_Handling_SetTractionBiasRear SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetTractionCurveLateralDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetTractionCurveLateralFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetTractionCurveLateral", "LocalVehicle_Handling_SetTractionCurveLateral SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetTractionCurveLateralRatioDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetTractionCurveLateralRatioFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetTractionCurveLateralRatio", "LocalVehicle_Handling_SetTractionCurveLateralRatio SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetTractionCurveMaxDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetTractionCurveMaxFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetTractionCurveMax", "LocalVehicle_Handling_SetTractionCurveMax SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetTractionCurveMaxRatioDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetTractionCurveMaxRatioFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetTractionCurveMaxRatio", "LocalVehicle_Handling_SetTractionCurveMaxRatio SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetTractionCurveMinDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetTractionCurveMinFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetTractionCurveMin", "LocalVehicle_Handling_SetTractionCurveMin SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetTractionCurveMinRatioDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetTractionCurveMinRatioFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetTractionCurveMinRatio", "LocalVehicle_Handling_SetTractionCurveMinRatio SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetTractionLossMultDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetTractionLossMultFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetTractionLossMult", "LocalVehicle_Handling_SetTractionLossMult SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetTractionSpringDeltaMaxDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetTractionSpringDeltaMaxFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetTractionSpringDeltaMax", "LocalVehicle_Handling_SetTractionSpringDeltaMax SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetTractionSpringDeltaMaxRatioDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetTractionSpringDeltaMaxRatioFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetTractionSpringDeltaMaxRatio", "LocalVehicle_Handling_SetTractionSpringDeltaMaxRatio SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetunkFloat1Delegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetunkFloat1Fallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetunkFloat1", "LocalVehicle_Handling_SetunkFloat1 SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetunkFloat2Delegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetunkFloat2Fallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetunkFloat2", "LocalVehicle_Handling_SetunkFloat2 SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetunkFloat4Delegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetunkFloat4Fallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetunkFloat4", "LocalVehicle_Handling_SetunkFloat4 SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetunkFloat5Delegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetunkFloat5Fallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetunkFloat5", "LocalVehicle_Handling_SetunkFloat5 SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_Handling_SetWeaponDamageMultDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_Handling_SetWeaponDamageMultFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_Handling_SetWeaponDamageMult", "LocalVehicle_Handling_SetWeaponDamageMult SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte LocalVehicle_IsEngineOnDelegate(nint _localVehicle);
+        private static byte LocalVehicle_IsEngineOnFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_IsEngineOn", "LocalVehicle_IsEngineOn SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte LocalVehicle_IsHandlingModifiedDelegate(nint _localVehicle);
+        private static byte LocalVehicle_IsHandlingModifiedFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_IsHandlingModified", "LocalVehicle_IsHandlingModified SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte LocalVehicle_IsRemoteDelegate(nint _localVehicle);
         private static byte LocalVehicle_IsRemoteFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_IsRemote", "LocalVehicle_IsRemote SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte LocalVehicle_IsStreamedInDelegate(nint _localVehicle);
         private static byte LocalVehicle_IsStreamedInFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_IsStreamedIn", "LocalVehicle_IsStreamedIn SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte LocalVehicle_IsTaxiLightOnDelegate(nint _localVehicle);
+        private static byte LocalVehicle_IsTaxiLightOnFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_IsTaxiLightOn", "LocalVehicle_IsTaxiLightOn SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte LocalVehicle_IsVisibleDelegate(nint _localVehicle);
+        private static byte LocalVehicle_IsVisibleFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_IsVisible", "LocalVehicle_IsVisible SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_ReplaceHandlingDelegate(nint _localVehicle);
+        private static void LocalVehicle_ReplaceHandlingFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_ReplaceHandling", "LocalVehicle_ReplaceHandling SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_ResetHandlingDelegate(nint _localVehicle);
+        private static void LocalVehicle_ResetHandlingFallback(nint _localVehicle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_ResetHandling", "LocalVehicle_ResetHandling SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_SetCurrentGearDelegate(nint _localVehicle, ushort _currentGear);
+        private static void LocalVehicle_SetCurrentGearFallback(nint _localVehicle, ushort _currentGear) => throw new Exceptions.OutdatedSdkException("LocalVehicle_SetCurrentGear", "LocalVehicle_SetCurrentGear SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_SetCurrentRPMDelegate(nint _localVehicle, float _rpm);
+        private static void LocalVehicle_SetCurrentRPMFallback(nint _localVehicle, float _rpm) => throw new Exceptions.OutdatedSdkException("LocalVehicle_SetCurrentRPM", "LocalVehicle_SetCurrentRPM SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_SetEngineTemperatureDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_SetEngineTemperatureFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_SetEngineTemperature", "LocalVehicle_SetEngineTemperature SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_SetFuelLevelDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_SetFuelLevelFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_SetFuelLevel", "LocalVehicle_SetFuelLevel SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_SetLightsIndicatorDelegate(nint _localVehicle, byte _lightsIndicatorFlag);
+        private static void LocalVehicle_SetLightsIndicatorFallback(nint _localVehicle, byte _lightsIndicatorFlag) => throw new Exceptions.OutdatedSdkException("LocalVehicle_SetLightsIndicator", "LocalVehicle_SetLightsIndicator SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_SetMaxGearDelegate(nint _localVehicle, ushort _gearMax);
+        private static void LocalVehicle_SetMaxGearFallback(nint _localVehicle, ushort _gearMax) => throw new Exceptions.OutdatedSdkException("LocalVehicle_SetMaxGear", "LocalVehicle_SetMaxGear SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_SetOilLevelDelegate(nint _localVehicle, float _value);
+        private static void LocalVehicle_SetOilLevelFallback(nint _localVehicle, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_SetOilLevel", "LocalVehicle_SetOilLevel SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_SetRotationDelegate(nint _localVehicle, Rotation _rot);
+        private static void LocalVehicle_SetRotationFallback(nint _localVehicle, Rotation _rot) => throw new Exceptions.OutdatedSdkException("LocalVehicle_SetRotation", "LocalVehicle_SetRotation SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_SetVisibleDelegate(nint _localVehicle, byte _toggle);
+        private static void LocalVehicle_SetVisibleFallback(nint _localVehicle, byte _toggle) => throw new Exceptions.OutdatedSdkException("LocalVehicle_SetVisible", "LocalVehicle_SetVisible SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_SetWheelCamberDelegate(nint _localVehicle, byte _wheel, float _value);
+        private static void LocalVehicle_SetWheelCamberFallback(nint _localVehicle, byte _wheel, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_SetWheelCamber", "LocalVehicle_SetWheelCamber SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_SetWheelHeightDelegate(nint _localVehicle, byte _wheel, float _value);
+        private static void LocalVehicle_SetWheelHeightFallback(nint _localVehicle, byte _wheel, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_SetWheelHeight", "LocalVehicle_SetWheelHeight SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_SetWheelRimRadiusDelegate(nint _localVehicle, byte _wheel, float _value);
+        private static void LocalVehicle_SetWheelRimRadiusFallback(nint _localVehicle, byte _wheel, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_SetWheelRimRadius", "LocalVehicle_SetWheelRimRadius SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_SetWheelTrackWidthDelegate(nint _localVehicle, byte _wheel, float _value);
+        private static void LocalVehicle_SetWheelTrackWidthFallback(nint _localVehicle, byte _wheel, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_SetWheelTrackWidth", "LocalVehicle_SetWheelTrackWidth SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_SetWheelTyreRadiusDelegate(nint _localVehicle, byte _wheel, float _value);
+        private static void LocalVehicle_SetWheelTyreRadiusFallback(nint _localVehicle, byte _wheel, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_SetWheelTyreRadius", "LocalVehicle_SetWheelTyreRadius SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_SetWheelTyreWidthDelegate(nint _localVehicle, byte _wheel, float _value);
+        private static void LocalVehicle_SetWheelTyreWidthFallback(nint _localVehicle, byte _wheel, float _value) => throw new Exceptions.OutdatedSdkException("LocalVehicle_SetWheelTyreWidth", "LocalVehicle_SetWheelTyreWidth SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_ToggleExtraDelegate(nint _localVehicle, byte _extraID, byte _state);
+        private static void LocalVehicle_ToggleExtraFallback(nint _localVehicle, byte _extraID, byte _state) => throw new Exceptions.OutdatedSdkException("LocalVehicle_ToggleExtra", "LocalVehicle_ToggleExtra SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalVehicle_ToggleTaxiLightDelegate(nint _localVehicle, byte _state);
+        private static void LocalVehicle_ToggleTaxiLightFallback(nint _localVehicle, byte _state) => throw new Exceptions.OutdatedSdkException("LocalVehicle_ToggleTaxiLight", "LocalVehicle_ToggleTaxiLight SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float MapData_GetFScrollSpeedDelegate(uint _id);
         private static float MapData_GetFScrollSpeedFallback(uint _id) => throw new Exceptions.OutdatedSdkException("MapData_GetFScrollSpeed", "MapData_GetFScrollSpeed SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float MapData_GetFZoomScaleDelegate(uint _id);
@@ -2295,10 +3043,14 @@ namespace AltV.Net.CApi.Libraries
         private static uint Marker_GetRemoteIDFallback(nint _marker) => throw new Exceptions.OutdatedSdkException("Marker_GetRemoteID", "Marker_GetRemoteID SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte Marker_IsRemoteDelegate(nint _marker);
         private static byte Marker_IsRemoteFallback(nint _marker) => throw new Exceptions.OutdatedSdkException("Marker_IsRemote", "Marker_IsRemote SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte Marker_IsStreamedInDelegate(nint _marker);
+        private static byte Marker_IsStreamedInFallback(nint _marker) => throw new Exceptions.OutdatedSdkException("Marker_IsStreamedIn", "Marker_IsStreamedIn SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte Object_IsRemoteDelegate(nint _object);
         private static byte Object_IsRemoteFallback(nint _object) => throw new Exceptions.OutdatedSdkException("Object_IsRemote", "Object_IsRemote SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte Object_IsStreamedInDelegate(nint _object);
         private static byte Object_IsStreamedInFallback(nint _object) => throw new Exceptions.OutdatedSdkException("Object_IsStreamedIn", "Object_IsStreamedIn SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte Object_UsesStreamingDelegate(nint _object);
+        private static byte Object_UsesStreamingFallback(nint _object) => throw new Exceptions.OutdatedSdkException("Object_UsesStreaming", "Object_UsesStreaming SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate nint Player_GetLocalDelegate();
         private static nint Player_GetLocalFallback() => throw new Exceptions.OutdatedSdkException("Player_GetLocal", "Player_GetLocal SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float Player_GetMicLevelDelegate(nint _player);
@@ -2992,7 +3744,7 @@ namespace AltV.Net.CApi.Libraries
         public ClientLibrary(Dictionary<ulong, IntPtr> funcTable)
         {
             if (!funcTable.TryGetValue(0, out var capiHash)) Outdated = true;
-            else if (capiHash == IntPtr.Zero || *(ulong*)capiHash != 2348991114702301885UL) Outdated = true;
+            else if (capiHash == IntPtr.Zero || *(ulong*)capiHash != 14817668500749310216UL) Outdated = true;
             Audio_AddOutput_Entity = (delegate* unmanaged[Cdecl]<nint, nint, void>) GetUnmanagedPtr<Audio_AddOutput_EntityDelegate>(funcTable, 9879036518735269522UL, Audio_AddOutput_EntityFallback);
             Audio_AddOutput_ScriptId = (delegate* unmanaged[Cdecl]<nint, uint, void>) GetUnmanagedPtr<Audio_AddOutput_ScriptIdDelegate>(funcTable, 14116998947805478300UL, Audio_AddOutput_ScriptIdFallback);
             Audio_GetBaseObject = (delegate* unmanaged[Cdecl]<nint, nint>) GetUnmanagedPtr<Audio_GetBaseObjectDelegate>(funcTable, 6330360502401226894UL, Audio_GetBaseObjectFallback);
@@ -3052,7 +3804,7 @@ namespace AltV.Net.CApi.Libraries
             Core_CreateHttpClient = (delegate* unmanaged[Cdecl]<nint, nint, uint*, nint>) GetUnmanagedPtr<Core_CreateHttpClientDelegate>(funcTable, 18346481764601280220UL, Core_CreateHttpClientFallback);
             Core_CreateLocalPed = (delegate* unmanaged[Cdecl]<nint, uint, int, Vector3, Rotation, byte, uint, nint, uint*, nint>) GetUnmanagedPtr<Core_CreateLocalPedDelegate>(funcTable, 17592230005859506401UL, Core_CreateLocalPedFallback);
             Core_CreateLocalVehicle = (delegate* unmanaged[Cdecl]<nint, uint, int, Vector3, Rotation, byte, uint, nint, uint*, nint>) GetUnmanagedPtr<Core_CreateLocalVehicleDelegate>(funcTable, 12946643233919435339UL, Core_CreateLocalVehicleFallback);
-            Core_CreateMarker_Client = (delegate* unmanaged[Cdecl]<nint, byte, Vector3, Rgba, nint, uint*, nint>) GetUnmanagedPtr<Core_CreateMarker_ClientDelegate>(funcTable, 3957829277222763273UL, Core_CreateMarker_ClientFallback);
+            Core_CreateMarker_Client = (delegate* unmanaged[Cdecl]<nint, byte, Vector3, Rgba, byte, uint, nint, uint*, nint>) GetUnmanagedPtr<Core_CreateMarker_ClientDelegate>(funcTable, 12170330479058831942UL, Core_CreateMarker_ClientFallback);
             Core_CreateObject = (delegate* unmanaged[Cdecl]<nint, uint, Vector3, Vector3, byte, byte, nint, ushort*, nint>) GetUnmanagedPtr<Core_CreateObjectDelegate>(funcTable, 12959857024542892545UL, Core_CreateObjectFallback);
             Core_CreateRmlDocument = (delegate* unmanaged[Cdecl]<nint, nint, nint, uint*, nint>) GetUnmanagedPtr<Core_CreateRmlDocumentDelegate>(funcTable, 6616548211992387591UL, Core_CreateRmlDocumentFallback);
             Core_CreateTextLabel = (delegate* unmanaged[Cdecl]<nint, nint, nint, float, float, Vector3, Rotation, Rgba, float, Rgba, nint, uint*, nint>) GetUnmanagedPtr<Core_CreateTextLabelDelegate>(funcTable, 13482323824940594004UL, Core_CreateTextLabelFallback);
@@ -3101,6 +3853,7 @@ namespace AltV.Net.CApi.Libraries
             Core_GetTotalPacketsLost = (delegate* unmanaged[Cdecl]<nint, uint>) GetUnmanagedPtr<Core_GetTotalPacketsLostDelegate>(funcTable, 6512224235646012609UL, Core_GetTotalPacketsLostFallback);
             Core_GetTotalPacketsSent = (delegate* unmanaged[Cdecl]<nint, ulong>) GetUnmanagedPtr<Core_GetTotalPacketsSentDelegate>(funcTable, 16154816553672886942UL, Core_GetTotalPacketsSentFallback);
             Core_GetVoiceActivationKey = (delegate* unmanaged[Cdecl]<nint, uint>) GetUnmanagedPtr<Core_GetVoiceActivationKeyDelegate>(funcTable, 2249875648683273533UL, Core_GetVoiceActivationKeyFallback);
+            Core_GetVoiceActivationLevel = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<Core_GetVoiceActivationLevelDelegate>(funcTable, 14311678038566163090UL, Core_GetVoiceActivationLevelFallback);
             Core_GetVoiceInputMuted = (delegate* unmanaged[Cdecl]<nint, byte>) GetUnmanagedPtr<Core_GetVoiceInputMutedDelegate>(funcTable, 14294729290243559040UL, Core_GetVoiceInputMutedFallback);
             Core_GetWebViewCount = (delegate* unmanaged[Cdecl]<nint, ulong>) GetUnmanagedPtr<Core_GetWebViewCountDelegate>(funcTable, 5500487167100623739UL, Core_GetWebViewCountFallback);
             Core_GetWebViews = (delegate* unmanaged[Cdecl]<nint, nint[], ulong, void>) GetUnmanagedPtr<Core_GetWebViewsDelegate>(funcTable, 8710938014357466262UL, Core_GetWebViewsFallback);
@@ -3115,6 +3868,7 @@ namespace AltV.Net.CApi.Libraries
             Core_IsKeyDown = (delegate* unmanaged[Cdecl]<nint, uint, byte>) GetUnmanagedPtr<Core_IsKeyDownDelegate>(funcTable, 95870224445067735UL, Core_IsKeyDownFallback);
             Core_IsKeyToggled = (delegate* unmanaged[Cdecl]<nint, uint, byte>) GetUnmanagedPtr<Core_IsKeyToggledDelegate>(funcTable, 5811391940054436855UL, Core_IsKeyToggledFallback);
             Core_IsMenuOpened = (delegate* unmanaged[Cdecl]<nint, byte>) GetUnmanagedPtr<Core_IsMenuOpenedDelegate>(funcTable, 6801040455860092307UL, Core_IsMenuOpenedFallback);
+            Core_IsNoiseSuppressionEnabled = (delegate* unmanaged[Cdecl]<nint, byte>) GetUnmanagedPtr<Core_IsNoiseSuppressionEnabledDelegate>(funcTable, 3713723746528521201UL, Core_IsNoiseSuppressionEnabledFallback);
             Core_IsPointOnScreen = (delegate* unmanaged[Cdecl]<nint, Vector3, byte>) GetUnmanagedPtr<Core_IsPointOnScreenDelegate>(funcTable, 9053921873104901604UL, Core_IsPointOnScreenFallback);
             Core_IsTextureExistInArchetype = (delegate* unmanaged[Cdecl]<nint, uint, nint, byte>) GetUnmanagedPtr<Core_IsTextureExistInArchetypeDelegate>(funcTable, 5487028108265672799UL, Core_IsTextureExistInArchetypeFallback);
             Core_IsVoiceActivityInputEnabled = (delegate* unmanaged[Cdecl]<nint, byte>) GetUnmanagedPtr<Core_IsVoiceActivityInputEnabledDelegate>(funcTable, 4433142925114007365UL, Core_IsVoiceActivityInputEnabledFallback);
@@ -3150,6 +3904,7 @@ namespace AltV.Net.CApi.Libraries
             Core_SetStatUInt32 = (delegate* unmanaged[Cdecl]<nint, nint, uint, void>) GetUnmanagedPtr<Core_SetStatUInt32Delegate>(funcTable, 12531864998990370835UL, Core_SetStatUInt32Fallback);
             Core_SetStatUInt64 = (delegate* unmanaged[Cdecl]<nint, nint, ulong, void>) GetUnmanagedPtr<Core_SetStatUInt64Delegate>(funcTable, 1883057044483778445UL, Core_SetStatUInt64Fallback);
             Core_SetStatUInt8 = (delegate* unmanaged[Cdecl]<nint, nint, byte, void>) GetUnmanagedPtr<Core_SetStatUInt8Delegate>(funcTable, 15051718600062446893UL, Core_SetStatUInt8Fallback);
+            Core_SetVoiceActivationLevel = (delegate* unmanaged[Cdecl]<nint, float, byte>) GetUnmanagedPtr<Core_SetVoiceActivationLevelDelegate>(funcTable, 6366517826241888414UL, Core_SetVoiceActivationLevelFallback);
             Core_SetVoiceInputMuted = (delegate* unmanaged[Cdecl]<nint, byte, void>) GetUnmanagedPtr<Core_SetVoiceInputMutedDelegate>(funcTable, 7814638701493567231UL, Core_SetVoiceInputMutedFallback);
             Core_SetWatermarkPosition = (delegate* unmanaged[Cdecl]<nint, byte, void>) GetUnmanagedPtr<Core_SetWatermarkPositionDelegate>(funcTable, 7934747004301392615UL, Core_SetWatermarkPositionFallback);
             Core_SetWeatherCycle = (delegate* unmanaged[Cdecl]<nint, byte[], int, byte[], int, void>) GetUnmanagedPtr<Core_SetWeatherCycleDelegate>(funcTable, 16585286735482336540UL, Core_SetWeatherCycleFallback);
@@ -3159,8 +3914,11 @@ namespace AltV.Net.CApi.Libraries
             Core_TakeScreenshot = (delegate* unmanaged[Cdecl]<nint, ClientEvents.ScreenshotResultModuleDelegate, byte>) GetUnmanagedPtr<Core_TakeScreenshotDelegate>(funcTable, 3114386706331256143UL, Core_TakeScreenshotFallback);
             Core_TakeScreenshotGameOnly = (delegate* unmanaged[Cdecl]<nint, ClientEvents.ScreenshotResultModuleDelegate, byte>) GetUnmanagedPtr<Core_TakeScreenshotGameOnlyDelegate>(funcTable, 9005944037868881587UL, Core_TakeScreenshotGameOnlyFallback);
             Core_ToggleGameControls = (delegate* unmanaged[Cdecl]<nint, nint, byte, void>) GetUnmanagedPtr<Core_ToggleGameControlsDelegate>(funcTable, 12189407258528336173UL, Core_ToggleGameControlsFallback);
+            Core_ToggleNoiseSuppression = (delegate* unmanaged[Cdecl]<nint, byte, byte>) GetUnmanagedPtr<Core_ToggleNoiseSuppressionDelegate>(funcTable, 10764582670827141584UL, Core_ToggleNoiseSuppressionFallback);
             Core_ToggleRmlControls = (delegate* unmanaged[Cdecl]<nint, byte, void>) GetUnmanagedPtr<Core_ToggleRmlControlsDelegate>(funcTable, 6777794076841720469UL, Core_ToggleRmlControlsFallback);
+            Core_ToggleVoiceActivation = (delegate* unmanaged[Cdecl]<nint, byte, byte>) GetUnmanagedPtr<Core_ToggleVoiceActivationDelegate>(funcTable, 4058610827769877777UL, Core_ToggleVoiceActivationFallback);
             Core_ToggleVoiceControls = (delegate* unmanaged[Cdecl]<nint, byte, void>) GetUnmanagedPtr<Core_ToggleVoiceControlsDelegate>(funcTable, 9233489201974974422UL, Core_ToggleVoiceControlsFallback);
+            Core_ToggleVoiceInput = (delegate* unmanaged[Cdecl]<nint, byte, byte>) GetUnmanagedPtr<Core_ToggleVoiceInputDelegate>(funcTable, 1817218062913323235UL, Core_ToggleVoiceInputFallback);
             Core_TriggerServerEvent = (delegate* unmanaged[Cdecl]<nint, nint, nint[], int, void>) GetUnmanagedPtr<Core_TriggerServerEventDelegate>(funcTable, 4092140335578989631UL, Core_TriggerServerEventFallback);
             Core_TriggerServerEventUnreliable = (delegate* unmanaged[Cdecl]<nint, nint, nint[], int, void>) GetUnmanagedPtr<Core_TriggerServerEventUnreliableDelegate>(funcTable, 718150788563346996UL, Core_TriggerServerEventUnreliableFallback);
             Core_TriggerWebViewEvent = (delegate* unmanaged[Cdecl]<nint, nint, nint, nint[], int, void>) GetUnmanagedPtr<Core_TriggerWebViewEventDelegate>(funcTable, 3268039739443301173UL, Core_TriggerWebViewEventFallback);
@@ -3375,10 +4133,190 @@ namespace AltV.Net.CApi.Libraries
             LocalStorage_GetKey = (delegate* unmanaged[Cdecl]<nint, nint, nint>) GetUnmanagedPtr<LocalStorage_GetKeyDelegate>(funcTable, 13895693989408516536UL, LocalStorage_GetKeyFallback);
             LocalStorage_Save = (delegate* unmanaged[Cdecl]<nint, void>) GetUnmanagedPtr<LocalStorage_SaveDelegate>(funcTable, 15681738723671545643UL, LocalStorage_SaveFallback);
             LocalStorage_SetKey = (delegate* unmanaged[Cdecl]<nint, nint, nint, void>) GetUnmanagedPtr<LocalStorage_SetKeyDelegate>(funcTable, 9720785834619501975UL, LocalStorage_SetKeyFallback);
+            LocalVehicle_GetCurrentGear = (delegate* unmanaged[Cdecl]<nint, ushort>) GetUnmanagedPtr<LocalVehicle_GetCurrentGearDelegate>(funcTable, 8452883662978726640UL, LocalVehicle_GetCurrentGearFallback);
+            LocalVehicle_GetCurrentRPM = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_GetCurrentRPMDelegate>(funcTable, 15335939708384416044UL, LocalVehicle_GetCurrentRPMFallback);
+            LocalVehicle_GetEngineTemperature = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_GetEngineTemperatureDelegate>(funcTable, 5888971457844954328UL, LocalVehicle_GetEngineTemperatureFallback);
+            LocalVehicle_GetFuelLevel = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_GetFuelLevelDelegate>(funcTable, 449452030650705366UL, LocalVehicle_GetFuelLevelFallback);
+            LocalVehicle_GetID = (delegate* unmanaged[Cdecl]<nint, uint>) GetUnmanagedPtr<LocalVehicle_GetIDDelegate>(funcTable, 15310181097891449037UL, LocalVehicle_GetIDFallback);
+            LocalVehicle_GetLightsIndicator = (delegate* unmanaged[Cdecl]<nint, byte>) GetUnmanagedPtr<LocalVehicle_GetLightsIndicatorDelegate>(funcTable, 1379553689830795503UL, LocalVehicle_GetLightsIndicatorFallback);
+            LocalVehicle_GetLockState = (delegate* unmanaged[Cdecl]<nint, byte>) GetUnmanagedPtr<LocalVehicle_GetLockStateDelegate>(funcTable, 3971919984568823421UL, LocalVehicle_GetLockStateFallback);
+            LocalVehicle_GetMaxGear = (delegate* unmanaged[Cdecl]<nint, ushort>) GetUnmanagedPtr<LocalVehicle_GetMaxGearDelegate>(funcTable, 12835314616412401533UL, LocalVehicle_GetMaxGearFallback);
+            LocalVehicle_GetModel = (delegate* unmanaged[Cdecl]<nint, uint>) GetUnmanagedPtr<LocalVehicle_GetModelDelegate>(funcTable, 160081594087247999UL, LocalVehicle_GetModelFallback);
+            LocalVehicle_GetOccupiedSeatsCount = (delegate* unmanaged[Cdecl]<nint, byte>) GetUnmanagedPtr<LocalVehicle_GetOccupiedSeatsCountDelegate>(funcTable, 4743812942466349822UL, LocalVehicle_GetOccupiedSeatsCountFallback);
+            LocalVehicle_GetOilLevel = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_GetOilLevelDelegate>(funcTable, 18352012880787756588UL, LocalVehicle_GetOilLevelFallback);
+            LocalVehicle_GetPetrolTankHealth = (delegate* unmanaged[Cdecl]<nint, int>) GetUnmanagedPtr<LocalVehicle_GetPetrolTankHealthDelegate>(funcTable, 10999191474939652503UL, LocalVehicle_GetPetrolTankHealthFallback);
             LocalVehicle_GetRemoteID = (delegate* unmanaged[Cdecl]<nint, uint>) GetUnmanagedPtr<LocalVehicle_GetRemoteIDDelegate>(funcTable, 9770939955199624595UL, LocalVehicle_GetRemoteIDFallback);
+            LocalVehicle_GetRotation = (delegate* unmanaged[Cdecl]<nint, Rotation*, void>) GetUnmanagedPtr<LocalVehicle_GetRotationDelegate>(funcTable, 2657994951810607982UL, LocalVehicle_GetRotationFallback);
             LocalVehicle_GetScriptID = (delegate* unmanaged[Cdecl]<nint, uint>) GetUnmanagedPtr<LocalVehicle_GetScriptIDDelegate>(funcTable, 1209681771302240080UL, LocalVehicle_GetScriptIDFallback);
+            LocalVehicle_GetSeatCount = (delegate* unmanaged[Cdecl]<nint, byte>) GetUnmanagedPtr<LocalVehicle_GetSeatCountDelegate>(funcTable, 3117895475234468245UL, LocalVehicle_GetSeatCountFallback);
+            LocalVehicle_GetSpeedVector = (delegate* unmanaged[Cdecl]<nint, Vector3*, void>) GetUnmanagedPtr<LocalVehicle_GetSpeedVectorDelegate>(funcTable, 11705634828653519248UL, LocalVehicle_GetSpeedVectorFallback);
+            LocalVehicle_GetStreamingDistance = (delegate* unmanaged[Cdecl]<nint, uint>) GetUnmanagedPtr<LocalVehicle_GetStreamingDistanceDelegate>(funcTable, 2095032898040775753UL, LocalVehicle_GetStreamingDistanceFallback);
+            LocalVehicle_GetWheelCamber = (delegate* unmanaged[Cdecl]<nint, byte, float>) GetUnmanagedPtr<LocalVehicle_GetWheelCamberDelegate>(funcTable, 6589208687537712859UL, LocalVehicle_GetWheelCamberFallback);
+            LocalVehicle_GetWheelHeight = (delegate* unmanaged[Cdecl]<nint, byte, float>) GetUnmanagedPtr<LocalVehicle_GetWheelHeightDelegate>(funcTable, 10801028923392487632UL, LocalVehicle_GetWheelHeightFallback);
+            LocalVehicle_GetWheelRimRadius = (delegate* unmanaged[Cdecl]<nint, byte, float>) GetUnmanagedPtr<LocalVehicle_GetWheelRimRadiusDelegate>(funcTable, 12908304584934489633UL, LocalVehicle_GetWheelRimRadiusFallback);
+            LocalVehicle_GetWheelsCount = (delegate* unmanaged[Cdecl]<nint, byte>) GetUnmanagedPtr<LocalVehicle_GetWheelsCountDelegate>(funcTable, 13968303016993833870UL, LocalVehicle_GetWheelsCountFallback);
+            LocalVehicle_GetWheelSpeed = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_GetWheelSpeedDelegate>(funcTable, 11092194675003473632UL, LocalVehicle_GetWheelSpeedFallback);
+            LocalVehicle_GetWheelSurfaceMaterial = (delegate* unmanaged[Cdecl]<nint, byte, uint>) GetUnmanagedPtr<LocalVehicle_GetWheelSurfaceMaterialDelegate>(funcTable, 15538374827467112575UL, LocalVehicle_GetWheelSurfaceMaterialFallback);
+            LocalVehicle_GetWheelTrackWidth = (delegate* unmanaged[Cdecl]<nint, byte, float>) GetUnmanagedPtr<LocalVehicle_GetWheelTrackWidthDelegate>(funcTable, 9395358696175261970UL, LocalVehicle_GetWheelTrackWidthFallback);
+            LocalVehicle_GetWheelTyreRadius = (delegate* unmanaged[Cdecl]<nint, byte, float>) GetUnmanagedPtr<LocalVehicle_GetWheelTyreRadiusDelegate>(funcTable, 7049496778528532163UL, LocalVehicle_GetWheelTyreRadiusFallback);
+            LocalVehicle_GetWheelTyreWidth = (delegate* unmanaged[Cdecl]<nint, byte, float>) GetUnmanagedPtr<LocalVehicle_GetWheelTyreWidthDelegate>(funcTable, 12731732325648034913UL, LocalVehicle_GetWheelTyreWidthFallback);
+            LocalVehicle_GetWorldObject = (delegate* unmanaged[Cdecl]<nint, nint>) GetUnmanagedPtr<LocalVehicle_GetWorldObjectDelegate>(funcTable, 15118259396969878098UL, LocalVehicle_GetWorldObjectFallback);
+            LocalVehicle_Handling_GetAcceleration = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetAccelerationDelegate>(funcTable, 15880042796232137314UL, LocalVehicle_Handling_GetAccelerationFallback);
+            LocalVehicle_Handling_GetAntiRollBarBiasFront = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetAntiRollBarBiasFrontDelegate>(funcTable, 5349176651870492662UL, LocalVehicle_Handling_GetAntiRollBarBiasFrontFallback);
+            LocalVehicle_Handling_GetAntiRollBarBiasRear = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetAntiRollBarBiasRearDelegate>(funcTable, 18031100659964550615UL, LocalVehicle_Handling_GetAntiRollBarBiasRearFallback);
+            LocalVehicle_Handling_GetAntiRollBarForce = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetAntiRollBarForceDelegate>(funcTable, 7944896799477314853UL, LocalVehicle_Handling_GetAntiRollBarForceFallback);
+            LocalVehicle_Handling_GetBrakeBiasFront = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetBrakeBiasFrontDelegate>(funcTable, 1545264149184828159UL, LocalVehicle_Handling_GetBrakeBiasFrontFallback);
+            LocalVehicle_Handling_GetBrakeBiasRear = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetBrakeBiasRearDelegate>(funcTable, 2620951604620038264UL, LocalVehicle_Handling_GetBrakeBiasRearFallback);
+            LocalVehicle_Handling_GetBrakeForce = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetBrakeForceDelegate>(funcTable, 391084265936215060UL, LocalVehicle_Handling_GetBrakeForceFallback);
+            LocalVehicle_Handling_GetCamberStiffness = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetCamberStiffnessDelegate>(funcTable, 273757638336270973UL, LocalVehicle_Handling_GetCamberStiffnessFallback);
+            LocalVehicle_Handling_GetCentreOfMassOffset = (delegate* unmanaged[Cdecl]<nint, Vector3*, void>) GetUnmanagedPtr<LocalVehicle_Handling_GetCentreOfMassOffsetDelegate>(funcTable, 5998146510962137703UL, LocalVehicle_Handling_GetCentreOfMassOffsetFallback);
+            LocalVehicle_Handling_GetClutchChangeRateScaleDownShift = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetClutchChangeRateScaleDownShiftDelegate>(funcTable, 81424599458468127UL, LocalVehicle_Handling_GetClutchChangeRateScaleDownShiftFallback);
+            LocalVehicle_Handling_GetClutchChangeRateScaleUpShift = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetClutchChangeRateScaleUpShiftDelegate>(funcTable, 5280259797220640484UL, LocalVehicle_Handling_GetClutchChangeRateScaleUpShiftFallback);
+            LocalVehicle_Handling_GetCollisionDamageMult = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetCollisionDamageMultDelegate>(funcTable, 5723972387189187755UL, LocalVehicle_Handling_GetCollisionDamageMultFallback);
+            LocalVehicle_Handling_GetDamageFlags = (delegate* unmanaged[Cdecl]<nint, uint>) GetUnmanagedPtr<LocalVehicle_Handling_GetDamageFlagsDelegate>(funcTable, 6176040579539381808UL, LocalVehicle_Handling_GetDamageFlagsFallback);
+            LocalVehicle_Handling_GetDeformationDamageMult = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetDeformationDamageMultDelegate>(funcTable, 4573532438619471973UL, LocalVehicle_Handling_GetDeformationDamageMultFallback);
+            LocalVehicle_Handling_GetDownforceModifier = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetDownforceModifierDelegate>(funcTable, 4924674575834525370UL, LocalVehicle_Handling_GetDownforceModifierFallback);
+            LocalVehicle_Handling_GetDriveBiasFront = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetDriveBiasFrontDelegate>(funcTable, 5207343499506334354UL, LocalVehicle_Handling_GetDriveBiasFrontFallback);
+            LocalVehicle_Handling_GetDriveInertia = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetDriveInertiaDelegate>(funcTable, 3783412632788587916UL, LocalVehicle_Handling_GetDriveInertiaFallback);
+            LocalVehicle_Handling_GetDriveMaxFlatVel = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetDriveMaxFlatVelDelegate>(funcTable, 11426024831117637276UL, LocalVehicle_Handling_GetDriveMaxFlatVelFallback);
+            LocalVehicle_Handling_GetEngineDamageMult = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetEngineDamageMultDelegate>(funcTable, 707166267209013411UL, LocalVehicle_Handling_GetEngineDamageMultFallback);
+            LocalVehicle_Handling_GetHandBrakeForce = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetHandBrakeForceDelegate>(funcTable, 17036644397336826957UL, LocalVehicle_Handling_GetHandBrakeForceFallback);
+            LocalVehicle_Handling_GetHandlingFlags = (delegate* unmanaged[Cdecl]<nint, uint>) GetUnmanagedPtr<LocalVehicle_Handling_GetHandlingFlagsDelegate>(funcTable, 10884240504647958548UL, LocalVehicle_Handling_GetHandlingFlagsFallback);
+            LocalVehicle_Handling_GetHandlingNameHash = (delegate* unmanaged[Cdecl]<nint, uint>) GetUnmanagedPtr<LocalVehicle_Handling_GetHandlingNameHashDelegate>(funcTable, 7205669747893559204UL, LocalVehicle_Handling_GetHandlingNameHashFallback);
+            LocalVehicle_Handling_GetInertiaMultiplier = (delegate* unmanaged[Cdecl]<nint, Vector3*, void>) GetUnmanagedPtr<LocalVehicle_Handling_GetInertiaMultiplierDelegate>(funcTable, 13886160169029521129UL, LocalVehicle_Handling_GetInertiaMultiplierFallback);
+            LocalVehicle_Handling_GetInitialDragCoeff = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetInitialDragCoeffDelegate>(funcTable, 3049777617608073897UL, LocalVehicle_Handling_GetInitialDragCoeffFallback);
+            LocalVehicle_Handling_GetInitialDriveForce = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetInitialDriveForceDelegate>(funcTable, 14979957825200395131UL, LocalVehicle_Handling_GetInitialDriveForceFallback);
+            LocalVehicle_Handling_GetInitialDriveGears = (delegate* unmanaged[Cdecl]<nint, uint>) GetUnmanagedPtr<LocalVehicle_Handling_GetInitialDriveGearsDelegate>(funcTable, 1046196354816252488UL, LocalVehicle_Handling_GetInitialDriveGearsFallback);
+            LocalVehicle_Handling_GetInitialDriveMaxFlatVel = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetInitialDriveMaxFlatVelDelegate>(funcTable, 8482423841436722090UL, LocalVehicle_Handling_GetInitialDriveMaxFlatVelFallback);
+            LocalVehicle_Handling_GetLowSpeedTractionLossMult = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetLowSpeedTractionLossMultDelegate>(funcTable, 10356773664411933774UL, LocalVehicle_Handling_GetLowSpeedTractionLossMultFallback);
+            LocalVehicle_Handling_GetMass = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetMassDelegate>(funcTable, 11814084189292186962UL, LocalVehicle_Handling_GetMassFallback);
+            LocalVehicle_Handling_GetModelFlags = (delegate* unmanaged[Cdecl]<nint, uint>) GetUnmanagedPtr<LocalVehicle_Handling_GetModelFlagsDelegate>(funcTable, 2100142723924784222UL, LocalVehicle_Handling_GetModelFlagsFallback);
+            LocalVehicle_Handling_GetMonetaryValue = (delegate* unmanaged[Cdecl]<nint, uint>) GetUnmanagedPtr<LocalVehicle_Handling_GetMonetaryValueDelegate>(funcTable, 8855740660513486068UL, LocalVehicle_Handling_GetMonetaryValueFallback);
+            LocalVehicle_Handling_GetOilVolume = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetOilVolumeDelegate>(funcTable, 5877093883751676054UL, LocalVehicle_Handling_GetOilVolumeFallback);
+            LocalVehicle_Handling_GetPercentSubmerged = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetPercentSubmergedDelegate>(funcTable, 17918935038221927535UL, LocalVehicle_Handling_GetPercentSubmergedFallback);
+            LocalVehicle_Handling_GetPercentSubmergedRatio = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetPercentSubmergedRatioDelegate>(funcTable, 6158210876436056184UL, LocalVehicle_Handling_GetPercentSubmergedRatioFallback);
+            LocalVehicle_Handling_GetPetrolTankVolume = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetPetrolTankVolumeDelegate>(funcTable, 3624077696579673086UL, LocalVehicle_Handling_GetPetrolTankVolumeFallback);
+            LocalVehicle_Handling_GetRollCentreHeightFront = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetRollCentreHeightFrontDelegate>(funcTable, 6558558862947353386UL, LocalVehicle_Handling_GetRollCentreHeightFrontFallback);
+            LocalVehicle_Handling_GetRollCentreHeightRear = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetRollCentreHeightRearDelegate>(funcTable, 14887466919256252315UL, LocalVehicle_Handling_GetRollCentreHeightRearFallback);
+            LocalVehicle_Handling_GetSeatOffsetDistX = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetSeatOffsetDistXDelegate>(funcTable, 7077716722590250598UL, LocalVehicle_Handling_GetSeatOffsetDistXFallback);
+            LocalVehicle_Handling_GetSeatOffsetDistY = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetSeatOffsetDistYDelegate>(funcTable, 12680497743827054425UL, LocalVehicle_Handling_GetSeatOffsetDistYFallback);
+            LocalVehicle_Handling_GetSeatOffsetDistZ = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetSeatOffsetDistZDelegate>(funcTable, 4444593889846189632UL, LocalVehicle_Handling_GetSeatOffsetDistZFallback);
+            LocalVehicle_Handling_GetSteeringLock = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetSteeringLockDelegate>(funcTable, 9740324040150937786UL, LocalVehicle_Handling_GetSteeringLockFallback);
+            LocalVehicle_Handling_GetSteeringLockRatio = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetSteeringLockRatioDelegate>(funcTable, 13230489493635068855UL, LocalVehicle_Handling_GetSteeringLockRatioFallback);
+            LocalVehicle_Handling_GetSuspensionBiasFront = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetSuspensionBiasFrontDelegate>(funcTable, 11856691330264971051UL, LocalVehicle_Handling_GetSuspensionBiasFrontFallback);
+            LocalVehicle_Handling_GetSuspensionBiasRear = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetSuspensionBiasRearDelegate>(funcTable, 4495224218848750916UL, LocalVehicle_Handling_GetSuspensionBiasRearFallback);
+            LocalVehicle_Handling_GetSuspensionCompDamp = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetSuspensionCompDampDelegate>(funcTable, 4947643785655257298UL, LocalVehicle_Handling_GetSuspensionCompDampFallback);
+            LocalVehicle_Handling_GetSuspensionForce = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetSuspensionForceDelegate>(funcTable, 14728327281319583256UL, LocalVehicle_Handling_GetSuspensionForceFallback);
+            LocalVehicle_Handling_GetSuspensionLowerLimit = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetSuspensionLowerLimitDelegate>(funcTable, 12126349770407359247UL, LocalVehicle_Handling_GetSuspensionLowerLimitFallback);
+            LocalVehicle_Handling_GetSuspensionRaise = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetSuspensionRaiseDelegate>(funcTable, 9482855496968222995UL, LocalVehicle_Handling_GetSuspensionRaiseFallback);
+            LocalVehicle_Handling_GetSuspensionReboundDamp = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetSuspensionReboundDampDelegate>(funcTable, 5387834803887781046UL, LocalVehicle_Handling_GetSuspensionReboundDampFallback);
+            LocalVehicle_Handling_GetSuspensionUpperLimit = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetSuspensionUpperLimitDelegate>(funcTable, 15142236104149766500UL, LocalVehicle_Handling_GetSuspensionUpperLimitFallback);
+            LocalVehicle_Handling_GetTractionBiasFront = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetTractionBiasFrontDelegate>(funcTable, 15668947073120176032UL, LocalVehicle_Handling_GetTractionBiasFrontFallback);
+            LocalVehicle_Handling_GetTractionBiasRear = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetTractionBiasRearDelegate>(funcTable, 15372402374961940349UL, LocalVehicle_Handling_GetTractionBiasRearFallback);
+            LocalVehicle_Handling_GetTractionCurveLateral = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetTractionCurveLateralDelegate>(funcTable, 6697267077541094804UL, LocalVehicle_Handling_GetTractionCurveLateralFallback);
+            LocalVehicle_Handling_GetTractionCurveLateralRatio = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetTractionCurveLateralRatioDelegate>(funcTable, 1882288650400576085UL, LocalVehicle_Handling_GetTractionCurveLateralRatioFallback);
+            LocalVehicle_Handling_GetTractionCurveMax = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetTractionCurveMaxDelegate>(funcTable, 5107443789108859537UL, LocalVehicle_Handling_GetTractionCurveMaxFallback);
+            LocalVehicle_Handling_GetTractionCurveMaxRatio = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetTractionCurveMaxRatioDelegate>(funcTable, 14749912380023719134UL, LocalVehicle_Handling_GetTractionCurveMaxRatioFallback);
+            LocalVehicle_Handling_GetTractionCurveMin = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetTractionCurveMinDelegate>(funcTable, 14029412456426877039UL, LocalVehicle_Handling_GetTractionCurveMinFallback);
+            LocalVehicle_Handling_GetTractionCurveMinRatio = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetTractionCurveMinRatioDelegate>(funcTable, 9266491612982692984UL, LocalVehicle_Handling_GetTractionCurveMinRatioFallback);
+            LocalVehicle_Handling_GetTractionLossMult = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetTractionLossMultDelegate>(funcTable, 17009136745049616459UL, LocalVehicle_Handling_GetTractionLossMultFallback);
+            LocalVehicle_Handling_GetTractionSpringDeltaMax = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetTractionSpringDeltaMaxDelegate>(funcTable, 17404947474089746859UL, LocalVehicle_Handling_GetTractionSpringDeltaMaxFallback);
+            LocalVehicle_Handling_GetTractionSpringDeltaMaxRatio = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetTractionSpringDeltaMaxRatioDelegate>(funcTable, 5756854833642557148UL, LocalVehicle_Handling_GetTractionSpringDeltaMaxRatioFallback);
+            LocalVehicle_Handling_GetunkFloat1 = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetunkFloat1Delegate>(funcTable, 8885914367691802269UL, LocalVehicle_Handling_GetunkFloat1Fallback);
+            LocalVehicle_Handling_GetunkFloat2 = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetunkFloat2Delegate>(funcTable, 14886667332710273332UL, LocalVehicle_Handling_GetunkFloat2Fallback);
+            LocalVehicle_Handling_GetunkFloat4 = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetunkFloat4Delegate>(funcTable, 1830144444419000358UL, LocalVehicle_Handling_GetunkFloat4Fallback);
+            LocalVehicle_Handling_GetunkFloat5 = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetunkFloat5Delegate>(funcTable, 16142755677644798233UL, LocalVehicle_Handling_GetunkFloat5Fallback);
+            LocalVehicle_Handling_GetWeaponDamageMult = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<LocalVehicle_Handling_GetWeaponDamageMultDelegate>(funcTable, 1041858048908997865UL, LocalVehicle_Handling_GetWeaponDamageMultFallback);
+            LocalVehicle_Handling_SetAcceleration = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetAccelerationDelegate>(funcTable, 13689266806627386081UL, LocalVehicle_Handling_SetAccelerationFallback);
+            LocalVehicle_Handling_SetAntiRollBarBiasFront = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetAntiRollBarBiasFrontDelegate>(funcTable, 2883656629747868669UL, LocalVehicle_Handling_SetAntiRollBarBiasFrontFallback);
+            LocalVehicle_Handling_SetAntiRollBarBiasRear = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetAntiRollBarBiasRearDelegate>(funcTable, 13540857003119726170UL, LocalVehicle_Handling_SetAntiRollBarBiasRearFallback);
+            LocalVehicle_Handling_SetAntiRollBarForce = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetAntiRollBarForceDelegate>(funcTable, 14688303535736820672UL, LocalVehicle_Handling_SetAntiRollBarForceFallback);
+            LocalVehicle_Handling_SetBrakeBiasFront = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetBrakeBiasFrontDelegate>(funcTable, 3613980069255646610UL, LocalVehicle_Handling_SetBrakeBiasFrontFallback);
+            LocalVehicle_Handling_SetBrakeBiasRear = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetBrakeBiasRearDelegate>(funcTable, 6773034517589921279UL, LocalVehicle_Handling_SetBrakeBiasRearFallback);
+            LocalVehicle_Handling_SetBrakeForce = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetBrakeForceDelegate>(funcTable, 18389831904212663827UL, LocalVehicle_Handling_SetBrakeForceFallback);
+            LocalVehicle_Handling_SetCamberStiffness = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetCamberStiffnessDelegate>(funcTable, 4755710279048370408UL, LocalVehicle_Handling_SetCamberStiffnessFallback);
+            LocalVehicle_Handling_SetCentreOfMassOffset = (delegate* unmanaged[Cdecl]<nint, Vector3, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetCentreOfMassOffsetDelegate>(funcTable, 15328745478123430521UL, LocalVehicle_Handling_SetCentreOfMassOffsetFallback);
+            LocalVehicle_Handling_SetClutchChangeRateScaleDownShift = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetClutchChangeRateScaleDownShiftDelegate>(funcTable, 14553275644517406298UL, LocalVehicle_Handling_SetClutchChangeRateScaleDownShiftFallback);
+            LocalVehicle_Handling_SetClutchChangeRateScaleUpShift = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetClutchChangeRateScaleUpShiftDelegate>(funcTable, 18014630021729425835UL, LocalVehicle_Handling_SetClutchChangeRateScaleUpShiftFallback);
+            LocalVehicle_Handling_SetCollisionDamageMult = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetCollisionDamageMultDelegate>(funcTable, 11601607487483115142UL, LocalVehicle_Handling_SetCollisionDamageMultFallback);
+            LocalVehicle_Handling_SetDamageFlags = (delegate* unmanaged[Cdecl]<nint, uint, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetDamageFlagsDelegate>(funcTable, 11386396117427810143UL, LocalVehicle_Handling_SetDamageFlagsFallback);
+            LocalVehicle_Handling_SetDeformationDamageMult = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetDeformationDamageMultDelegate>(funcTable, 13629621765310458696UL, LocalVehicle_Handling_SetDeformationDamageMultFallback);
+            LocalVehicle_Handling_SetDownforceModifier = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetDownforceModifierDelegate>(funcTable, 2935885984094779441UL, LocalVehicle_Handling_SetDownforceModifierFallback);
+            LocalVehicle_Handling_SetDriveBiasFront = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetDriveBiasFrontDelegate>(funcTable, 12039912894165134889UL, LocalVehicle_Handling_SetDriveBiasFrontFallback);
+            LocalVehicle_Handling_SetDriveInertia = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetDriveInertiaDelegate>(funcTable, 17343269970101605771UL, LocalVehicle_Handling_SetDriveInertiaFallback);
+            LocalVehicle_Handling_SetDriveMaxFlatVel = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetDriveMaxFlatVelDelegate>(funcTable, 2110866681291433859UL, LocalVehicle_Handling_SetDriveMaxFlatVelFallback);
+            LocalVehicle_Handling_SetEngineDamageMult = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetEngineDamageMultDelegate>(funcTable, 13319825028714195398UL, LocalVehicle_Handling_SetEngineDamageMultFallback);
+            LocalVehicle_Handling_SetHandBrakeForce = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetHandBrakeForceDelegate>(funcTable, 4558214041746626200UL, LocalVehicle_Handling_SetHandBrakeForceFallback);
+            LocalVehicle_Handling_SetHandlingFlags = (delegate* unmanaged[Cdecl]<nint, uint, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetHandlingFlagsDelegate>(funcTable, 11330009084777042091UL, LocalVehicle_Handling_SetHandlingFlagsFallback);
+            LocalVehicle_Handling_SetInertiaMultiplier = (delegate* unmanaged[Cdecl]<nint, Vector3, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetInertiaMultiplierDelegate>(funcTable, 14849966324317092019UL, LocalVehicle_Handling_SetInertiaMultiplierFallback);
+            LocalVehicle_Handling_SetInitialDragCoeff = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetInitialDragCoeffDelegate>(funcTable, 14006992251325222044UL, LocalVehicle_Handling_SetInitialDragCoeffFallback);
+            LocalVehicle_Handling_SetInitialDriveForce = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetInitialDriveForceDelegate>(funcTable, 11542556162776427574UL, LocalVehicle_Handling_SetInitialDriveForceFallback);
+            LocalVehicle_Handling_SetInitialDriveGears = (delegate* unmanaged[Cdecl]<nint, uint, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetInitialDriveGearsDelegate>(funcTable, 7534603412071822175UL, LocalVehicle_Handling_SetInitialDriveGearsFallback);
+            LocalVehicle_Handling_SetInitialDriveMaxFlatVel = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetInitialDriveMaxFlatVelDelegate>(funcTable, 17572998168150049905UL, LocalVehicle_Handling_SetInitialDriveMaxFlatVelFallback);
+            LocalVehicle_Handling_SetLowSpeedTractionLossMult = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetLowSpeedTractionLossMultDelegate>(funcTable, 7208610277066269181UL, LocalVehicle_Handling_SetLowSpeedTractionLossMultFallback);
+            LocalVehicle_Handling_SetMass = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetMassDelegate>(funcTable, 3820220368973752265UL, LocalVehicle_Handling_SetMassFallback);
+            LocalVehicle_Handling_SetModelFlags = (delegate* unmanaged[Cdecl]<nint, uint, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetModelFlagsDelegate>(funcTable, 9151656358353012029UL, LocalVehicle_Handling_SetModelFlagsFallback);
+            LocalVehicle_Handling_SetMonetaryValue = (delegate* unmanaged[Cdecl]<nint, uint, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetMonetaryValueDelegate>(funcTable, 7993243566019512067UL, LocalVehicle_Handling_SetMonetaryValueFallback);
+            LocalVehicle_Handling_SetOilVolume = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetOilVolumeDelegate>(funcTable, 6806625545189052909UL, LocalVehicle_Handling_SetOilVolumeFallback);
+            LocalVehicle_Handling_SetPercentSubmerged = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetPercentSubmergedDelegate>(funcTable, 8214457464305480138UL, LocalVehicle_Handling_SetPercentSubmergedFallback);
+            LocalVehicle_Handling_SetPercentSubmergedRatio = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetPercentSubmergedRatioDelegate>(funcTable, 17883713245303075967UL, LocalVehicle_Handling_SetPercentSubmergedRatioFallback);
+            LocalVehicle_Handling_SetPetrolTankVolume = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetPetrolTankVolumeDelegate>(funcTable, 6966607082499213325UL, LocalVehicle_Handling_SetPetrolTankVolumeFallback);
+            LocalVehicle_Handling_SetRollCentreHeightFront = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetRollCentreHeightFrontDelegate>(funcTable, 6681518274776047761UL, LocalVehicle_Handling_SetRollCentreHeightFrontFallback);
+            LocalVehicle_Handling_SetRollCentreHeightRear = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetRollCentreHeightRearDelegate>(funcTable, 13856964190471144862UL, LocalVehicle_Handling_SetRollCentreHeightRearFallback);
+            LocalVehicle_Handling_SetSeatOffsetDistX = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetSeatOffsetDistXDelegate>(funcTable, 5372240089745568773UL, LocalVehicle_Handling_SetSeatOffsetDistXFallback);
+            LocalVehicle_Handling_SetSeatOffsetDistY = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetSeatOffsetDistYDelegate>(funcTable, 12963810923427754612UL, LocalVehicle_Handling_SetSeatOffsetDistYFallback);
+            LocalVehicle_Handling_SetSeatOffsetDistZ = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetSeatOffsetDistZDelegate>(funcTable, 12776170319266162287UL, LocalVehicle_Handling_SetSeatOffsetDistZFallback);
+            LocalVehicle_Handling_SetSteeringLock = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetSteeringLockDelegate>(funcTable, 7293191930123792513UL, LocalVehicle_Handling_SetSteeringLockFallback);
+            LocalVehicle_Handling_SetSteeringLockRatio = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetSteeringLockRatioDelegate>(funcTable, 12732427454483430594UL, LocalVehicle_Handling_SetSteeringLockRatioFallback);
+            LocalVehicle_Handling_SetSuspensionBiasFront = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetSuspensionBiasFrontDelegate>(funcTable, 10676265203153653078UL, LocalVehicle_Handling_SetSuspensionBiasFrontFallback);
+            LocalVehicle_Handling_SetSuspensionBiasRear = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetSuspensionBiasRearDelegate>(funcTable, 13979928219257087155UL, LocalVehicle_Handling_SetSuspensionBiasRearFallback);
+            LocalVehicle_Handling_SetSuspensionCompDamp = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetSuspensionCompDampDelegate>(funcTable, 18323541714464770873UL, LocalVehicle_Handling_SetSuspensionCompDampFallback);
+            LocalVehicle_Handling_SetSuspensionForce = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetSuspensionForceDelegate>(funcTable, 9220826512173918895UL, LocalVehicle_Handling_SetSuspensionForceFallback);
+            LocalVehicle_Handling_SetSuspensionLowerLimit = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetSuspensionLowerLimitDelegate>(funcTable, 2537599513759590634UL, LocalVehicle_Handling_SetSuspensionLowerLimitFallback);
+            LocalVehicle_Handling_SetSuspensionRaise = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetSuspensionRaiseDelegate>(funcTable, 1587683480260562470UL, LocalVehicle_Handling_SetSuspensionRaiseFallback);
+            LocalVehicle_Handling_SetSuspensionReboundDamp = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetSuspensionReboundDampDelegate>(funcTable, 14579438972451734445UL, LocalVehicle_Handling_SetSuspensionReboundDampFallback);
+            LocalVehicle_Handling_SetSuspensionUpperLimit = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetSuspensionUpperLimitDelegate>(funcTable, 13964708777244032211UL, LocalVehicle_Handling_SetSuspensionUpperLimitFallback);
+            LocalVehicle_Handling_SetTractionBiasFront = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetTractionBiasFrontDelegate>(funcTable, 12878916834500215335UL, LocalVehicle_Handling_SetTractionBiasFrontFallback);
+            LocalVehicle_Handling_SetTractionBiasRear = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetTractionBiasRearDelegate>(funcTable, 12927926255606600752UL, LocalVehicle_Handling_SetTractionBiasRearFallback);
+            LocalVehicle_Handling_SetTractionCurveLateral = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetTractionCurveLateralDelegate>(funcTable, 6467613252916565259UL, LocalVehicle_Handling_SetTractionCurveLateralFallback);
+            LocalVehicle_Handling_SetTractionCurveLateralRatio = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetTractionCurveLateralRatioDelegate>(funcTable, 7874449794955637312UL, LocalVehicle_Handling_SetTractionCurveLateralRatioFallback);
+            LocalVehicle_Handling_SetTractionCurveMax = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetTractionCurveMaxDelegate>(funcTable, 5143215646583271164UL, LocalVehicle_Handling_SetTractionCurveMaxFallback);
+            LocalVehicle_Handling_SetTractionCurveMaxRatio = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetTractionCurveMaxRatioDelegate>(funcTable, 9190529363364692789UL, LocalVehicle_Handling_SetTractionCurveMaxRatioFallback);
+            LocalVehicle_Handling_SetTractionCurveMin = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetTractionCurveMinDelegate>(funcTable, 9267126664193587170UL, LocalVehicle_Handling_SetTractionCurveMinFallback);
+            LocalVehicle_Handling_SetTractionCurveMinRatio = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetTractionCurveMinRatioDelegate>(funcTable, 12019387543388592071UL, LocalVehicle_Handling_SetTractionCurveMinRatioFallback);
+            LocalVehicle_Handling_SetTractionLossMult = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetTractionLossMultDelegate>(funcTable, 8272721262200818310UL, LocalVehicle_Handling_SetTractionLossMultFallback);
+            LocalVehicle_Handling_SetTractionSpringDeltaMax = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetTractionSpringDeltaMaxDelegate>(funcTable, 10200236811001507902UL, LocalVehicle_Handling_SetTractionSpringDeltaMaxFallback);
+            LocalVehicle_Handling_SetTractionSpringDeltaMaxRatio = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetTractionSpringDeltaMaxRatioDelegate>(funcTable, 15885482932577730555UL, LocalVehicle_Handling_SetTractionSpringDeltaMaxRatioFallback);
+            LocalVehicle_Handling_SetunkFloat1 = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetunkFloat1Delegate>(funcTable, 13498317843432184352UL, LocalVehicle_Handling_SetunkFloat1Fallback);
+            LocalVehicle_Handling_SetunkFloat2 = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetunkFloat2Delegate>(funcTable, 7861853458906260571UL, LocalVehicle_Handling_SetunkFloat2Fallback);
+            LocalVehicle_Handling_SetunkFloat4 = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetunkFloat4Delegate>(funcTable, 4361280996764647253UL, LocalVehicle_Handling_SetunkFloat4Fallback);
+            LocalVehicle_Handling_SetunkFloat5 = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetunkFloat5Delegate>(funcTable, 18108751619447950980UL, LocalVehicle_Handling_SetunkFloat5Fallback);
+            LocalVehicle_Handling_SetWeaponDamageMult = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_Handling_SetWeaponDamageMultDelegate>(funcTable, 13766405815923632740UL, LocalVehicle_Handling_SetWeaponDamageMultFallback);
+            LocalVehicle_IsEngineOn = (delegate* unmanaged[Cdecl]<nint, byte>) GetUnmanagedPtr<LocalVehicle_IsEngineOnDelegate>(funcTable, 11130320239171924342UL, LocalVehicle_IsEngineOnFallback);
+            LocalVehicle_IsHandlingModified = (delegate* unmanaged[Cdecl]<nint, byte>) GetUnmanagedPtr<LocalVehicle_IsHandlingModifiedDelegate>(funcTable, 10307387704219033391UL, LocalVehicle_IsHandlingModifiedFallback);
             LocalVehicle_IsRemote = (delegate* unmanaged[Cdecl]<nint, byte>) GetUnmanagedPtr<LocalVehicle_IsRemoteDelegate>(funcTable, 13777437884824800799UL, LocalVehicle_IsRemoteFallback);
             LocalVehicle_IsStreamedIn = (delegate* unmanaged[Cdecl]<nint, byte>) GetUnmanagedPtr<LocalVehicle_IsStreamedInDelegate>(funcTable, 15389369330489891823UL, LocalVehicle_IsStreamedInFallback);
+            LocalVehicle_IsTaxiLightOn = (delegate* unmanaged[Cdecl]<nint, byte>) GetUnmanagedPtr<LocalVehicle_IsTaxiLightOnDelegate>(funcTable, 11428595380292042846UL, LocalVehicle_IsTaxiLightOnFallback);
+            LocalVehicle_IsVisible = (delegate* unmanaged[Cdecl]<nint, byte>) GetUnmanagedPtr<LocalVehicle_IsVisibleDelegate>(funcTable, 14953680556543513209UL, LocalVehicle_IsVisibleFallback);
+            LocalVehicle_ReplaceHandling = (delegate* unmanaged[Cdecl]<nint, void>) GetUnmanagedPtr<LocalVehicle_ReplaceHandlingDelegate>(funcTable, 10747997385195215489UL, LocalVehicle_ReplaceHandlingFallback);
+            LocalVehicle_ResetHandling = (delegate* unmanaged[Cdecl]<nint, void>) GetUnmanagedPtr<LocalVehicle_ResetHandlingDelegate>(funcTable, 7731131191190055260UL, LocalVehicle_ResetHandlingFallback);
+            LocalVehicle_SetCurrentGear = (delegate* unmanaged[Cdecl]<nint, ushort, void>) GetUnmanagedPtr<LocalVehicle_SetCurrentGearDelegate>(funcTable, 10452840147114119495UL, LocalVehicle_SetCurrentGearFallback);
+            LocalVehicle_SetCurrentRPM = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_SetCurrentRPMDelegate>(funcTable, 4112459421165265739UL, LocalVehicle_SetCurrentRPMFallback);
+            LocalVehicle_SetEngineTemperature = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_SetEngineTemperatureDelegate>(funcTable, 17679926097040058775UL, LocalVehicle_SetEngineTemperatureFallback);
+            LocalVehicle_SetFuelLevel = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_SetFuelLevelDelegate>(funcTable, 3357417277793162765UL, LocalVehicle_SetFuelLevelFallback);
+            LocalVehicle_SetLightsIndicator = (delegate* unmanaged[Cdecl]<nint, byte, void>) GetUnmanagedPtr<LocalVehicle_SetLightsIndicatorDelegate>(funcTable, 11336612641714555194UL, LocalVehicle_SetLightsIndicatorFallback);
+            LocalVehicle_SetMaxGear = (delegate* unmanaged[Cdecl]<nint, ushort, void>) GetUnmanagedPtr<LocalVehicle_SetMaxGearDelegate>(funcTable, 2415931236493162520UL, LocalVehicle_SetMaxGearFallback);
+            LocalVehicle_SetOilLevel = (delegate* unmanaged[Cdecl]<nint, float, void>) GetUnmanagedPtr<LocalVehicle_SetOilLevelDelegate>(funcTable, 12524755460988622443UL, LocalVehicle_SetOilLevelFallback);
+            LocalVehicle_SetRotation = (delegate* unmanaged[Cdecl]<nint, Rotation, void>) GetUnmanagedPtr<LocalVehicle_SetRotationDelegate>(funcTable, 9756575684653200958UL, LocalVehicle_SetRotationFallback);
+            LocalVehicle_SetVisible = (delegate* unmanaged[Cdecl]<nint, byte, void>) GetUnmanagedPtr<LocalVehicle_SetVisibleDelegate>(funcTable, 1219467271521885458UL, LocalVehicle_SetVisibleFallback);
+            LocalVehicle_SetWheelCamber = (delegate* unmanaged[Cdecl]<nint, byte, float, void>) GetUnmanagedPtr<LocalVehicle_SetWheelCamberDelegate>(funcTable, 8439214857619722766UL, LocalVehicle_SetWheelCamberFallback);
+            LocalVehicle_SetWheelHeight = (delegate* unmanaged[Cdecl]<nint, byte, float, void>) GetUnmanagedPtr<LocalVehicle_SetWheelHeightDelegate>(funcTable, 14733005038761828847UL, LocalVehicle_SetWheelHeightFallback);
+            LocalVehicle_SetWheelRimRadius = (delegate* unmanaged[Cdecl]<nint, byte, float, void>) GetUnmanagedPtr<LocalVehicle_SetWheelRimRadiusDelegate>(funcTable, 507112415978458100UL, LocalVehicle_SetWheelRimRadiusFallback);
+            LocalVehicle_SetWheelTrackWidth = (delegate* unmanaged[Cdecl]<nint, byte, float, void>) GetUnmanagedPtr<LocalVehicle_SetWheelTrackWidthDelegate>(funcTable, 3267840126102125001UL, LocalVehicle_SetWheelTrackWidthFallback);
+            LocalVehicle_SetWheelTyreRadius = (delegate* unmanaged[Cdecl]<nint, byte, float, void>) GetUnmanagedPtr<LocalVehicle_SetWheelTyreRadiusDelegate>(funcTable, 11790281888055939126UL, LocalVehicle_SetWheelTyreRadiusFallback);
+            LocalVehicle_SetWheelTyreWidth = (delegate* unmanaged[Cdecl]<nint, byte, float, void>) GetUnmanagedPtr<LocalVehicle_SetWheelTyreWidthDelegate>(funcTable, 8954456614436847844UL, LocalVehicle_SetWheelTyreWidthFallback);
+            LocalVehicle_ToggleExtra = (delegate* unmanaged[Cdecl]<nint, byte, byte, void>) GetUnmanagedPtr<LocalVehicle_ToggleExtraDelegate>(funcTable, 13096822674644268020UL, LocalVehicle_ToggleExtraFallback);
+            LocalVehicle_ToggleTaxiLight = (delegate* unmanaged[Cdecl]<nint, byte, void>) GetUnmanagedPtr<LocalVehicle_ToggleTaxiLightDelegate>(funcTable, 8916493911499230574UL, LocalVehicle_ToggleTaxiLightFallback);
             MapData_GetFScrollSpeed = (delegate* unmanaged[Cdecl]<uint, float>) GetUnmanagedPtr<MapData_GetFScrollSpeedDelegate>(funcTable, 5153918154812676518UL, MapData_GetFScrollSpeedFallback);
             MapData_GetFZoomScale = (delegate* unmanaged[Cdecl]<uint, float>) GetUnmanagedPtr<MapData_GetFZoomScaleDelegate>(funcTable, 9310461554478426287UL, MapData_GetFZoomScaleFallback);
             MapData_GetFZoomSpeed = (delegate* unmanaged[Cdecl]<uint, float>) GetUnmanagedPtr<MapData_GetFZoomSpeedDelegate>(funcTable, 13681270171346140740UL, MapData_GetFZoomSpeedFallback);
@@ -3391,8 +4329,10 @@ namespace AltV.Net.CApi.Libraries
             MapData_SetVTilesY = (delegate* unmanaged[Cdecl]<uint, float, void>) GetUnmanagedPtr<MapData_SetVTilesYDelegate>(funcTable, 4990605972443241597UL, MapData_SetVTilesYFallback);
             Marker_GetRemoteID = (delegate* unmanaged[Cdecl]<nint, uint>) GetUnmanagedPtr<Marker_GetRemoteIDDelegate>(funcTable, 4030920042457960705UL, Marker_GetRemoteIDFallback);
             Marker_IsRemote = (delegate* unmanaged[Cdecl]<nint, byte>) GetUnmanagedPtr<Marker_IsRemoteDelegate>(funcTable, 4843710155211034967UL, Marker_IsRemoteFallback);
+            Marker_IsStreamedIn = (delegate* unmanaged[Cdecl]<nint, byte>) GetUnmanagedPtr<Marker_IsStreamedInDelegate>(funcTable, 18075714963587758699UL, Marker_IsStreamedInFallback);
             Object_IsRemote = (delegate* unmanaged[Cdecl]<nint, byte>) GetUnmanagedPtr<Object_IsRemoteDelegate>(funcTable, 9871487800950929995UL, Object_IsRemoteFallback);
             Object_IsStreamedIn = (delegate* unmanaged[Cdecl]<nint, byte>) GetUnmanagedPtr<Object_IsStreamedInDelegate>(funcTable, 14733844975814872903UL, Object_IsStreamedInFallback);
+            Object_UsesStreaming = (delegate* unmanaged[Cdecl]<nint, byte>) GetUnmanagedPtr<Object_UsesStreamingDelegate>(funcTable, 1830974518516439579UL, Object_UsesStreamingFallback);
             Player_GetLocal = (delegate* unmanaged[Cdecl]<nint>) GetUnmanagedPtr<Player_GetLocalDelegate>(funcTable, 4153837117751475501UL, Player_GetLocalFallback);
             Player_GetMicLevel = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<Player_GetMicLevelDelegate>(funcTable, 15449156962697427469UL, Player_GetMicLevelFallback);
             Player_GetNonSpatialVolume = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<Player_GetNonSpatialVolumeDelegate>(funcTable, 3333598534924196965UL, Player_GetNonSpatialVolumeFallback);
