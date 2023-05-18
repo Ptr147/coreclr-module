@@ -84,6 +84,9 @@ jobs:
           echo "$(echo "`cat ./templates/templates/altv-project-client/.template.config/template.json`" | perl -pe 's/0.0.0/'${GITHUB_REF##*/}'/g')" > ./templates/templates/altv-project-client/.template.config/template.json
           echo "$(echo "`cat ./templates/templates/altv-project-server/.template.config/template.json`" | perl -pe 's/0.0.0/'${GITHUB_REF##*/}'/g')" > ./templates/templates/altv-project-server/.template.config/template.json
           echo "$(echo "`cat ./templates/templates/altv-project-shared/.template.config/template.json`" | perl -pe 's/0.0.0/'${GITHUB_REF##*/}'/g')" > ./templates/templates/altv-project-shared/.template.config/template.json
+      - name: Execute CodeGen
+        working-directory: ./api/AltV.Net.Sdk.Generator
+        run: dotnet run
       - name: Build
         working-directory: ./api
         run: |
@@ -123,134 +126,35 @@ jobs:
           cp ./api/AltV.Net.Async/bin/Debug/*/publish/AltV.Net.Async.dll ./modules/api-debug
           cp ./api/AltV.Net.Async/bin/Debug/*/publish/AltV.Net.Async.pdb ./modules/api-debug
           echo '${{ steps.build_info.outputs.branch }}/${{ steps.build_info.outputs.version }}' > ./modules/build_info.txt
-      - uses: alirezanet/publish-nuget@v3.1.0-test1
-        with:
-          PROJECT_FILE_PATH: ./api/AltV.Net/AltV.Net.csproj
-          VERSION_REGEX: <PackageVersion>(.*)<\/PackageVersion>
-          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
-          INCLUDE_SYMBOLS: true
-          TAG_COMMIT: false
-          NO_BUILD: true
-      - uses: alirezanet/publish-nuget@v3.1.0-test1
-        with:
-          PROJECT_FILE_PATH: ./api/AltV.Net.Async/AltV.Net.Async.csproj
-          VERSION_REGEX: <PackageVersion>(.*)<\/PackageVersion>
-          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
-          INCLUDE_SYMBOLS: true
-          TAG_COMMIT: false
-          NO_BUILD: true
-      - uses: alirezanet/publish-nuget@v3.1.0-test1
-        with:
-          PROJECT_FILE_PATH: ./api/AltV.Net.Interactions/AltV.Net.Interactions.csproj
-          VERSION_REGEX: <PackageVersion>(.*)<\/PackageVersion>
-          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
-          INCLUDE_SYMBOLS: true
-          TAG_COMMIT: false
-          NO_BUILD: true
-      - uses: alirezanet/publish-nuget@v3.1.0-test1
-        with:
-          PROJECT_FILE_PATH: ./api/AltV.Net.Async.CodeGen/AltV.Net.Async.CodeGen.csproj
-          VERSION_REGEX: <PackageVersion>(.*)<\/PackageVersion>
-          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
-          INCLUDE_SYMBOLS: true
-          TAG_COMMIT: false
-          NO_BUILD: true
-      - uses: alirezanet/publish-nuget@v3.1.0-test1
-        with:
-          PROJECT_FILE_PATH: ./api/AltV.Net.Resources.Chat.Api/AltV.Net.Resources.Chat.Api.csproj
-          VERSION_REGEX: <PackageVersion>(.*)<\/PackageVersion>
-          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
-          INCLUDE_SYMBOLS: true
-          TAG_COMMIT: false
-          NO_BUILD: true
-      - uses: alirezanet/publish-nuget@v3.1.0-test1
-        with:
-          PROJECT_FILE_PATH: ./api/AltV.Net.EntitySync.ServerEvent/AltV.Net.EntitySync.ServerEvent.csproj
-          VERSION_REGEX: <PackageVersion>(.*)<\/PackageVersion>
-          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
-          INCLUDE_SYMBOLS: true
-          TAG_COMMIT: false
-          NO_BUILD: true
-      - uses: alirezanet/publish-nuget@v3.1.0-test1
-        with:
-          PROJECT_FILE_PATH: ./api/AltV.Net.Client/AltV.Net.Client.csproj
-          VERSION_REGEX: <PackageVersion>(.*)<\/PackageVersion>
-          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
-          INCLUDE_SYMBOLS: true
-          TAG_COMMIT: false
-          NO_BUILD: true
-      - uses: alirezanet/publish-nuget@v3.1.0-test1
-        with:
-          PROJECT_FILE_PATH: ./api/AltV.Net.Client.Async/AltV.Net.Client.Async.csproj
-          VERSION_REGEX: <PackageVersion>(.*)<\/PackageVersion>
-          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
-          INCLUDE_SYMBOLS: true
-          TAG_COMMIT: false
-          NO_BUILD: true
-      - uses: alirezanet/publish-nuget@v3.1.0-test1
-        with:
-          PROJECT_FILE_PATH: ./api/AltV.Net.ColShape/AltV.Net.ColShape.csproj
-          VERSION_REGEX: <PackageVersion>(.*)<\/PackageVersion>
-          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
-          INCLUDE_SYMBOLS: true
-          TAG_COMMIT: false
-          NO_BUILD: true
-      - uses: alirezanet/publish-nuget@v3.1.0-test1
-        with:
-          PROJECT_FILE_PATH: ./api/AltV.Net.Shared/AltV.Net.Shared.csproj
-          VERSION_REGEX: <PackageVersion>(.*)<\/PackageVersion>
-          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
-          INCLUDE_SYMBOLS: true
-          TAG_COMMIT: false
-          NO_BUILD: true
-      - uses: alirezanet/publish-nuget@v3.1.0-test1
-        with:
-          PROJECT_FILE_PATH: ./api/AltV.Net.CApi/AltV.Net.CApi.csproj
-          VERSION_REGEX: <PackageVersion>(.*)<\/PackageVersion>
-          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
-          INCLUDE_SYMBOLS: true
-          TAG_COMMIT: false
-          NO_BUILD: true
-      - uses: alirezanet/publish-nuget@v3.1.0-test1
-        with:
-          PROJECT_FILE_PATH: ./api/AltV.Net.Sdk.Client/AltV.Net.Sdk.Client.csproj
-          VERSION_REGEX: <PackageVersion>(.*)<\/PackageVersion>
-          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
-          INCLUDE_SYMBOLS: true
-          TAG_COMMIT: false
-          NO_BUILD: true
-      - uses: alirezanet/publish-nuget@v3.1.0-test1
-        with:
-          PROJECT_FILE_PATH: ./api/AltV.Net.Sdk.Server/AltV.Net.Sdk.Server.csproj
-          VERSION_REGEX: <PackageVersion>(.*)<\/PackageVersion>
-          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
-          INCLUDE_SYMBOLS: true
-          TAG_COMMIT: false
-          NO_BUILD: true
-      - uses: alirezanet/publish-nuget@v3.1.0-test1
-        with:
-          PROJECT_FILE_PATH: ./api/AltV.Net.Sdk.Shared/AltV.Net.Sdk.Shared.csproj
-          VERSION_REGEX: <PackageVersion>(.*)<\/PackageVersion>
-          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
-          INCLUDE_SYMBOLS: true
-          TAG_COMMIT: false
-          NO_BUILD: true
-      - uses: alirezanet/publish-nuget@v3.1.0-test1
-        with:
-          PROJECT_FILE_PATH: ./templates/AltV.Net.Templates.csproj
-          VERSION_REGEX: <PackageVersion>(.*)<\/PackageVersion>
-          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
-          INCLUDE_SYMBOLS: true
-          TAG_COMMIT: false
-          NO_BUILD: true
-      - name: Pack files
+      - run: |
+          cd ./runtime
+          echo "$(git rev-parse --short HEAD)" > ../modules/runtime_version.txt
+          cd ./cpp-sdk
+          echo "$(git rev-parse --short HEAD)" > ../../modules/sdk_version.txt
+      - name: Pack files module
         run: |
-          tar -cvf ./api.tar modules
+          tar -cvf ./modules.tar modules
+      - name: Pack files api
+        run: |
+          tar -cvf ./api.tar api
+      - name: Pack files templates
+        run: |
+          tar -cvf ./templates.tar templates
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: csharp-module-modules
+          path: ./modules.tar
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
           name: csharp-module-api
           path: ./api.tar
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: csharp-module-templates
+          path: ./templates.tar
   build-server:
     runs-on: ${{ matrix.config.os }}
     needs: [build-api, fetch-nethost-linux, fetch-nethost-windows]
@@ -339,7 +243,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v3
         with:
-          name: csharp-module-api
+          name: csharp-module-modules
           path: ./
       - uses: actions/download-artifact@v3
         with:
@@ -350,7 +254,7 @@ jobs:
           name: csharp-module-windows
           path: ./
       - run: |
-          tar -xvf ./api.tar
+          tar -xvf ./modules.tar
           tar -xvf ./linux.tar
           tar -xvf ./windows.tar
       - id: build_info
@@ -373,13 +277,148 @@ jobs:
           CI_DEPLOY_TOKEN: ${{ secrets.CI_DEPLOY_TOKEN }}
           BRANCH: ${{ steps.build_info.outputs.branch }}
           VERSION: ${{ steps.build_info.outputs.version }}
-  create-release:
+  deploy-nuget:
     runs-on: ubuntu-latest
-    needs: deploy-cdn
+    needs: build-server
     steps:
       - uses: actions/download-artifact@v3
         with:
           name: csharp-module-api
+          path: ./
+      - uses: actions/download-artifact@v3
+        with:
+          name: csharp-module-templates
+          path: ./
+      - run: |
+          tar -xvf ./api.tar
+          tar -xvf ./templates.tar
+      - uses: alirezanet/publish-nuget@v3.1.0
+        with:
+          PROJECT_FILE_PATH: ./api/AltV.Net/AltV.Net.csproj
+          VERSION_REGEX: <PackageVersion>(.*)<\/PackageVersion>
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+          INCLUDE_SYMBOLS: true
+          TAG_COMMIT: false
+          NO_BUILD: true
+      - uses: alirezanet/publish-nuget@v3.1.0
+        with:
+          PROJECT_FILE_PATH: ./api/AltV.Net.Async/AltV.Net.Async.csproj
+          VERSION_REGEX: <PackageVersion>(.*)<\/PackageVersion>
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+          INCLUDE_SYMBOLS: true
+          TAG_COMMIT: false
+          NO_BUILD: true
+      - uses: alirezanet/publish-nuget@v3.1.0
+        with:
+          PROJECT_FILE_PATH: ./api/AltV.Net.Interactions/AltV.Net.Interactions.csproj
+          VERSION_REGEX: <PackageVersion>(.*)<\/PackageVersion>
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+          INCLUDE_SYMBOLS: true
+          TAG_COMMIT: false
+          NO_BUILD: true
+      - uses: alirezanet/publish-nuget@v3.1.0
+        with:
+          PROJECT_FILE_PATH: ./api/AltV.Net.Async.CodeGen/AltV.Net.Async.CodeGen.csproj
+          VERSION_REGEX: <PackageVersion>(.*)<\/PackageVersion>
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+          INCLUDE_SYMBOLS: true
+          TAG_COMMIT: false
+          NO_BUILD: true
+      - uses: alirezanet/publish-nuget@v3.1.0
+        with:
+          PROJECT_FILE_PATH: ./api/AltV.Net.Resources.Chat.Api/AltV.Net.Resources.Chat.Api.csproj
+          VERSION_REGEX: <PackageVersion>(.*)<\/PackageVersion>
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+          INCLUDE_SYMBOLS: true
+          TAG_COMMIT: false
+          NO_BUILD: true
+      - uses: alirezanet/publish-nuget@v3.1.0
+        with:
+          PROJECT_FILE_PATH: ./api/AltV.Net.EntitySync.ServerEvent/AltV.Net.EntitySync.ServerEvent.csproj
+          VERSION_REGEX: <PackageVersion>(.*)<\/PackageVersion>
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+          INCLUDE_SYMBOLS: true
+          TAG_COMMIT: false
+          NO_BUILD: true
+      - uses: alirezanet/publish-nuget@v3.1.0
+        with:
+          PROJECT_FILE_PATH: ./api/AltV.Net.Client/AltV.Net.Client.csproj
+          VERSION_REGEX: <PackageVersion>(.*)<\/PackageVersion>
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+          INCLUDE_SYMBOLS: true
+          TAG_COMMIT: false
+          NO_BUILD: true
+      - uses: alirezanet/publish-nuget@v3.1.0
+        with:
+          PROJECT_FILE_PATH: ./api/AltV.Net.Client.Async/AltV.Net.Client.Async.csproj
+          VERSION_REGEX: <PackageVersion>(.*)<\/PackageVersion>
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+          INCLUDE_SYMBOLS: true
+          TAG_COMMIT: false
+          NO_BUILD: true
+      - uses: alirezanet/publish-nuget@v3.1.0
+        with:
+          PROJECT_FILE_PATH: ./api/AltV.Net.ColShape/AltV.Net.ColShape.csproj
+          VERSION_REGEX: <PackageVersion>(.*)<\/PackageVersion>
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+          INCLUDE_SYMBOLS: true
+          TAG_COMMIT: false
+          NO_BUILD: true
+      - uses: alirezanet/publish-nuget@v3.1.0
+        with:
+          PROJECT_FILE_PATH: ./api/AltV.Net.Shared/AltV.Net.Shared.csproj
+          VERSION_REGEX: <PackageVersion>(.*)<\/PackageVersion>
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+          INCLUDE_SYMBOLS: true
+          TAG_COMMIT: false
+          NO_BUILD: true
+      - uses: alirezanet/publish-nuget@v3.1.0
+        with:
+          PROJECT_FILE_PATH: ./api/AltV.Net.CApi/AltV.Net.CApi.csproj
+          VERSION_REGEX: <PackageVersion>(.*)<\/PackageVersion>
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+          INCLUDE_SYMBOLS: true
+          TAG_COMMIT: false
+          NO_BUILD: true
+      - uses: alirezanet/publish-nuget@v3.1.0
+        with:
+          PROJECT_FILE_PATH: ./api/AltV.Net.Sdk.Client/AltV.Net.Sdk.Client.csproj
+          VERSION_REGEX: <PackageVersion>(.*)<\/PackageVersion>
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+          INCLUDE_SYMBOLS: true
+          TAG_COMMIT: false
+          NO_BUILD: true
+      - uses: alirezanet/publish-nuget@v3.1.0
+        with:
+          PROJECT_FILE_PATH: ./api/AltV.Net.Sdk.Server/AltV.Net.Sdk.Server.csproj
+          VERSION_REGEX: <PackageVersion>(.*)<\/PackageVersion>
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+          INCLUDE_SYMBOLS: true
+          TAG_COMMIT: false
+          NO_BUILD: true
+      - uses: alirezanet/publish-nuget@v3.1.0
+        with:
+          PROJECT_FILE_PATH: ./api/AltV.Net.Sdk.Shared/AltV.Net.Sdk.Shared.csproj
+          VERSION_REGEX: <PackageVersion>(.*)<\/PackageVersion>
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+          INCLUDE_SYMBOLS: true
+          TAG_COMMIT: false
+          NO_BUILD: true
+      - uses: alirezanet/publish-nuget@v3.1.0
+        with:
+          PROJECT_FILE_PATH: ./templates/AltV.Net.Templates.csproj
+          VERSION_REGEX: <PackageVersion>(.*)<\/PackageVersion>
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+          INCLUDE_SYMBOLS: true
+          TAG_COMMIT: false
+          NO_BUILD: true
+  create-release:
+    runs-on: ubuntu-latest
+    needs: [deploy-cdn, deploy-nuget]
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: csharp-module-modules
           path: ./
       - uses: actions/download-artifact@v3
         with:
@@ -390,7 +429,7 @@ jobs:
           name: csharp-module-windows
           path: ./
       - run: |
-          tar -xvf ./api.tar
+          tar -xvf ./modules.tar
           tar -xvf ./linux.tar
           tar -xvf ./windows.tar
       - id: build_info
@@ -398,53 +437,30 @@ jobs:
           build_info=$(cat ./modules/build_info.txt)
           echo "branch=${build_info%%/*}" >> $GITHUB_OUTPUT
           echo "version=${build_info##*/}" >> $GITHUB_OUTPUT
+          echo "runtime_commit=$(cat ./modules/runtime_version.txt)" >> $GITHUB_OUTPUT
+          echo "sdk_commit=$(cat ./modules/sdk_version.txt)" >> $GITHUB_OUTPUT
       - run: |
           (cd ./modules/linux && zip -r ../../csharp-module-linux.zip *)
           (cd ./modules/windows && zip -r ../../csharp-module-win.zip *)
-          (cd ./modules/api-release && zip -r ../../csharp-module-api-release.zip *)
-          (cd ./modules/api-debug && zip -r ../../csharp-module-api-debug.zip *)
+          (cd ./modules/api-release && zip -r ../../csharp-module-modules-release.zip *)
+          (cd ./modules/api-debug && zip -r ../../csharp-module-modules-debug.zip *)
       - id: create_release
-        uses: actions/create-release@v1
+        uses: softprops/action-gh-release@v0.1.15
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ steps.build_info.outputs.version }}
-          release_name: Version ${{ steps.build_info.outputs.version }}
-          draft: true
+          name: Version ${{ steps.build_info.outputs.version }}
           prerelease: ${{ steps.build_info.outputs.branch != 'release' }}
-      - id: upload-release-asset 
-        uses: actions/upload-release-asset@v1.0.2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./csharp-module-linux.zip
-          asset_name: csharp-module-linux.zip
-          asset_content_type: application/zip
-      - uses: actions/upload-release-asset@v1.0.2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./csharp-module-win.zip
-          asset_name: csharp-module-win.zip
-          asset_content_type: application/zip
-      - uses: actions/upload-release-asset@v1.0.2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./csharp-module-api-release.zip
-          asset_name: csharp-module-api-release.zip
-          asset_content_type: application/zip
-      - uses: actions/upload-release-asset@v1.0.2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./csharp-module-api-debug.zip
-          asset_name: csharp-module-api-debug.zip
-          asset_content_type: application/zip
+          generate_release_notes: true
+          body: |
+            Runtime version: [${{ steps.build_info.outputs.runtime_commit }}](https://github.com/altmp/coreclr-module-runtime/commit/${{ steps.build_info.outputs.runtime_commit }})
+            SDK version: [${{ steps.build_info.outputs.sdk_commit }}](https://github.com/altmp/cpp-sdk/commit/${{ steps.build_info.outputs.sdk_commit }})
+          files: |
+            ./csharp-module-linux.zip
+            ./csharp-module-win.zip
+            ./csharp-module-modules-release.zip
+            ./csharp-module-modules-debug.zip
   cleanup:
     runs-on: ubuntu-latest
     needs: create-release
@@ -457,4 +473,6 @@ jobs:
             nethost-windows
             csharp-module-linux
             csharp-module-windows
+            csharp-module-modules
             csharp-module-api
+            csharp-module-templates
