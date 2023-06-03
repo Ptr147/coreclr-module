@@ -55,7 +55,7 @@ namespace AltV.Net.Client.Elements.Entities
         }
         ISharedPlayer ISharedEntity.NetworkOwner => NetworkOwner!;
 
-        public int ScriptId
+        public uint ScriptId
         {
             get
             {
@@ -69,6 +69,28 @@ namespace AltV.Net.Client.Elements.Entities
 
         public bool Spawned => ScriptId != 0;
 
+        public Position Position
+        {
+            get
+            {
+                return base.Position;
+            }
+            set
+            {
+                unsafe
+                {
+                    CheckIfEntityExists();
+                    var networkOwner = this.NetworkOwner;
+                    if (networkOwner is null || networkOwner != Alt.LocalPlayer)
+                    {
+                        throw new InvalidDataException("Position can only be modified by the network owner of the entity");
+                    }
+
+                    this.Core.Library.Shared.WorldObject_SetPosition(this.WorldObjectNativePointer, value);
+                }
+            }
+        }
+
         public Rotation Rotation
         {
             get
@@ -79,6 +101,20 @@ namespace AltV.Net.Client.Elements.Entities
                     var position = Rotation.Zero;
                     this.Core.Library.Shared.Entity_GetRotation(this.EntityNativePointer, &position);
                     return position;
+                }
+            }
+            set
+            {
+                unsafe
+                {
+                    CheckIfEntityExists();
+                    var networkOwner = this.NetworkOwner;
+                    if (networkOwner is null || networkOwner != Alt.LocalPlayer)
+                    {
+                        throw new InvalidDataException("Rotation can only be modified by the network owner of the entity");
+                    }
+
+                    this.Core.Library.Shared.Entity_SetRotation(this.EntityNativePointer, value);
                 }
             }
         }

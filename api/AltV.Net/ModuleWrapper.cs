@@ -90,6 +90,7 @@ namespace AltV.Net
             var playerFactory = _resource.GetPlayerFactory() ?? new PlayerFactory();
             var vehicleFactory = _resource.GetVehicleFactory() ?? new VehicleFactory();
             var pedFactory = _resource.GetPedFactory() ?? new PedFactory();
+            var networkObjectFactory = _resource.GetNetworkObjectFactory() ?? new NetworkObjectFactory();
             var blipFactory = _resource.GetBlipFactory() ?? new BlipFactory();
             var checkpointFactory = _resource.GetCheckpointFactory() ?? new CheckpointFactory();
             var voiceChannelFactory = _resource.GetVoiceChannelFactory() ?? new VoiceChannelFactory();
@@ -99,10 +100,12 @@ namespace AltV.Net
             var virtualEntityFactory = _resource.GetVirtualEntityFactory() ?? new VirtualEntityFactory();
             var virtualEntityGroupPoolFactory = _resource.GetVirtualEntityGroupFactory() ?? new VirtualEntityGroupFactory();
             var markerPoolFactory = _resource.GetMarkerFactory() ?? new MarkerFactory();
+            var connectionInfoFactory = _resource.GetConnectionInfoFactory() ?? new ConnectionInfoFactory();
 
             var playerPool = _resource.GetPlayerPool(playerFactory);
             var vehiclePool = _resource.GetVehiclePool(vehicleFactory);
             var pedPool = _resource.GetPedPool(pedFactory);
+            var networkObjectPool = _resource.GetNetworkObjectPool(networkObjectFactory);
             var blipPool = _resource.GetBlipPool(blipFactory);
             var checkpointPool = _resource.GetCheckpointPool(checkpointFactory);
             var voiceChannelPool = _resource.GetVoiceChannelPool(voiceChannelFactory);
@@ -110,10 +113,12 @@ namespace AltV.Net
             var virtualEntityPool = _resource.GetVirtualEntityPool(virtualEntityFactory);
             var virtualEntityGroupPool = _resource.GetVirtualEntityGroupPool(virtualEntityGroupPoolFactory);
             var markerPool = _resource.GetMarkerPool(markerPoolFactory);
+            var connectionInfoPool = _resource.GetConnectionInfoPool(connectionInfoFactory);
+
             var nativeResourcePool = _resource.GetNativeResourcePool(nativeResourceFactory);
             var baseObjectPool =
-                _resource.GetBaseBaseObjectPool(playerPool, vehiclePool, pedPool, blipPool, checkpointPool, voiceChannelPool,
-                    colShapePool, virtualEntityPool, virtualEntityGroupPool, markerPool);
+                _resource.GetBaseBaseObjectPool(playerPool, vehiclePool, pedPool, networkObjectPool, blipPool, checkpointPool, voiceChannelPool,
+                    colShapePool, virtualEntityPool, virtualEntityGroupPool, markerPool, connectionInfoPool);
 
             var core = _resource.GetCore(serverPointer, resourcePointer, assemblyLoadContext, library, baseObjectPool, nativeResourcePool);
             _core = core;
@@ -127,7 +132,12 @@ namespace AltV.Net
 
             core.GetAllPlayers();
             core.GetAllVehicles();
+            core.GetAllPeds();
             core.GetAllBlips();
+            core.GetAllCheckpoints();
+            core.GetAllVirtualEntities();
+            core.GetAllVirtualEntityGroups();
+            core.GetAllConnectionInfos();
 
             core.Resource.CSharpResourceImpl.SetDelegates(OnStartResource);
 
@@ -415,7 +425,6 @@ namespace AltV.Net
         public static void OnCreateBaseObject(IntPtr baseObject, BaseObjectType type, uint id)
         {
             _core.OnCreateBaseObject(baseObject, type, id);
-            Console.WriteLine($"Create BaseObject: {type} with id {id}");
         }
 
         public static void OnRemoveBaseObject(IntPtr baseObject, BaseObjectType type)

@@ -1,5 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 using AltV.Net.Client.Elements.Interfaces;
+using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Shared.Utils;
 
@@ -8,7 +9,7 @@ namespace AltV.Net.Client.Elements.Entities
     public struct AudioEntity
     {
         public IEntity Entity;
-        public int ScriptId;
+        public uint ScriptId;
     }
 
     public class Audio : BaseObject, IAudio
@@ -29,6 +30,7 @@ namespace AltV.Net.Client.Elements.Entities
             AudioNativePointer = audioNativePointer;
         }
 
+        [Obsolete("Use Alt.CreateAudio instead")]
         public Audio(ICore core, string source, float volume, uint category, bool frontend) : this(core, core.CreateAudioPtr(out var id,source, volume, category, frontend), id)
         {
             core.PoolManager.Audio.Add(this);
@@ -224,8 +226,14 @@ namespace AltV.Net.Client.Elements.Entities
                 Marshal.Copy(entityArrayPtr, entityPtrArray, 0, (int) size);
                 Core.Library.Shared.FreeVoidPointerArray(entityArrayPtr);
 
-                var scriptIdArray = new int[size];
-                Marshal.Copy(scriptIdArrayPtr, scriptIdArray, 0, (int) size);
+                var uintArray = new UIntArray
+                {
+                    data = scriptIdArrayPtr,
+                    size = size,
+                    capacity = size
+                };
+
+                var scriptIdArray = uintArray.ToArray();
                 Core.Library.Shared.FreeUInt32Array(scriptIdArrayPtr);
 
                 var audioEntityArray = new AudioEntity[size];

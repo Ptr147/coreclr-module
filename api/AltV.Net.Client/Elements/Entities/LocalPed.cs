@@ -4,27 +4,20 @@ using AltV.Net.Elements.Entities;
 
 namespace AltV.Net.Client.Elements.Entities;
 
-public class LocalPed : WorldObject, ILocalPed
+public class LocalPed : Ped, ILocalPed
 {
     public IntPtr LocalPedNativePointer { get; }
     public override IntPtr NativePointer => LocalPedNativePointer;
 
-    private static IntPtr GetWorldObjectPointer(ICore core, IntPtr nativePointer)
+    private static IntPtr GetPedPointer(ICore core, IntPtr nativePointer)
     {
         unsafe
         {
-            return core.Library.Shared.LocalPed_GetWorldObject(nativePointer);
+            return core.Library.Client.LocalPed_GetPed(nativePointer);
         }
     }
 
-
-    public LocalPed(ICore core, uint modelHash, int dimension, Position position, Rotation rotation, bool useStreaming, uint streamingDistance) :
-        this(core, core.CreateLocalPedPtr(out var id, modelHash, dimension, position, rotation, useStreaming, streamingDistance), id)
-    {
-        core.PoolManager.LocalPed.Add(this);
-    }
-
-    public LocalPed(ICore core, IntPtr nativePointer, uint id) : base(core, GetWorldObjectPointer(core, nativePointer), BaseObjectType.LocalVehicle, id)
+    public LocalPed(ICore core, IntPtr nativePointer, uint id) : base(core, GetPedPointer(core, nativePointer), BaseObjectType.LocalVehicle, id)
     {
         LocalPedNativePointer = nativePointer;
     }
@@ -33,32 +26,14 @@ public class LocalPed : WorldObject, ILocalPed
     {
         get
         {
-            unsafe
-            {
-                CheckIfEntityExists();
-                return Core.Library.Shared.LocalPed_GetModel(LocalPedNativePointer);
-            }
-        }
-    }
-
-    public Rotation Rotation
-    {
-        get
-        {
-            unsafe
-            {
-                CheckIfEntityExists();
-                var directon = Rotation.Zero;
-                Core.Library.Shared.LocalPed_GetRotation(LocalPedNativePointer, &directon);
-                return directon;
-            }
+            return base.Model;
         }
         set
         {
             unsafe
             {
                 CheckIfEntityExists();
-                Core.Library.Shared.LocalPed_SetRotation(LocalPedNativePointer, value);
+                Core.Library.Client.LocalPed_SetModel(LocalPedNativePointer, value);
             }
         }
     }
@@ -70,7 +45,7 @@ public class LocalPed : WorldObject, ILocalPed
             unsafe
             {
                 CheckIfEntityExists();
-                return Core.Library.Shared.LocalPed_GetStreamingDistance(LocalPedNativePointer);
+                return Core.Library.Client.LocalPed_GetStreamingDistance(LocalPedNativePointer);
             }
         }
     }
@@ -82,7 +57,7 @@ public class LocalPed : WorldObject, ILocalPed
             unsafe
             {
                 CheckIfEntityExists();
-                return Core.Library.Shared.LocalPed_IsVisible(LocalPedNativePointer) == 1;
+                return Core.Library.Client.LocalPed_IsVisible(LocalPedNativePointer) == 1;
             }
         }
         set
@@ -90,31 +65,7 @@ public class LocalPed : WorldObject, ILocalPed
             unsafe
             {
                 CheckIfEntityExists();
-                Core.Library.Shared.LocalPed_SetVisible(LocalPedNativePointer, value ? (byte)1:(byte)0);
-            }
-        }
-    }
-
-    public bool IsRemote
-    {
-        get
-        {
-            unsafe
-            {
-                CheckIfEntityExists();
-                return Core.Library.Client.LocalPed_IsRemote(LocalPedNativePointer) == 1;
-            }
-        }
-    }
-
-    public uint RemoteId
-    {
-        get
-        {
-            unsafe
-            {
-                CheckIfEntityExists();
-                return Core.Library.Client.LocalPed_GetRemoteID(LocalPedNativePointer);
+                Core.Library.Client.LocalPed_SetVisible(LocalPedNativePointer, value ? (byte)1:(byte)0);
             }
         }
     }

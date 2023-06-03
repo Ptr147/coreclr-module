@@ -139,6 +139,7 @@ namespace AltV.Net.Client.Elements.Entities
             CheckpointNativePointer = nativePointer;
         }
 
+        [Obsolete("Use Alt.CreateCheckpoint instead")]
         public Checkpoint(ICore core, CheckpointType type, Vector3 pos, Vector3 nextPos, float radius, float height, Rgba color, uint streamingDistance)
             : this(core, core.CreateCheckpointPtr(out var id, type, pos, nextPos, radius, height, color, streamingDistance), id)
         {
@@ -153,6 +154,18 @@ namespace AltV.Net.Client.Elements.Entities
                 {
                     CheckIfEntityExists();
                     return Core.Library.Client.Checkpoint_IsStreamedIn(CheckpointNativePointer) == 1;
+                }
+            }
+        }
+
+        public uint GameId
+        {
+            get
+            {
+                unsafe
+                {
+                    CheckIfEntityExists();
+                    return Core.Library.Client.Checkpoint_GetGameID(CheckpointNativePointer);
                 }
             }
         }

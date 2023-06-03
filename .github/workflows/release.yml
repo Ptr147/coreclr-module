@@ -34,6 +34,7 @@ jobs:
           path: ${{ runner.temp }}\libnethost.tar
   build-api:
     runs-on: ubuntu-latest
+    needs: [fetch-nethost-linux, fetch-nethost-windows]
     steps:
       - uses: actions/checkout@v3
         with:
@@ -157,7 +158,7 @@ jobs:
           path: ./templates.tar
   build-server:
     runs-on: ${{ matrix.config.os }}
-    needs: [build-api, fetch-nethost-linux, fetch-nethost-windows]
+    needs: [fetch-nethost-linux, fetch-nethost-windows]
     strategy:
       matrix:
         config:
@@ -239,7 +240,7 @@ jobs:
           path: ./${{ steps.create_archive.outputs.art_name }}.tar
   deploy-cdn:
     runs-on: ubuntu-latest
-    needs: build-server
+    needs: [build-api, build-server]
     steps:
       - uses: actions/download-artifact@v3
         with:
@@ -266,20 +267,30 @@ jobs:
       - run: npx alt-upload linux coreclr-module/$BRANCH/x64_linux $VERSION
         working-directory: ./modules
         env:
-          CI_UPLOAD_URL: ${{ secrets.CI_UPLOAD_URL }}
-          CI_DEPLOY_TOKEN: ${{ secrets.CI_DEPLOY_TOKEN }}
+          AWS_KEY_ID: ${{ secrets.AWS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_BUCKET: ${{ secrets.AWS_BUCKET }}
+          AWS_ENDPOINT: ${{ secrets.AWS_ENDPOINT }}
+          CF_CACHE_PURGE_TOKEN: ${{ secrets.CF_CACHE_PURGE_TOKEN }}
+          CF_CACHE_ZONE_ID: ${{ secrets.CF_CACHE_ZONE_ID }}
+          CF_CACHE_PURGE_URL: ${{ secrets.CF_CACHE_PURGE_URL }}
           BRANCH: ${{ steps.build_info.outputs.branch }}
           VERSION: ${{ steps.build_info.outputs.version }}
       - run: npx alt-upload windows coreclr-module/$BRANCH/x64_win32 $VERSION
         working-directory: ./modules
         env:
-          CI_UPLOAD_URL: ${{ secrets.CI_UPLOAD_URL }}
-          CI_DEPLOY_TOKEN: ${{ secrets.CI_DEPLOY_TOKEN }}
+          AWS_KEY_ID: ${{ secrets.AWS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_BUCKET: ${{ secrets.AWS_BUCKET }}
+          AWS_ENDPOINT: ${{ secrets.AWS_ENDPOINT }}
+          CF_CACHE_PURGE_TOKEN: ${{ secrets.CF_CACHE_PURGE_TOKEN }}
+          CF_CACHE_ZONE_ID: ${{ secrets.CF_CACHE_ZONE_ID }}
+          CF_CACHE_PURGE_URL: ${{ secrets.CF_CACHE_PURGE_URL }}
           BRANCH: ${{ steps.build_info.outputs.branch }}
           VERSION: ${{ steps.build_info.outputs.version }}
   deploy-nuget:
     runs-on: ubuntu-latest
-    needs: build-server
+    needs: [build-api, build-server]
     steps:
       - uses: actions/download-artifact@v3
         with:

@@ -33,6 +33,48 @@ public class AsyncVirtualEntity : AsyncWorldObject, IVirtualEntity, IAsyncConver
         }
     }
 
+    public bool GetStreamSyncedMetaData(string key, out int result)
+    {
+        lock (VirtualEntity)
+        {
+            if (!AsyncContext.CheckIfExistsNullable(VirtualEntity))
+            {
+                result = default;
+                return false;
+            }
+
+            return VirtualEntity.GetStreamSyncedMetaData(key, out result);
+        }
+    }
+
+    public bool GetStreamSyncedMetaData(string key, out uint result)
+    {
+        lock (VirtualEntity)
+        {
+            if (!AsyncContext.CheckIfExistsNullable(VirtualEntity))
+            {
+                result = default;
+                return false;
+            }
+
+            return VirtualEntity.GetStreamSyncedMetaData(key, out result);
+        }
+    }
+
+    public bool GetStreamSyncedMetaData(string key, out float result)
+    {
+        lock (VirtualEntity)
+        {
+            if (!AsyncContext.CheckIfExistsNullable(VirtualEntity))
+            {
+                result = default;
+                return false;
+            }
+
+            return VirtualEntity.GetStreamSyncedMetaData(key, out result);
+        }
+    }
+
     public bool GetStreamSyncedMetaData<T>(string key, out T result)
     {
         lock (VirtualEntity)
@@ -70,12 +112,6 @@ public class AsyncVirtualEntity : AsyncWorldObject, IVirtualEntity, IAsyncConver
 
     public AsyncVirtualEntity(ICore core, IntPtr nativePointer, uint id) : this(new VirtualEntity(core, nativePointer, id), null)
     {
-    }
-
-    public AsyncVirtualEntity(ICore core, IVirtualEntityGroup group, Position position, uint streamingDistance, Dictionary<string, object> data) : this(
-        core, core.CreateVirtualEntityEntity(out var id, group, position, streamingDistance, data), id)
-    {
-        core.PoolManager.VirtualEntity.Add(this);
     }
 
     public uint StreamingDistance

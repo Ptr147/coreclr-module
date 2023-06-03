@@ -111,9 +111,6 @@ namespace AltV.Net
         internal readonly IEventHandler<VehicleHornDelegate> VehicleHornEventHandler =
             new HashSetEventHandler<VehicleHornDelegate>(EventType.VEHICLE_HORN);
 
-        private readonly ConcurrentDictionary<IntPtr, IConnectionInfo> connectionInfos =
-            new ();
-
         internal readonly IEventHandler<ConnectionQueueAddDelegate> ConnectionQueueAddHandler =
             new HashSetEventHandler<ConnectionQueueAddDelegate>(EventType.CONNECTION_QUEUE_ADD);
 
@@ -1181,8 +1178,12 @@ namespace AltV.Net
 
         public virtual void OnConnectionQueueAdd(IntPtr connectionInfoPtr)
         {
-            IConnectionInfo connectionInfo = new ConnectionInfo(this, connectionInfoPtr);
-            connectionInfos[connectionInfoPtr] = connectionInfo;
+            var connectionInfo = (IConnectionInfo)PoolManager.Get(connectionInfoPtr, BaseObjectType.ConnectionInfo);
+            if (connectionInfo is null)
+            {
+                Console.WriteLine("OnConnectionQueueAdd Invalid connectionInfo " + connectionInfoPtr);
+                return;
+            }
             OnConnectionQueueAddEvent(connectionInfo);
         }
 
@@ -1207,17 +1208,14 @@ namespace AltV.Net
 
         public virtual void OnConnectionQueueRemove(IntPtr connectionInfoPtr)
         {
-            if (!connectionInfos.Remove(connectionInfoPtr, out var connectionInfo))
+            var connectionInfo = (IConnectionInfo)PoolManager.Get(connectionInfoPtr, BaseObjectType.ConnectionInfo);
+            if (connectionInfo is null)
             {
+                Console.WriteLine("OnConnectionQueueRemove Invalid connectionInfo " + connectionInfoPtr);
                 return;
             }
 
             OnConnectionQueueRemoveEvent(connectionInfo);
-
-            lock (connectionInfo)
-            {
-                ((IInternalNative) connectionInfo).Exists = false;
-            }
         }
         public virtual void OnConnectionQueueRemoveEvent(IConnectionInfo connectionInfo)
         {
@@ -1454,11 +1452,11 @@ namespace AltV.Net
 
 
         //For custom defined args event handlers
-        private readonly Dictionary<string, HashSet<Function>> eventBusClient =
-            new Dictionary<string, HashSet<Function>>();
+        private readonly Dictionary<string, List<Function>> eventBusClient =
+            new Dictionary<string, List<Function>>();
 
-        private readonly Dictionary<string, HashSet<Function>> eventBusServer =
-            new Dictionary<string, HashSet<Function>>();
+        private readonly Dictionary<string, List<Function>> eventBusServer =
+            new Dictionary<string, List<Function>>();
 
         private readonly Dictionary<string, HashSet<IParserClientEventHandler>> eventBusClientParser =
             new Dictionary<string, HashSet<IParserClientEventHandler>>();
@@ -1502,7 +1500,7 @@ namespace AltV.Net
             }
             else
             {
-                eventHandlers = new HashSet<Function> {function};
+                eventHandlers = new List<Function> {function};
                 eventBusClient[eventName] = eventHandlers;
             }
 
@@ -1533,7 +1531,7 @@ namespace AltV.Net
             }
             else
             {
-                eventHandlers = new HashSet<Function> {function};
+                eventHandlers = new List<Function> {function};
                 eventBusServer[eventName] = eventHandlers;
             }
 

@@ -26,6 +26,16 @@ namespace AltV.Net.Mock
             throw new NotImplementedException();
         }
 
+        public IReadOnlyCollection<IConnectionInfo> GetAllConnectionInfos()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IReadOnlyCollection<IMetric> GetAllMetrics()
+        {
+            throw new NotImplementedException();
+        }
+
         ISharedBaseObject ISharedCore.GetBaseObjectById(BaseObjectType type, uint id)
         {
             return GetBaseObjectById(type, id);
@@ -349,6 +359,12 @@ namespace AltV.Net.Mock
             var ptr = MockEntities.GetNextPtr(out var entityId);
             id = entityId;
             return ptr;
+        }
+
+        public IntPtr CreateNetworkObjectEntity(out uint id, uint model, Position pos, Rotation rotation, byte alpha = 255,
+            byte textureVariation = 0, ushort lodDistance = 100)
+        {
+            throw new NotImplementedException();
         }
 
         public IReadOnlyCollection<IPlayer> GetAllPlayers()
@@ -831,7 +847,7 @@ namespace AltV.Net.Mock
             throw new NotImplementedException();
         }
 
-        public IntPtr CreateVirtualEntityGroupEntity(out uint id, uint streamingDistance)
+        public IntPtr CreateVirtualEntityGroupEntity(out uint id, uint maxEntitiesInStream)
         {
             throw new NotImplementedException();
         }
@@ -842,6 +858,38 @@ namespace AltV.Net.Mock
         }
 
         public IBaseObject GetBaseObject(BaseObjectType type, uint id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IMetric RegisterMetric(string name, MetricType type = MetricType.MetricTypeGauge, Dictionary<string, string> dataDict = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UnregisterMetric(IMetric metric)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IMarker CreateMarker(IPlayer player, MarkerType type, Position pos, Rgba color)
+        {
+            throw new NotImplementedException();
+        }
+
+        public INetworkObject CreateNetworkObject(uint hash, Position position, Rotation rotation, byte alpha, byte textureVariation,
+            ushort lodDistance)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IVirtualEntityGroup CreateVirtualEntityGroup(uint streamingDistance)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IVirtualEntity CreateVirtualEntity(IVirtualEntityGroup group, Position position, uint streamingDistance,
+            Dictionary<string, object> dataDict)
         {
             throw new NotImplementedException();
         }

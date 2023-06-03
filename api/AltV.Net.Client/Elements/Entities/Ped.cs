@@ -17,9 +17,14 @@ public class Ped : Entity, IPed
     public IntPtr PedNativePointer { get; private set; }
     public override IntPtr NativePointer => PedNativePointer;
 
-    public Ped(ICore core, IntPtr vehiclePointer, uint id) : base(core, GetEntityPointer(core, vehiclePointer), id, BaseObjectType.Ped)
+    public Ped(ICore core, IntPtr pedNativePointer, uint id) : base(core, GetEntityPointer(core, pedNativePointer), id, BaseObjectType.Ped)
     {
-        PedNativePointer = vehiclePointer;
+        PedNativePointer = pedNativePointer;
+    }
+
+    public Ped(ICore core, IntPtr pedNativePointer, BaseObjectType type, uint id) : base(core, GetEntityPointer(core, pedNativePointer), id, type)
+    {
+        PedNativePointer = pedNativePointer;
     }
 
     public ushort Armour
@@ -68,5 +73,11 @@ public class Ped : Entity, IPed
                 return Core.Library.Shared.Ped_GetCurrentWeapon(PedNativePointer);
             }
         }
+    }
+
+    public override void SetCached(IntPtr cachedPed)
+    {
+        this.PedNativePointer = cachedPed;
+        base.SetCached(GetEntityPointer(Core, cachedPed));
     }
 }

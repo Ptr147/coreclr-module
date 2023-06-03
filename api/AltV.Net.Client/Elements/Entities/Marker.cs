@@ -22,12 +22,6 @@ public class Marker : WorldObject, IMarker
         MarkerNativePointer = markerPointer;
     }
 
-    public Marker(ICore core, MarkerType type, Position pos, Rgba color, bool useStreaming, uint streamingDistance) : this(core,
-        core.CreateMarkerPtr(out var id, type, pos, color, useStreaming, streamingDistance), id)
-    {
-        core.PoolManager.Marker.Add(this);
-    }
-
     public IntPtr MarkerNativePointer { get; }
     public override IntPtr NativePointer => MarkerNativePointer;
 
@@ -216,26 +210,41 @@ public class Marker : WorldObject, IMarker
         }
     }
 
-    public bool IsRemote
+    public bool IsRotating
     {
         get
         {
             unsafe
             {
                 CheckIfEntityExists();
-                return Core.Library.Client.Marker_IsRemote(MarkerNativePointer) == 1;
+                return Core.Library.Shared.Marker_IsRotating(MarkerNativePointer) == 1;
+            }
+        }
+        set
+        {
+            unsafe
+            {
+                CheckIfEntityExists();
+                Core.Library.Shared.Marker_SetRotating(MarkerNativePointer, value ? (byte)1:(byte)0);
             }
         }
     }
-
-    public ulong RemoteId
+    public bool IsBobUpDown
     {
         get
         {
             unsafe
             {
                 CheckIfEntityExists();
-                return Core.Library.Client.Marker_GetRemoteID(MarkerNativePointer);
+                return Core.Library.Shared.Marker_IsBobUpDown(MarkerNativePointer) == 1;
+            }
+        }
+        set
+        {
+            unsafe
+            {
+                CheckIfEntityExists();
+                Core.Library.Shared.Marker_SetBobUpDown(MarkerNativePointer, value ? (byte)1:(byte)0);
             }
         }
     }

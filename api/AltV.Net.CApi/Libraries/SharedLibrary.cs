@@ -104,7 +104,7 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, byte, void> Checkpoint_SetVisible { get; }
         public delegate* unmanaged[Cdecl]<nint, uint> ColShape_GetID { get; }
         public delegate* unmanaged[Cdecl]<nint, nint> ColShape_GetWorldObject { get; }
-        public delegate* unmanaged[Cdecl]<nint, ushort, byte> ColShape_IsEntityIdIn { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint, byte> ColShape_IsEntityIdIn { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, byte> ColShape_IsEntityIn { get; }
         public delegate* unmanaged[Cdecl]<nint, Vector3, byte> ColShape_IsPointIn { get; }
         public delegate* unmanaged[Cdecl]<nint, void> Config_Delete { get; }
@@ -178,6 +178,7 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, void> FreeBlipArray { get; }
         public delegate* unmanaged[Cdecl]<nint, void> FreeCharArray { get; }
         public delegate* unmanaged[Cdecl]<nint, void> FreeCheckpointArray { get; }
+        public delegate* unmanaged[Cdecl]<nint, void> FreeConnectionInfoArray { get; }
         public delegate* unmanaged[Cdecl]<nint, void> FreeMValueConstArray { get; }
         public delegate* unmanaged[Cdecl]<nint, void> FreeObjectArray { get; }
         public delegate* unmanaged[Cdecl]<nint, void> FreePedArray { get; }
@@ -201,14 +202,6 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, MValueFunctionCallback, nint> Invoker_Create { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, void> Invoker_Destroy { get; }
         public delegate* unmanaged[Cdecl]<byte> IsDebugStatic { get; }
-        public delegate* unmanaged[Cdecl]<nint, uint> LocalPed_GetID { get; }
-        public delegate* unmanaged[Cdecl]<nint, uint> LocalPed_GetModel { get; }
-        public delegate* unmanaged[Cdecl]<nint, Rotation*, void> LocalPed_GetRotation { get; }
-        public delegate* unmanaged[Cdecl]<nint, uint> LocalPed_GetStreamingDistance { get; }
-        public delegate* unmanaged[Cdecl]<nint, nint> LocalPed_GetWorldObject { get; }
-        public delegate* unmanaged[Cdecl]<nint, byte> LocalPed_IsVisible { get; }
-        public delegate* unmanaged[Cdecl]<nint, Rotation, void> LocalPed_SetRotation { get; }
-        public delegate* unmanaged[Cdecl]<nint, byte, void> LocalPed_SetVisible { get; }
         public delegate* unmanaged[Cdecl]<nint, Rgba*, void> Marker_GetColor { get; }
         public delegate* unmanaged[Cdecl]<nint, Vector3*, void> Marker_GetDirection { get; }
         public delegate* unmanaged[Cdecl]<nint, uint> Marker_GetID { get; }
@@ -218,13 +211,17 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, uint> Marker_GetStreamingDistance { get; }
         public delegate* unmanaged[Cdecl]<nint, nint> Marker_GetTarget { get; }
         public delegate* unmanaged[Cdecl]<nint, nint> Marker_GetWorldObject { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte> Marker_IsBobUpDown { get; }
         public delegate* unmanaged[Cdecl]<nint, byte> Marker_IsFaceCamera { get; }
         public delegate* unmanaged[Cdecl]<nint, uint> Marker_IsGlobal { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte> Marker_IsRotating { get; }
         public delegate* unmanaged[Cdecl]<nint, byte> Marker_IsVisible { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte, void> Marker_SetBobUpDown { get; }
         public delegate* unmanaged[Cdecl]<nint, Rgba, void> Marker_SetColor { get; }
         public delegate* unmanaged[Cdecl]<nint, Vector3, void> Marker_SetDirection { get; }
         public delegate* unmanaged[Cdecl]<nint, byte, void> Marker_SetFaceCamera { get; }
         public delegate* unmanaged[Cdecl]<nint, byte, void> Marker_SetMarkerType { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte, void> Marker_SetRotating { get; }
         public delegate* unmanaged[Cdecl]<nint, Rotation, void> Marker_SetRotation { get; }
         public delegate* unmanaged[Cdecl]<nint, Vector3, void> Marker_SetScale { get; }
         public delegate* unmanaged[Cdecl]<nint, byte, void> Marker_SetVisible { get; }
@@ -252,30 +249,6 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, ushort> NetworkObject_GetID { get; }
         public delegate* unmanaged[Cdecl]<nint, ushort> NetworkObject_GetLodDistance { get; }
         public delegate* unmanaged[Cdecl]<nint, byte> NetworkObject_GetTextureVariation { get; }
-        public delegate* unmanaged[Cdecl]<nint, void> Object_ActivatePhysics { get; }
-        public delegate* unmanaged[Cdecl]<nint, nint, short, Vector3, Rotation, byte, byte, byte, void> Object_AttachToEntity { get; }
-        public delegate* unmanaged[Cdecl]<nint, uint, short, Vector3, Rotation, byte, byte, byte, void> Object_AttachToEntity_ScriptId { get; }
-        public delegate* unmanaged[Cdecl]<nint, byte, void> Object_Detach { get; }
-        public delegate* unmanaged[Cdecl]<nint, byte> Object_GetAlpha { get; }
-        public delegate* unmanaged[Cdecl]<nint, nint> Object_GetEntity { get; }
-        public delegate* unmanaged[Cdecl]<nint, ushort> Object_GetID { get; }
-        public delegate* unmanaged[Cdecl]<nint, ushort> Object_GetLodDistance { get; }
-        public delegate* unmanaged[Cdecl]<nint, uint> Object_GetStreamingDistance { get; }
-        public delegate* unmanaged[Cdecl]<nint, byte> Object_GetTextureVariation { get; }
-        public delegate* unmanaged[Cdecl]<nint, byte> Object_HasGravity { get; }
-        public delegate* unmanaged[Cdecl]<nint, byte> Object_IsCollisionEnabled { get; }
-        public delegate* unmanaged[Cdecl]<nint, byte> Object_IsDynamic { get; }
-        public delegate* unmanaged[Cdecl]<nint, byte> Object_IsVisible { get; }
-        public delegate* unmanaged[Cdecl]<nint, byte> Object_IsWorldObject { get; }
-        public delegate* unmanaged[Cdecl]<nint, void> Object_PlaceOnGroundProperly { get; }
-        public delegate* unmanaged[Cdecl]<nint, void> Object_ResetAlpha { get; }
-        public delegate* unmanaged[Cdecl]<nint, byte, void> Object_SetAlpha { get; }
-        public delegate* unmanaged[Cdecl]<nint, ushort, void> Object_SetLodDistance { get; }
-        public delegate* unmanaged[Cdecl]<nint, byte, void> Object_SetPositionFrozen { get; }
-        public delegate* unmanaged[Cdecl]<nint, byte, void> Object_SetTextureVariation { get; }
-        public delegate* unmanaged[Cdecl]<nint, byte, void> Object_SetVisible { get; }
-        public delegate* unmanaged[Cdecl]<nint, byte, byte, void> Object_ToggleCollision { get; }
-        public delegate* unmanaged[Cdecl]<nint, byte, void> Object_ToggleGravity { get; }
         public delegate* unmanaged[Cdecl]<nint, ushort> Ped_GetArmour { get; }
         public delegate* unmanaged[Cdecl]<nint, uint> Ped_GetCurrentWeapon { get; }
         public delegate* unmanaged[Cdecl]<nint, nint> Ped_GetEntity { get; }
@@ -362,7 +335,7 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, byte, void> VirtualEntity_SetVisible { get; }
         public delegate* unmanaged[Cdecl]<nint, nint> VirtualEntityGroup_GetBaseObject { get; }
         public delegate* unmanaged[Cdecl]<nint, uint> VirtualEntityGroup_GetID { get; }
-        public delegate* unmanaged[Cdecl]<nint, uint> VirtualEntityGroup_GetStreamingRangeLimit { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint> VirtualEntityGroup_GetMaxEntitiesInStream { get; }
         public delegate* unmanaged[Cdecl]<nint, uint> VoiceChannel_GetID { get; }
         public delegate* unmanaged[Cdecl]<nint, uint> WebSocketClient_GetID { get; }
         public delegate* unmanaged[Cdecl]<nint, uint> WebView_GetID { get; }
@@ -374,7 +347,7 @@ namespace AltV.Net.CApi.Libraries
 
     public unsafe class SharedLibrary : ISharedLibrary
     {
-        public readonly uint Methods = 1679;
+        public readonly uint Methods = 1509;
         public delegate* unmanaged[Cdecl]<nint, uint> Audio_GetID { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, void> BaseObject_DeleteMetaData { get; }
         public delegate* unmanaged[Cdecl]<nint, void> BaseObject_DestructCache { get; }
@@ -469,7 +442,7 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, byte, void> Checkpoint_SetVisible { get; }
         public delegate* unmanaged[Cdecl]<nint, uint> ColShape_GetID { get; }
         public delegate* unmanaged[Cdecl]<nint, nint> ColShape_GetWorldObject { get; }
-        public delegate* unmanaged[Cdecl]<nint, ushort, byte> ColShape_IsEntityIdIn { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint, byte> ColShape_IsEntityIdIn { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, byte> ColShape_IsEntityIn { get; }
         public delegate* unmanaged[Cdecl]<nint, Vector3, byte> ColShape_IsPointIn { get; }
         public delegate* unmanaged[Cdecl]<nint, void> Config_Delete { get; }
@@ -543,6 +516,7 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, void> FreeBlipArray { get; }
         public delegate* unmanaged[Cdecl]<nint, void> FreeCharArray { get; }
         public delegate* unmanaged[Cdecl]<nint, void> FreeCheckpointArray { get; }
+        public delegate* unmanaged[Cdecl]<nint, void> FreeConnectionInfoArray { get; }
         public delegate* unmanaged[Cdecl]<nint, void> FreeMValueConstArray { get; }
         public delegate* unmanaged[Cdecl]<nint, void> FreeObjectArray { get; }
         public delegate* unmanaged[Cdecl]<nint, void> FreePedArray { get; }
@@ -566,14 +540,6 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, MValueFunctionCallback, nint> Invoker_Create { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, void> Invoker_Destroy { get; }
         public delegate* unmanaged[Cdecl]<byte> IsDebugStatic { get; }
-        public delegate* unmanaged[Cdecl]<nint, uint> LocalPed_GetID { get; }
-        public delegate* unmanaged[Cdecl]<nint, uint> LocalPed_GetModel { get; }
-        public delegate* unmanaged[Cdecl]<nint, Rotation*, void> LocalPed_GetRotation { get; }
-        public delegate* unmanaged[Cdecl]<nint, uint> LocalPed_GetStreamingDistance { get; }
-        public delegate* unmanaged[Cdecl]<nint, nint> LocalPed_GetWorldObject { get; }
-        public delegate* unmanaged[Cdecl]<nint, byte> LocalPed_IsVisible { get; }
-        public delegate* unmanaged[Cdecl]<nint, Rotation, void> LocalPed_SetRotation { get; }
-        public delegate* unmanaged[Cdecl]<nint, byte, void> LocalPed_SetVisible { get; }
         public delegate* unmanaged[Cdecl]<nint, Rgba*, void> Marker_GetColor { get; }
         public delegate* unmanaged[Cdecl]<nint, Vector3*, void> Marker_GetDirection { get; }
         public delegate* unmanaged[Cdecl]<nint, uint> Marker_GetID { get; }
@@ -583,13 +549,17 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, uint> Marker_GetStreamingDistance { get; }
         public delegate* unmanaged[Cdecl]<nint, nint> Marker_GetTarget { get; }
         public delegate* unmanaged[Cdecl]<nint, nint> Marker_GetWorldObject { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte> Marker_IsBobUpDown { get; }
         public delegate* unmanaged[Cdecl]<nint, byte> Marker_IsFaceCamera { get; }
         public delegate* unmanaged[Cdecl]<nint, uint> Marker_IsGlobal { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte> Marker_IsRotating { get; }
         public delegate* unmanaged[Cdecl]<nint, byte> Marker_IsVisible { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte, void> Marker_SetBobUpDown { get; }
         public delegate* unmanaged[Cdecl]<nint, Rgba, void> Marker_SetColor { get; }
         public delegate* unmanaged[Cdecl]<nint, Vector3, void> Marker_SetDirection { get; }
         public delegate* unmanaged[Cdecl]<nint, byte, void> Marker_SetFaceCamera { get; }
         public delegate* unmanaged[Cdecl]<nint, byte, void> Marker_SetMarkerType { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte, void> Marker_SetRotating { get; }
         public delegate* unmanaged[Cdecl]<nint, Rotation, void> Marker_SetRotation { get; }
         public delegate* unmanaged[Cdecl]<nint, Vector3, void> Marker_SetScale { get; }
         public delegate* unmanaged[Cdecl]<nint, byte, void> Marker_SetVisible { get; }
@@ -617,30 +587,6 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, ushort> NetworkObject_GetID { get; }
         public delegate* unmanaged[Cdecl]<nint, ushort> NetworkObject_GetLodDistance { get; }
         public delegate* unmanaged[Cdecl]<nint, byte> NetworkObject_GetTextureVariation { get; }
-        public delegate* unmanaged[Cdecl]<nint, void> Object_ActivatePhysics { get; }
-        public delegate* unmanaged[Cdecl]<nint, nint, short, Vector3, Rotation, byte, byte, byte, void> Object_AttachToEntity { get; }
-        public delegate* unmanaged[Cdecl]<nint, uint, short, Vector3, Rotation, byte, byte, byte, void> Object_AttachToEntity_ScriptId { get; }
-        public delegate* unmanaged[Cdecl]<nint, byte, void> Object_Detach { get; }
-        public delegate* unmanaged[Cdecl]<nint, byte> Object_GetAlpha { get; }
-        public delegate* unmanaged[Cdecl]<nint, nint> Object_GetEntity { get; }
-        public delegate* unmanaged[Cdecl]<nint, ushort> Object_GetID { get; }
-        public delegate* unmanaged[Cdecl]<nint, ushort> Object_GetLodDistance { get; }
-        public delegate* unmanaged[Cdecl]<nint, uint> Object_GetStreamingDistance { get; }
-        public delegate* unmanaged[Cdecl]<nint, byte> Object_GetTextureVariation { get; }
-        public delegate* unmanaged[Cdecl]<nint, byte> Object_HasGravity { get; }
-        public delegate* unmanaged[Cdecl]<nint, byte> Object_IsCollisionEnabled { get; }
-        public delegate* unmanaged[Cdecl]<nint, byte> Object_IsDynamic { get; }
-        public delegate* unmanaged[Cdecl]<nint, byte> Object_IsVisible { get; }
-        public delegate* unmanaged[Cdecl]<nint, byte> Object_IsWorldObject { get; }
-        public delegate* unmanaged[Cdecl]<nint, void> Object_PlaceOnGroundProperly { get; }
-        public delegate* unmanaged[Cdecl]<nint, void> Object_ResetAlpha { get; }
-        public delegate* unmanaged[Cdecl]<nint, byte, void> Object_SetAlpha { get; }
-        public delegate* unmanaged[Cdecl]<nint, ushort, void> Object_SetLodDistance { get; }
-        public delegate* unmanaged[Cdecl]<nint, byte, void> Object_SetPositionFrozen { get; }
-        public delegate* unmanaged[Cdecl]<nint, byte, void> Object_SetTextureVariation { get; }
-        public delegate* unmanaged[Cdecl]<nint, byte, void> Object_SetVisible { get; }
-        public delegate* unmanaged[Cdecl]<nint, byte, byte, void> Object_ToggleCollision { get; }
-        public delegate* unmanaged[Cdecl]<nint, byte, void> Object_ToggleGravity { get; }
         public delegate* unmanaged[Cdecl]<nint, ushort> Ped_GetArmour { get; }
         public delegate* unmanaged[Cdecl]<nint, uint> Ped_GetCurrentWeapon { get; }
         public delegate* unmanaged[Cdecl]<nint, nint> Ped_GetEntity { get; }
@@ -727,7 +673,7 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, byte, void> VirtualEntity_SetVisible { get; }
         public delegate* unmanaged[Cdecl]<nint, nint> VirtualEntityGroup_GetBaseObject { get; }
         public delegate* unmanaged[Cdecl]<nint, uint> VirtualEntityGroup_GetID { get; }
-        public delegate* unmanaged[Cdecl]<nint, uint> VirtualEntityGroup_GetStreamingRangeLimit { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint> VirtualEntityGroup_GetMaxEntitiesInStream { get; }
         public delegate* unmanaged[Cdecl]<nint, uint> VoiceChannel_GetID { get; }
         public delegate* unmanaged[Cdecl]<nint, uint> WebSocketClient_GetID { get; }
         public delegate* unmanaged[Cdecl]<nint, uint> WebView_GetID { get; }
@@ -923,8 +869,8 @@ namespace AltV.Net.CApi.Libraries
         private static uint ColShape_GetIDFallback(nint _colShape) => throw new Exceptions.OutdatedSdkException("ColShape_GetID", "ColShape_GetID SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate nint ColShape_GetWorldObjectDelegate(nint _colShape);
         private static nint ColShape_GetWorldObjectFallback(nint _colShape) => throw new Exceptions.OutdatedSdkException("ColShape_GetWorldObject", "ColShape_GetWorldObject SDK method is outdated. Please update your module nuget");
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte ColShape_IsEntityIdInDelegate(nint _colShape, ushort _id);
-        private static byte ColShape_IsEntityIdInFallback(nint _colShape, ushort _id) => throw new Exceptions.OutdatedSdkException("ColShape_IsEntityIdIn", "ColShape_IsEntityIdIn SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte ColShape_IsEntityIdInDelegate(nint _colShape, uint _id);
+        private static byte ColShape_IsEntityIdInFallback(nint _colShape, uint _id) => throw new Exceptions.OutdatedSdkException("ColShape_IsEntityIdIn", "ColShape_IsEntityIdIn SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte ColShape_IsEntityInDelegate(nint _colShape, nint _entity);
         private static byte ColShape_IsEntityInFallback(nint _colShape, nint _entity) => throw new Exceptions.OutdatedSdkException("ColShape_IsEntityIn", "ColShape_IsEntityIn SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte ColShape_IsPointInDelegate(nint _colShape, Vector3 _point);
@@ -973,8 +919,8 @@ namespace AltV.Net.CApi.Libraries
         private static nint Core_CreateMValueVector3Fallback(nint _core, Vector3 _value) => throw new Exceptions.OutdatedSdkException("Core_CreateMValueVector3", "Core_CreateMValueVector3 SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate nint Core_CreateVirtualEntityDelegate(nint _core, nint _group, Vector3 _position, uint _streamingDistance, nint[] keys, nint[] values, ulong _size, uint* _id);
         private static nint Core_CreateVirtualEntityFallback(nint _core, nint _group, Vector3 _position, uint _streamingDistance, nint[] keys, nint[] values, ulong _size, uint* _id) => throw new Exceptions.OutdatedSdkException("Core_CreateVirtualEntity", "Core_CreateVirtualEntity SDK method is outdated. Please update your module nuget");
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate nint Core_CreateVirtualEntityGroupDelegate(nint _core, uint _streamingDistance, uint* _id);
-        private static nint Core_CreateVirtualEntityGroupFallback(nint _core, uint _streamingDistance, uint* _id) => throw new Exceptions.OutdatedSdkException("Core_CreateVirtualEntityGroup", "Core_CreateVirtualEntityGroup SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate nint Core_CreateVirtualEntityGroupDelegate(nint _core, uint _maxEntitiesInStream, uint* _id);
+        private static nint Core_CreateVirtualEntityGroupFallback(nint _core, uint _maxEntitiesInStream, uint* _id) => throw new Exceptions.OutdatedSdkException("Core_CreateVirtualEntityGroup", "Core_CreateVirtualEntityGroup SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Core_DeleteMetaDataDelegate(nint _core, nint _key);
         private static void Core_DeleteMetaDataFallback(nint _core, nint _key) => throw new Exceptions.OutdatedSdkException("Core_DeleteMetaData", "Core_DeleteMetaData SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Core_DestroyBaseObjectDelegate(nint _server, nint _baseObject);
@@ -1071,6 +1017,8 @@ namespace AltV.Net.CApi.Libraries
         private static void FreeCharArrayFallback(nint charArray) => throw new Exceptions.OutdatedSdkException("FreeCharArray", "FreeCharArray SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void FreeCheckpointArrayDelegate(nint _checkpointArray);
         private static void FreeCheckpointArrayFallback(nint _checkpointArray) => throw new Exceptions.OutdatedSdkException("FreeCheckpointArray", "FreeCheckpointArray SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void FreeConnectionInfoArrayDelegate(nint _connectionInfoArray);
+        private static void FreeConnectionInfoArrayFallback(nint _connectionInfoArray) => throw new Exceptions.OutdatedSdkException("FreeConnectionInfoArray", "FreeConnectionInfoArray SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void FreeMValueConstArrayDelegate(nint _mvalueConstArray);
         private static void FreeMValueConstArrayFallback(nint _mvalueConstArray) => throw new Exceptions.OutdatedSdkException("FreeMValueConstArray", "FreeMValueConstArray SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void FreeObjectArrayDelegate(nint _objectArray);
@@ -1117,22 +1065,6 @@ namespace AltV.Net.CApi.Libraries
         private static void Invoker_DestroyFallback(nint _resource, nint _val) => throw new Exceptions.OutdatedSdkException("Invoker_Destroy", "Invoker_Destroy SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte IsDebugStaticDelegate();
         private static byte IsDebugStaticFallback() => throw new Exceptions.OutdatedSdkException("IsDebugStatic", "IsDebugStatic SDK method is outdated. Please update your module nuget");
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate uint LocalPed_GetIDDelegate(nint _localPed);
-        private static uint LocalPed_GetIDFallback(nint _localPed) => throw new Exceptions.OutdatedSdkException("LocalPed_GetID", "LocalPed_GetID SDK method is outdated. Please update your module nuget");
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate uint LocalPed_GetModelDelegate(nint _localPed);
-        private static uint LocalPed_GetModelFallback(nint _localPed) => throw new Exceptions.OutdatedSdkException("LocalPed_GetModel", "LocalPed_GetModel SDK method is outdated. Please update your module nuget");
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalPed_GetRotationDelegate(nint _localPed, Rotation* _rot);
-        private static void LocalPed_GetRotationFallback(nint _localPed, Rotation* _rot) => throw new Exceptions.OutdatedSdkException("LocalPed_GetRotation", "LocalPed_GetRotation SDK method is outdated. Please update your module nuget");
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate uint LocalPed_GetStreamingDistanceDelegate(nint _localPed);
-        private static uint LocalPed_GetStreamingDistanceFallback(nint _localPed) => throw new Exceptions.OutdatedSdkException("LocalPed_GetStreamingDistance", "LocalPed_GetStreamingDistance SDK method is outdated. Please update your module nuget");
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate nint LocalPed_GetWorldObjectDelegate(nint _localPed);
-        private static nint LocalPed_GetWorldObjectFallback(nint _localPed) => throw new Exceptions.OutdatedSdkException("LocalPed_GetWorldObject", "LocalPed_GetWorldObject SDK method is outdated. Please update your module nuget");
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte LocalPed_IsVisibleDelegate(nint _localPed);
-        private static byte LocalPed_IsVisibleFallback(nint _localPed) => throw new Exceptions.OutdatedSdkException("LocalPed_IsVisible", "LocalPed_IsVisible SDK method is outdated. Please update your module nuget");
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalPed_SetRotationDelegate(nint _localPed, Rotation _rot);
-        private static void LocalPed_SetRotationFallback(nint _localPed, Rotation _rot) => throw new Exceptions.OutdatedSdkException("LocalPed_SetRotation", "LocalPed_SetRotation SDK method is outdated. Please update your module nuget");
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void LocalPed_SetVisibleDelegate(nint _localPed, byte _toggle);
-        private static void LocalPed_SetVisibleFallback(nint _localPed, byte _toggle) => throw new Exceptions.OutdatedSdkException("LocalPed_SetVisible", "LocalPed_SetVisible SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Marker_GetColorDelegate(nint _marker, Rgba* _color);
         private static void Marker_GetColorFallback(nint _marker, Rgba* _color) => throw new Exceptions.OutdatedSdkException("Marker_GetColor", "Marker_GetColor SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Marker_GetDirectionDelegate(nint _marker, Vector3* _dir);
@@ -1151,12 +1083,18 @@ namespace AltV.Net.CApi.Libraries
         private static nint Marker_GetTargetFallback(nint _marker) => throw new Exceptions.OutdatedSdkException("Marker_GetTarget", "Marker_GetTarget SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate nint Marker_GetWorldObjectDelegate(nint _marker);
         private static nint Marker_GetWorldObjectFallback(nint _marker) => throw new Exceptions.OutdatedSdkException("Marker_GetWorldObject", "Marker_GetWorldObject SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte Marker_IsBobUpDownDelegate(nint _marker);
+        private static byte Marker_IsBobUpDownFallback(nint _marker) => throw new Exceptions.OutdatedSdkException("Marker_IsBobUpDown", "Marker_IsBobUpDown SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte Marker_IsFaceCameraDelegate(nint _marker);
         private static byte Marker_IsFaceCameraFallback(nint _marker) => throw new Exceptions.OutdatedSdkException("Marker_IsFaceCamera", "Marker_IsFaceCamera SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate uint Marker_IsGlobalDelegate(nint _marker);
         private static uint Marker_IsGlobalFallback(nint _marker) => throw new Exceptions.OutdatedSdkException("Marker_IsGlobal", "Marker_IsGlobal SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte Marker_IsRotatingDelegate(nint _marker);
+        private static byte Marker_IsRotatingFallback(nint _marker) => throw new Exceptions.OutdatedSdkException("Marker_IsRotating", "Marker_IsRotating SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte Marker_IsVisibleDelegate(nint _marker);
         private static byte Marker_IsVisibleFallback(nint _marker) => throw new Exceptions.OutdatedSdkException("Marker_IsVisible", "Marker_IsVisible SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Marker_SetBobUpDownDelegate(nint _marker, byte _bobUpDown);
+        private static void Marker_SetBobUpDownFallback(nint _marker, byte _bobUpDown) => throw new Exceptions.OutdatedSdkException("Marker_SetBobUpDown", "Marker_SetBobUpDown SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Marker_SetColorDelegate(nint _marker, Rgba _color);
         private static void Marker_SetColorFallback(nint _marker, Rgba _color) => throw new Exceptions.OutdatedSdkException("Marker_SetColor", "Marker_SetColor SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Marker_SetDirectionDelegate(nint _marker, Vector3 _dir);
@@ -1165,6 +1103,8 @@ namespace AltV.Net.CApi.Libraries
         private static void Marker_SetFaceCameraFallback(nint _marker, byte _faceCamera) => throw new Exceptions.OutdatedSdkException("Marker_SetFaceCamera", "Marker_SetFaceCamera SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Marker_SetMarkerTypeDelegate(nint _marker, byte _type);
         private static void Marker_SetMarkerTypeFallback(nint _marker, byte _type) => throw new Exceptions.OutdatedSdkException("Marker_SetMarkerType", "Marker_SetMarkerType SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Marker_SetRotatingDelegate(nint _marker, byte _rotating);
+        private static void Marker_SetRotatingFallback(nint _marker, byte _rotating) => throw new Exceptions.OutdatedSdkException("Marker_SetRotating", "Marker_SetRotating SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Marker_SetRotationDelegate(nint _marker, Rotation _rot);
         private static void Marker_SetRotationFallback(nint _marker, Rotation _rot) => throw new Exceptions.OutdatedSdkException("Marker_SetRotation", "Marker_SetRotation SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Marker_SetScaleDelegate(nint _marker, Vector3 _scale);
@@ -1219,54 +1159,6 @@ namespace AltV.Net.CApi.Libraries
         private static ushort NetworkObject_GetLodDistanceFallback(nint _networkObject) => throw new Exceptions.OutdatedSdkException("NetworkObject_GetLodDistance", "NetworkObject_GetLodDistance SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte NetworkObject_GetTextureVariationDelegate(nint _networkObject);
         private static byte NetworkObject_GetTextureVariationFallback(nint _networkObject) => throw new Exceptions.OutdatedSdkException("NetworkObject_GetTextureVariation", "NetworkObject_GetTextureVariation SDK method is outdated. Please update your module nuget");
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Object_ActivatePhysicsDelegate(nint _object);
-        private static void Object_ActivatePhysicsFallback(nint _object) => throw new Exceptions.OutdatedSdkException("Object_ActivatePhysics", "Object_ActivatePhysics SDK method is outdated. Please update your module nuget");
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Object_AttachToEntityDelegate(nint _object, nint _entity, short _bone, Vector3 _pos, Rotation _rot, byte _useSoftPinning, byte _collision, byte _fixedRot);
-        private static void Object_AttachToEntityFallback(nint _object, nint _entity, short _bone, Vector3 _pos, Rotation _rot, byte _useSoftPinning, byte _collision, byte _fixedRot) => throw new Exceptions.OutdatedSdkException("Object_AttachToEntity", "Object_AttachToEntity SDK method is outdated. Please update your module nuget");
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Object_AttachToEntity_ScriptIdDelegate(nint _object, uint _scriptId, short _bone, Vector3 _pos, Rotation _rot, byte _useSoftPinning, byte _collision, byte _fixedRot);
-        private static void Object_AttachToEntity_ScriptIdFallback(nint _object, uint _scriptId, short _bone, Vector3 _pos, Rotation _rot, byte _useSoftPinning, byte _collision, byte _fixedRot) => throw new Exceptions.OutdatedSdkException("Object_AttachToEntity_ScriptId", "Object_AttachToEntity_ScriptId SDK method is outdated. Please update your module nuget");
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Object_DetachDelegate(nint _object, byte _dynamic);
-        private static void Object_DetachFallback(nint _object, byte _dynamic) => throw new Exceptions.OutdatedSdkException("Object_Detach", "Object_Detach SDK method is outdated. Please update your module nuget");
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte Object_GetAlphaDelegate(nint _object);
-        private static byte Object_GetAlphaFallback(nint _object) => throw new Exceptions.OutdatedSdkException("Object_GetAlpha", "Object_GetAlpha SDK method is outdated. Please update your module nuget");
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate nint Object_GetEntityDelegate(nint _object);
-        private static nint Object_GetEntityFallback(nint _object) => throw new Exceptions.OutdatedSdkException("Object_GetEntity", "Object_GetEntity SDK method is outdated. Please update your module nuget");
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate ushort Object_GetIDDelegate(nint _object);
-        private static ushort Object_GetIDFallback(nint _object) => throw new Exceptions.OutdatedSdkException("Object_GetID", "Object_GetID SDK method is outdated. Please update your module nuget");
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate ushort Object_GetLodDistanceDelegate(nint _object);
-        private static ushort Object_GetLodDistanceFallback(nint _object) => throw new Exceptions.OutdatedSdkException("Object_GetLodDistance", "Object_GetLodDistance SDK method is outdated. Please update your module nuget");
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate uint Object_GetStreamingDistanceDelegate(nint _object);
-        private static uint Object_GetStreamingDistanceFallback(nint _object) => throw new Exceptions.OutdatedSdkException("Object_GetStreamingDistance", "Object_GetStreamingDistance SDK method is outdated. Please update your module nuget");
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte Object_GetTextureVariationDelegate(nint _object);
-        private static byte Object_GetTextureVariationFallback(nint _object) => throw new Exceptions.OutdatedSdkException("Object_GetTextureVariation", "Object_GetTextureVariation SDK method is outdated. Please update your module nuget");
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte Object_HasGravityDelegate(nint _object);
-        private static byte Object_HasGravityFallback(nint _object) => throw new Exceptions.OutdatedSdkException("Object_HasGravity", "Object_HasGravity SDK method is outdated. Please update your module nuget");
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte Object_IsCollisionEnabledDelegate(nint _object);
-        private static byte Object_IsCollisionEnabledFallback(nint _object) => throw new Exceptions.OutdatedSdkException("Object_IsCollisionEnabled", "Object_IsCollisionEnabled SDK method is outdated. Please update your module nuget");
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte Object_IsDynamicDelegate(nint _object);
-        private static byte Object_IsDynamicFallback(nint _object) => throw new Exceptions.OutdatedSdkException("Object_IsDynamic", "Object_IsDynamic SDK method is outdated. Please update your module nuget");
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte Object_IsVisibleDelegate(nint _object);
-        private static byte Object_IsVisibleFallback(nint _object) => throw new Exceptions.OutdatedSdkException("Object_IsVisible", "Object_IsVisible SDK method is outdated. Please update your module nuget");
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte Object_IsWorldObjectDelegate(nint _object);
-        private static byte Object_IsWorldObjectFallback(nint _object) => throw new Exceptions.OutdatedSdkException("Object_IsWorldObject", "Object_IsWorldObject SDK method is outdated. Please update your module nuget");
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Object_PlaceOnGroundProperlyDelegate(nint _object);
-        private static void Object_PlaceOnGroundProperlyFallback(nint _object) => throw new Exceptions.OutdatedSdkException("Object_PlaceOnGroundProperly", "Object_PlaceOnGroundProperly SDK method is outdated. Please update your module nuget");
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Object_ResetAlphaDelegate(nint _object);
-        private static void Object_ResetAlphaFallback(nint _object) => throw new Exceptions.OutdatedSdkException("Object_ResetAlpha", "Object_ResetAlpha SDK method is outdated. Please update your module nuget");
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Object_SetAlphaDelegate(nint _object, byte _alpha);
-        private static void Object_SetAlphaFallback(nint _object, byte _alpha) => throw new Exceptions.OutdatedSdkException("Object_SetAlpha", "Object_SetAlpha SDK method is outdated. Please update your module nuget");
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Object_SetLodDistanceDelegate(nint _object, ushort _distance);
-        private static void Object_SetLodDistanceFallback(nint _object, ushort _distance) => throw new Exceptions.OutdatedSdkException("Object_SetLodDistance", "Object_SetLodDistance SDK method is outdated. Please update your module nuget");
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Object_SetPositionFrozenDelegate(nint _object, byte _toggle);
-        private static void Object_SetPositionFrozenFallback(nint _object, byte _toggle) => throw new Exceptions.OutdatedSdkException("Object_SetPositionFrozen", "Object_SetPositionFrozen SDK method is outdated. Please update your module nuget");
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Object_SetTextureVariationDelegate(nint _object, byte _variation);
-        private static void Object_SetTextureVariationFallback(nint _object, byte _variation) => throw new Exceptions.OutdatedSdkException("Object_SetTextureVariation", "Object_SetTextureVariation SDK method is outdated. Please update your module nuget");
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Object_SetVisibleDelegate(nint _object, byte _toggle);
-        private static void Object_SetVisibleFallback(nint _object, byte _toggle) => throw new Exceptions.OutdatedSdkException("Object_SetVisible", "Object_SetVisible SDK method is outdated. Please update your module nuget");
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Object_ToggleCollisionDelegate(nint _object, byte _toggle, byte _keepPhysics);
-        private static void Object_ToggleCollisionFallback(nint _object, byte _toggle, byte _keepPhysics) => throw new Exceptions.OutdatedSdkException("Object_ToggleCollision", "Object_ToggleCollision SDK method is outdated. Please update your module nuget");
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Object_ToggleGravityDelegate(nint _object, byte _toggle);
-        private static void Object_ToggleGravityFallback(nint _object, byte _toggle) => throw new Exceptions.OutdatedSdkException("Object_ToggleGravity", "Object_ToggleGravity SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate ushort Ped_GetArmourDelegate(nint _ped);
         private static ushort Ped_GetArmourFallback(nint _ped) => throw new Exceptions.OutdatedSdkException("Ped_GetArmour", "Ped_GetArmour SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate uint Ped_GetCurrentWeaponDelegate(nint _ped);
@@ -1439,8 +1331,8 @@ namespace AltV.Net.CApi.Libraries
         private static nint VirtualEntityGroup_GetBaseObjectFallback(nint _virtualEntityGroup) => throw new Exceptions.OutdatedSdkException("VirtualEntityGroup_GetBaseObject", "VirtualEntityGroup_GetBaseObject SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate uint VirtualEntityGroup_GetIDDelegate(nint _virtualEntityGroup);
         private static uint VirtualEntityGroup_GetIDFallback(nint _virtualEntityGroup) => throw new Exceptions.OutdatedSdkException("VirtualEntityGroup_GetID", "VirtualEntityGroup_GetID SDK method is outdated. Please update your module nuget");
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate uint VirtualEntityGroup_GetStreamingRangeLimitDelegate(nint _virtualEntityGroup);
-        private static uint VirtualEntityGroup_GetStreamingRangeLimitFallback(nint _virtualEntityGroup) => throw new Exceptions.OutdatedSdkException("VirtualEntityGroup_GetStreamingRangeLimit", "VirtualEntityGroup_GetStreamingRangeLimit SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate uint VirtualEntityGroup_GetMaxEntitiesInStreamDelegate(nint _virtualEntityGroup);
+        private static uint VirtualEntityGroup_GetMaxEntitiesInStreamFallback(nint _virtualEntityGroup) => throw new Exceptions.OutdatedSdkException("VirtualEntityGroup_GetMaxEntitiesInStream", "VirtualEntityGroup_GetMaxEntitiesInStream SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate uint VoiceChannel_GetIDDelegate(nint _voiceChannel);
         private static uint VoiceChannel_GetIDFallback(nint _voiceChannel) => throw new Exceptions.OutdatedSdkException("VoiceChannel_GetID", "VoiceChannel_GetID SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate uint WebSocketClient_GetIDDelegate(nint _webSocketClient);
@@ -1464,7 +1356,7 @@ namespace AltV.Net.CApi.Libraries
         public SharedLibrary(Dictionary<ulong, IntPtr> funcTable)
         {
             if (!funcTable.TryGetValue(0, out var capiHash)) Outdated = true;
-            else if (capiHash == IntPtr.Zero || *(ulong*)capiHash != 3704171453107582554UL) Outdated = true;
+            else if (capiHash == IntPtr.Zero || *(ulong*)capiHash != 15217614832786047900UL) Outdated = true;
             Audio_GetID = (delegate* unmanaged[Cdecl]<nint, uint>) GetUnmanagedPtr<Audio_GetIDDelegate>(funcTable, 4464042055475980737UL, Audio_GetIDFallback);
             BaseObject_DeleteMetaData = (delegate* unmanaged[Cdecl]<nint, nint, void>) GetUnmanagedPtr<BaseObject_DeleteMetaDataDelegate>(funcTable, 8032676411671743849UL, BaseObject_DeleteMetaDataFallback);
             BaseObject_DestructCache = (delegate* unmanaged[Cdecl]<nint, void>) GetUnmanagedPtr<BaseObject_DestructCacheDelegate>(funcTable, 6691163275156255752UL, BaseObject_DestructCacheFallback);
@@ -1559,7 +1451,7 @@ namespace AltV.Net.CApi.Libraries
             Checkpoint_SetVisible = (delegate* unmanaged[Cdecl]<nint, byte, void>) GetUnmanagedPtr<Checkpoint_SetVisibleDelegate>(funcTable, 10440317907789505010UL, Checkpoint_SetVisibleFallback);
             ColShape_GetID = (delegate* unmanaged[Cdecl]<nint, uint>) GetUnmanagedPtr<ColShape_GetIDDelegate>(funcTable, 14808638423192174437UL, ColShape_GetIDFallback);
             ColShape_GetWorldObject = (delegate* unmanaged[Cdecl]<nint, nint>) GetUnmanagedPtr<ColShape_GetWorldObjectDelegate>(funcTable, 12063803817393523050UL, ColShape_GetWorldObjectFallback);
-            ColShape_IsEntityIdIn = (delegate* unmanaged[Cdecl]<nint, ushort, byte>) GetUnmanagedPtr<ColShape_IsEntityIdInDelegate>(funcTable, 11663630185962538197UL, ColShape_IsEntityIdInFallback);
+            ColShape_IsEntityIdIn = (delegate* unmanaged[Cdecl]<nint, uint, byte>) GetUnmanagedPtr<ColShape_IsEntityIdInDelegate>(funcTable, 17445661802416988031UL, ColShape_IsEntityIdInFallback);
             ColShape_IsEntityIn = (delegate* unmanaged[Cdecl]<nint, nint, byte>) GetUnmanagedPtr<ColShape_IsEntityInDelegate>(funcTable, 14246921758262831479UL, ColShape_IsEntityInFallback);
             ColShape_IsPointIn = (delegate* unmanaged[Cdecl]<nint, Vector3, byte>) GetUnmanagedPtr<ColShape_IsPointInDelegate>(funcTable, 5532487930936127510UL, ColShape_IsPointInFallback);
             Config_Delete = (delegate* unmanaged[Cdecl]<nint, void>) GetUnmanagedPtr<Config_DeleteDelegate>(funcTable, 2262811344498570156UL, Config_DeleteFallback);
@@ -1633,6 +1525,7 @@ namespace AltV.Net.CApi.Libraries
             FreeBlipArray = (delegate* unmanaged[Cdecl]<nint, void>) GetUnmanagedPtr<FreeBlipArrayDelegate>(funcTable, 12999641840922984330UL, FreeBlipArrayFallback);
             FreeCharArray = (delegate* unmanaged[Cdecl]<nint, void>) GetUnmanagedPtr<FreeCharArrayDelegate>(funcTable, 1943718755920302008UL, FreeCharArrayFallback);
             FreeCheckpointArray = (delegate* unmanaged[Cdecl]<nint, void>) GetUnmanagedPtr<FreeCheckpointArrayDelegate>(funcTable, 16715093567839162130UL, FreeCheckpointArrayFallback);
+            FreeConnectionInfoArray = (delegate* unmanaged[Cdecl]<nint, void>) GetUnmanagedPtr<FreeConnectionInfoArrayDelegate>(funcTable, 13501026980351169142UL, FreeConnectionInfoArrayFallback);
             FreeMValueConstArray = (delegate* unmanaged[Cdecl]<nint, void>) GetUnmanagedPtr<FreeMValueConstArrayDelegate>(funcTable, 10875848896530643353UL, FreeMValueConstArrayFallback);
             FreeObjectArray = (delegate* unmanaged[Cdecl]<nint, void>) GetUnmanagedPtr<FreeObjectArrayDelegate>(funcTable, 12324137626706269838UL, FreeObjectArrayFallback);
             FreePedArray = (delegate* unmanaged[Cdecl]<nint, void>) GetUnmanagedPtr<FreePedArrayDelegate>(funcTable, 15264987216922552928UL, FreePedArrayFallback);
@@ -1656,14 +1549,6 @@ namespace AltV.Net.CApi.Libraries
             Invoker_Create = (delegate* unmanaged[Cdecl]<nint, MValueFunctionCallback, nint>) GetUnmanagedPtr<Invoker_CreateDelegate>(funcTable, 15107945359232289520UL, Invoker_CreateFallback);
             Invoker_Destroy = (delegate* unmanaged[Cdecl]<nint, nint, void>) GetUnmanagedPtr<Invoker_DestroyDelegate>(funcTable, 13472547340675883247UL, Invoker_DestroyFallback);
             IsDebugStatic = (delegate* unmanaged[Cdecl]<byte>) GetUnmanagedPtr<IsDebugStaticDelegate>(funcTable, 7118542945065902334UL, IsDebugStaticFallback);
-            LocalPed_GetID = (delegate* unmanaged[Cdecl]<nint, uint>) GetUnmanagedPtr<LocalPed_GetIDDelegate>(funcTable, 15318682494636002455UL, LocalPed_GetIDFallback);
-            LocalPed_GetModel = (delegate* unmanaged[Cdecl]<nint, uint>) GetUnmanagedPtr<LocalPed_GetModelDelegate>(funcTable, 18280414601745814655UL, LocalPed_GetModelFallback);
-            LocalPed_GetRotation = (delegate* unmanaged[Cdecl]<nint, Rotation*, void>) GetUnmanagedPtr<LocalPed_GetRotationDelegate>(funcTable, 10372449682549700708UL, LocalPed_GetRotationFallback);
-            LocalPed_GetStreamingDistance = (delegate* unmanaged[Cdecl]<nint, uint>) GetUnmanagedPtr<LocalPed_GetStreamingDistanceDelegate>(funcTable, 7484443958305306909UL, LocalPed_GetStreamingDistanceFallback);
-            LocalPed_GetWorldObject = (delegate* unmanaged[Cdecl]<nint, nint>) GetUnmanagedPtr<LocalPed_GetWorldObjectDelegate>(funcTable, 195138720060470930UL, LocalPed_GetWorldObjectFallback);
-            LocalPed_IsVisible = (delegate* unmanaged[Cdecl]<nint, byte>) GetUnmanagedPtr<LocalPed_IsVisibleDelegate>(funcTable, 16733779175982679523UL, LocalPed_IsVisibleFallback);
-            LocalPed_SetRotation = (delegate* unmanaged[Cdecl]<nint, Rotation, void>) GetUnmanagedPtr<LocalPed_SetRotationDelegate>(funcTable, 12736827587977303188UL, LocalPed_SetRotationFallback);
-            LocalPed_SetVisible = (delegate* unmanaged[Cdecl]<nint, byte, void>) GetUnmanagedPtr<LocalPed_SetVisibleDelegate>(funcTable, 7437063190905143438UL, LocalPed_SetVisibleFallback);
             Marker_GetColor = (delegate* unmanaged[Cdecl]<nint, Rgba*, void>) GetUnmanagedPtr<Marker_GetColorDelegate>(funcTable, 6193914507030990415UL, Marker_GetColorFallback);
             Marker_GetDirection = (delegate* unmanaged[Cdecl]<nint, Vector3*, void>) GetUnmanagedPtr<Marker_GetDirectionDelegate>(funcTable, 9123839521259778880UL, Marker_GetDirectionFallback);
             Marker_GetID = (delegate* unmanaged[Cdecl]<nint, uint>) GetUnmanagedPtr<Marker_GetIDDelegate>(funcTable, 16696466665661187791UL, Marker_GetIDFallback);
@@ -1673,13 +1558,17 @@ namespace AltV.Net.CApi.Libraries
             Marker_GetStreamingDistance = (delegate* unmanaged[Cdecl]<nint, uint>) GetUnmanagedPtr<Marker_GetStreamingDistanceDelegate>(funcTable, 5405050753430155401UL, Marker_GetStreamingDistanceFallback);
             Marker_GetTarget = (delegate* unmanaged[Cdecl]<nint, nint>) GetUnmanagedPtr<Marker_GetTargetDelegate>(funcTable, 15442851779455932452UL, Marker_GetTargetFallback);
             Marker_GetWorldObject = (delegate* unmanaged[Cdecl]<nint, nint>) GetUnmanagedPtr<Marker_GetWorldObjectDelegate>(funcTable, 14796952389729553182UL, Marker_GetWorldObjectFallback);
+            Marker_IsBobUpDown = (delegate* unmanaged[Cdecl]<nint, byte>) GetUnmanagedPtr<Marker_IsBobUpDownDelegate>(funcTable, 12125711448637417959UL, Marker_IsBobUpDownFallback);
             Marker_IsFaceCamera = (delegate* unmanaged[Cdecl]<nint, byte>) GetUnmanagedPtr<Marker_IsFaceCameraDelegate>(funcTable, 3331151536932433603UL, Marker_IsFaceCameraFallback);
             Marker_IsGlobal = (delegate* unmanaged[Cdecl]<nint, uint>) GetUnmanagedPtr<Marker_IsGlobalDelegate>(funcTable, 15394588070881330329UL, Marker_IsGlobalFallback);
+            Marker_IsRotating = (delegate* unmanaged[Cdecl]<nint, byte>) GetUnmanagedPtr<Marker_IsRotatingDelegate>(funcTable, 15528528424596295369UL, Marker_IsRotatingFallback);
             Marker_IsVisible = (delegate* unmanaged[Cdecl]<nint, byte>) GetUnmanagedPtr<Marker_IsVisibleDelegate>(funcTable, 7638321216817832459UL, Marker_IsVisibleFallback);
+            Marker_SetBobUpDown = (delegate* unmanaged[Cdecl]<nint, byte, void>) GetUnmanagedPtr<Marker_SetBobUpDownDelegate>(funcTable, 4738788525555220350UL, Marker_SetBobUpDownFallback);
             Marker_SetColor = (delegate* unmanaged[Cdecl]<nint, Rgba, void>) GetUnmanagedPtr<Marker_SetColorDelegate>(funcTable, 16990441478007898825UL, Marker_SetColorFallback);
             Marker_SetDirection = (delegate* unmanaged[Cdecl]<nint, Vector3, void>) GetUnmanagedPtr<Marker_SetDirectionDelegate>(funcTable, 5238646959486818104UL, Marker_SetDirectionFallback);
             Marker_SetFaceCamera = (delegate* unmanaged[Cdecl]<nint, byte, void>) GetUnmanagedPtr<Marker_SetFaceCameraDelegate>(funcTable, 9437043437809276362UL, Marker_SetFaceCameraFallback);
             Marker_SetMarkerType = (delegate* unmanaged[Cdecl]<nint, byte, void>) GetUnmanagedPtr<Marker_SetMarkerTypeDelegate>(funcTable, 17542761621503411994UL, Marker_SetMarkerTypeFallback);
+            Marker_SetRotating = (delegate* unmanaged[Cdecl]<nint, byte, void>) GetUnmanagedPtr<Marker_SetRotatingDelegate>(funcTable, 14949621861451410192UL, Marker_SetRotatingFallback);
             Marker_SetRotation = (delegate* unmanaged[Cdecl]<nint, Rotation, void>) GetUnmanagedPtr<Marker_SetRotationDelegate>(funcTable, 12229547285560302608UL, Marker_SetRotationFallback);
             Marker_SetScale = (delegate* unmanaged[Cdecl]<nint, Vector3, void>) GetUnmanagedPtr<Marker_SetScaleDelegate>(funcTable, 7129171957282455779UL, Marker_SetScaleFallback);
             Marker_SetVisible = (delegate* unmanaged[Cdecl]<nint, byte, void>) GetUnmanagedPtr<Marker_SetVisibleDelegate>(funcTable, 7158984024495559554UL, Marker_SetVisibleFallback);
@@ -1707,30 +1596,6 @@ namespace AltV.Net.CApi.Libraries
             NetworkObject_GetID = (delegate* unmanaged[Cdecl]<nint, ushort>) GetUnmanagedPtr<NetworkObject_GetIDDelegate>(funcTable, 2185059533142172527UL, NetworkObject_GetIDFallback);
             NetworkObject_GetLodDistance = (delegate* unmanaged[Cdecl]<nint, ushort>) GetUnmanagedPtr<NetworkObject_GetLodDistanceDelegate>(funcTable, 12809257540355991912UL, NetworkObject_GetLodDistanceFallback);
             NetworkObject_GetTextureVariation = (delegate* unmanaged[Cdecl]<nint, byte>) GetUnmanagedPtr<NetworkObject_GetTextureVariationDelegate>(funcTable, 105893559881092449UL, NetworkObject_GetTextureVariationFallback);
-            Object_ActivatePhysics = (delegate* unmanaged[Cdecl]<nint, void>) GetUnmanagedPtr<Object_ActivatePhysicsDelegate>(funcTable, 17585830173881425980UL, Object_ActivatePhysicsFallback);
-            Object_AttachToEntity = (delegate* unmanaged[Cdecl]<nint, nint, short, Vector3, Rotation, byte, byte, byte, void>) GetUnmanagedPtr<Object_AttachToEntityDelegate>(funcTable, 15073840091519902240UL, Object_AttachToEntityFallback);
-            Object_AttachToEntity_ScriptId = (delegate* unmanaged[Cdecl]<nint, uint, short, Vector3, Rotation, byte, byte, byte, void>) GetUnmanagedPtr<Object_AttachToEntity_ScriptIdDelegate>(funcTable, 5601925715555707412UL, Object_AttachToEntity_ScriptIdFallback);
-            Object_Detach = (delegate* unmanaged[Cdecl]<nint, byte, void>) GetUnmanagedPtr<Object_DetachDelegate>(funcTable, 5181875162525913117UL, Object_DetachFallback);
-            Object_GetAlpha = (delegate* unmanaged[Cdecl]<nint, byte>) GetUnmanagedPtr<Object_GetAlphaDelegate>(funcTable, 4782965940294523501UL, Object_GetAlphaFallback);
-            Object_GetEntity = (delegate* unmanaged[Cdecl]<nint, nint>) GetUnmanagedPtr<Object_GetEntityDelegate>(funcTable, 4934471410579771998UL, Object_GetEntityFallback);
-            Object_GetID = (delegate* unmanaged[Cdecl]<nint, ushort>) GetUnmanagedPtr<Object_GetIDDelegate>(funcTable, 12916172794746864343UL, Object_GetIDFallback);
-            Object_GetLodDistance = (delegate* unmanaged[Cdecl]<nint, ushort>) GetUnmanagedPtr<Object_GetLodDistanceDelegate>(funcTable, 9053583879265260950UL, Object_GetLodDistanceFallback);
-            Object_GetStreamingDistance = (delegate* unmanaged[Cdecl]<nint, uint>) GetUnmanagedPtr<Object_GetStreamingDistanceDelegate>(funcTable, 16226032668510538965UL, Object_GetStreamingDistanceFallback);
-            Object_GetTextureVariation = (delegate* unmanaged[Cdecl]<nint, byte>) GetUnmanagedPtr<Object_GetTextureVariationDelegate>(funcTable, 4660664364773957039UL, Object_GetTextureVariationFallback);
-            Object_HasGravity = (delegate* unmanaged[Cdecl]<nint, byte>) GetUnmanagedPtr<Object_HasGravityDelegate>(funcTable, 8859174657854274703UL, Object_HasGravityFallback);
-            Object_IsCollisionEnabled = (delegate* unmanaged[Cdecl]<nint, byte>) GetUnmanagedPtr<Object_IsCollisionEnabledDelegate>(funcTable, 6249145685868994012UL, Object_IsCollisionEnabledFallback);
-            Object_IsDynamic = (delegate* unmanaged[Cdecl]<nint, byte>) GetUnmanagedPtr<Object_IsDynamicDelegate>(funcTable, 8584793846210143026UL, Object_IsDynamicFallback);
-            Object_IsVisible = (delegate* unmanaged[Cdecl]<nint, byte>) GetUnmanagedPtr<Object_IsVisibleDelegate>(funcTable, 5337252315976841077UL, Object_IsVisibleFallback);
-            Object_IsWorldObject = (delegate* unmanaged[Cdecl]<nint, byte>) GetUnmanagedPtr<Object_IsWorldObjectDelegate>(funcTable, 17619976092247149204UL, Object_IsWorldObjectFallback);
-            Object_PlaceOnGroundProperly = (delegate* unmanaged[Cdecl]<nint, void>) GetUnmanagedPtr<Object_PlaceOnGroundProperlyDelegate>(funcTable, 16593704804065749058UL, Object_PlaceOnGroundProperlyFallback);
-            Object_ResetAlpha = (delegate* unmanaged[Cdecl]<nint, void>) GetUnmanagedPtr<Object_ResetAlphaDelegate>(funcTable, 15582803191049029347UL, Object_ResetAlphaFallback);
-            Object_SetAlpha = (delegate* unmanaged[Cdecl]<nint, byte, void>) GetUnmanagedPtr<Object_SetAlphaDelegate>(funcTable, 1335394386529232328UL, Object_SetAlphaFallback);
-            Object_SetLodDistance = (delegate* unmanaged[Cdecl]<nint, ushort, void>) GetUnmanagedPtr<Object_SetLodDistanceDelegate>(funcTable, 14785658894799737749UL, Object_SetLodDistanceFallback);
-            Object_SetPositionFrozen = (delegate* unmanaged[Cdecl]<nint, byte, void>) GetUnmanagedPtr<Object_SetPositionFrozenDelegate>(funcTable, 13625864371790276101UL, Object_SetPositionFrozenFallback);
-            Object_SetTextureVariation = (delegate* unmanaged[Cdecl]<nint, byte, void>) GetUnmanagedPtr<Object_SetTextureVariationDelegate>(funcTable, 2992998067089316658UL, Object_SetTextureVariationFallback);
-            Object_SetVisible = (delegate* unmanaged[Cdecl]<nint, byte, void>) GetUnmanagedPtr<Object_SetVisibleDelegate>(funcTable, 15473217416258516370UL, Object_SetVisibleFallback);
-            Object_ToggleCollision = (delegate* unmanaged[Cdecl]<nint, byte, byte, void>) GetUnmanagedPtr<Object_ToggleCollisionDelegate>(funcTable, 6986264234974696038UL, Object_ToggleCollisionFallback);
-            Object_ToggleGravity = (delegate* unmanaged[Cdecl]<nint, byte, void>) GetUnmanagedPtr<Object_ToggleGravityDelegate>(funcTable, 4853716554374183752UL, Object_ToggleGravityFallback);
             Ped_GetArmour = (delegate* unmanaged[Cdecl]<nint, ushort>) GetUnmanagedPtr<Ped_GetArmourDelegate>(funcTable, 4106400780828488738UL, Ped_GetArmourFallback);
             Ped_GetCurrentWeapon = (delegate* unmanaged[Cdecl]<nint, uint>) GetUnmanagedPtr<Ped_GetCurrentWeaponDelegate>(funcTable, 446737373633343515UL, Ped_GetCurrentWeaponFallback);
             Ped_GetEntity = (delegate* unmanaged[Cdecl]<nint, nint>) GetUnmanagedPtr<Ped_GetEntityDelegate>(funcTable, 17974792644403470118UL, Ped_GetEntityFallback);
@@ -1817,7 +1682,7 @@ namespace AltV.Net.CApi.Libraries
             VirtualEntity_SetVisible = (delegate* unmanaged[Cdecl]<nint, byte, void>) GetUnmanagedPtr<VirtualEntity_SetVisibleDelegate>(funcTable, 16962249384814735578UL, VirtualEntity_SetVisibleFallback);
             VirtualEntityGroup_GetBaseObject = (delegate* unmanaged[Cdecl]<nint, nint>) GetUnmanagedPtr<VirtualEntityGroup_GetBaseObjectDelegate>(funcTable, 9683760387923149316UL, VirtualEntityGroup_GetBaseObjectFallback);
             VirtualEntityGroup_GetID = (delegate* unmanaged[Cdecl]<nint, uint>) GetUnmanagedPtr<VirtualEntityGroup_GetIDDelegate>(funcTable, 6854495250887664593UL, VirtualEntityGroup_GetIDFallback);
-            VirtualEntityGroup_GetStreamingRangeLimit = (delegate* unmanaged[Cdecl]<nint, uint>) GetUnmanagedPtr<VirtualEntityGroup_GetStreamingRangeLimitDelegate>(funcTable, 2450774800813411012UL, VirtualEntityGroup_GetStreamingRangeLimitFallback);
+            VirtualEntityGroup_GetMaxEntitiesInStream = (delegate* unmanaged[Cdecl]<nint, uint>) GetUnmanagedPtr<VirtualEntityGroup_GetMaxEntitiesInStreamDelegate>(funcTable, 3706424129225943778UL, VirtualEntityGroup_GetMaxEntitiesInStreamFallback);
             VoiceChannel_GetID = (delegate* unmanaged[Cdecl]<nint, uint>) GetUnmanagedPtr<VoiceChannel_GetIDDelegate>(funcTable, 15809352227459172029UL, VoiceChannel_GetIDFallback);
             WebSocketClient_GetID = (delegate* unmanaged[Cdecl]<nint, uint>) GetUnmanagedPtr<WebSocketClient_GetIDDelegate>(funcTable, 5853373970270474941UL, WebSocketClient_GetIDFallback);
             WebView_GetID = (delegate* unmanaged[Cdecl]<nint, uint>) GetUnmanagedPtr<WebView_GetIDDelegate>(funcTable, 5926308654627541549UL, WebView_GetIDFallback);

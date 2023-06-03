@@ -656,26 +656,34 @@ namespace AltV.Net.Client.Elements.Entities
             }
         }
 
-        public bool IsRemote
+        public uint GameId
         {
             get
             {
                 unsafe
                 {
                     CheckIfEntityExists();
-                    return Core.Library.Client.Blip_IsRemote(BlipNativePointer) == 1;
+                    return Core.Library.Client.Blip_GetGameID(BlipNativePointer);
                 }
             }
         }
 
-        public uint ScriptID
+        public bool Visible
         {
             get
             {
                 unsafe
                 {
                     CheckIfEntityExists();
-                    return Core.Library.Client.Blip_GetScriptID(BlipNativePointer);
+                    return Core.Library.Client.Blip_IsVisible(BlipNativePointer) == 1;
+                }
+            }
+            set
+            {
+                unsafe
+                {
+                    CheckIfEntityExists();
+                    Core.Library.Client.Blip_SetVisible(BlipNativePointer, value ? (byte) 1 : (byte) 0);
                 }
             }
         }
@@ -685,16 +693,19 @@ namespace AltV.Net.Client.Elements.Entities
             BlipNativePointer = nativePointer;
         }
 
+        [Obsolete("Use Alt.CreatePointBlip instead")]
         public Blip(ICore core, Position position) : this(core, core.CreatePointBlipPtr(out var id, position), id)
         {
             core.PoolManager.Blip.Add(this);
         }
 
+        [Obsolete("Use Alt.CreateRadiusBlip instead")]
         public Blip(ICore core, Position position, float radius) : this(core, core.CreateRadiusBlipPtr(out var id, position, radius), id)
         {
             core.PoolManager.Blip.Add(this);
         }
 
+        [Obsolete("Use Alt.CreateAreaBlip instead")]
         public Blip(ICore core, Position position, int width, int height) : this(core, core.CreateAreaBlipPtr(out var id, position, width, height), id)
         {
             core.PoolManager.Blip.Add(this);

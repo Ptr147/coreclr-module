@@ -31,6 +31,8 @@ namespace AltV.Net
         private readonly ConcurrentDictionary<uint, VehicleModelInfo> vehicleModelInfoCache;
         private readonly ConcurrentDictionary<uint, PedModelInfo?> pedModelInfoCache;
 
+        private readonly ConcurrentDictionary<string, Metric?> metricCache;
+
         public int NetTime
         {
             get
@@ -69,6 +71,7 @@ namespace AltV.Net
             this.NativeResourcePool = nativeResourcePool;
             this.vehicleModelInfoCache = new();
             this.pedModelInfoCache = new();
+            this.metricCache = new();
             nativeResourcePool.GetOrCreate(this, resourcePointer, out var resource);
             Resource = resource;
         }
@@ -550,7 +553,7 @@ namespace AltV.Net
             {
                 CheckIfCallIsValid();
                 CheckIfThreadIsValid();
-                ushort id = default;
+                uint id = default;
                 var ptr = Library.Server.Core_CreateVehicle(NativePointer, model, pos, rotation, &id);
                 if (ptr == IntPtr.Zero) return null;
                 return PoolManager.Vehicle.GetOrCreate(this, ptr, id);
@@ -562,7 +565,7 @@ namespace AltV.Net
             unsafe
             {
                 CheckIfThreadIsValid();
-                ushort pId;
+                uint pId;
                 var pointer = Library.Server.Core_CreateVehicle(NativePointer, model, pos, rotation, &pId);
                 id = pId;
                 return pointer;
@@ -574,22 +577,10 @@ namespace AltV.Net
             {
                 CheckIfCallIsValid();
                 CheckIfThreadIsValid();
-                ushort id = default;
+                uint id = default;
                 var ptr = Library.Server.Core_CreatePed(NativePointer, model, pos, rotation, &id);
                 if (ptr == IntPtr.Zero) return null;
                 return PoolManager.Ped.GetOrCreate(this, ptr, id);
-            }
-        }
-
-        public IntPtr CreatePedEntity(out uint id, uint model, Position pos, Rotation rotation)
-        {
-            unsafe
-            {
-                CheckIfThreadIsValid();
-                ushort pId;
-                var pointer = Library.Server.Core_CreatePed(NativePointer, model, pos, rotation, &pId);
-                id = pId;
-                return pointer;
             }
         }
 
@@ -825,6 +816,21 @@ namespace AltV.Net
                 Marshal.Copy(ptr, data, 0, (int) size);
                 var arr = data.Select(e => PoolManager.Player.GetOrCreate(this, e)).ToArray();
                 Library.Shared.FreePlayerArray(ptr);
+                return arr;
+            }
+        }
+
+        public IReadOnlyCollection<IConnectionInfo> GetAllConnectionInfos()
+        {
+            unsafe
+            {
+                CheckIfCallIsValid();
+                ulong size = 0;
+                var ptr = Library.Server.Core_GetConnectionInfos(NativePointer, &size);
+                var data = new IntPtr[size];
+                Marshal.Copy(ptr, data, 0, (int) size);
+                var arr = data.Select(e => PoolManager.ConnectionInfo.GetOrCreate(this, e)).ToArray();
+                Library.Shared.FreeConnectionInfoArray(ptr);
                 return arr;
             }
         }
@@ -1175,7 +1181,116 @@ namespace AltV.Net
             }
         }
 
-        public IntPtr CreateVirtualEntityEntity(out uint id, IVirtualEntityGroup group, Position position, uint streamingDistance, Dictionary<string, object> dataDict)
+        public IBaseObject GetBaseObject(BaseObjectType type, uint id)
+        {
+            unsafe
+            {
+                CheckIfCallIsValid();
+                CheckIfThreadIsValid();
+                var ptr = Library.Shared.Core_GetBaseObjectByID(NativePointer, (byte)type, id);
+
+                return PoolManager.Get(ptr, type);
+            }
+        }
+
+        public IMetric RegisterMetric(string name, MetricType type = MetricType.MetricTypeGauge,
+            Dictionary<string, string> dataDict = default)
+        {
+            unsafe
+            {
+                var data = new Dictionary<IntPtr, IntPtr>();
+
+                var dictionary = dataDict ?? new Dictionary<string, string>();
+
+                var keys = new IntPtr[dictionary.Count];
+                var values = new IntPtr[dictionary.Count];
+
+                for (var i = 0; i < dictionary.Count; i++)
+                {
+                    var keyptr = AltNative.StringUtils.StringToHGlobalUtf8(dictionary.ElementAt(i).Key);
+                    var valueptr = AltNative.StringUtils.StringToHGlobalUtf8(dictionary.ElementAt(i).Value);
+                    keys[i] = keyptr;
+                    values[i] = valueptr;
+                    data.Add(keyptr, valueptr);
+                }
+
+                var namePtr = AltNative.StringUtils.StringToHGlobalUtf8(name);
+
+                var ptr = Library.Server.Core_RegisterMetric(NativePointer, namePtr, (byte)type, keys, values,
+                    (uint)data.Count);
+
+                foreach (var dataValue in data)
+                {
+                    Marshal.FreeHGlobal(dataValue.Key);
+                    Marshal.FreeHGlobal(dataValue.Value);
+                }
+
+                Marshal.FreeHGlobal(namePtr);
+                if (ptr == IntPtr.Zero) return null;
+
+                var metric = new Metric(this, ptr);
+                metricCache.TryAdd(metric.Name, metric);
+                return metric;
+            }
+        }
+
+        public void UnregisterMetric(IMetric metric)
+        {
+            if (metricCache.TryRemove(metric.Name, out var removedMetric))
+            {
+                unsafe
+                {
+                    Library.Server.Core_UnrgisterMetric(NativePointer, removedMetric.MetricNativePointer);
+                }
+            }
+            else
+            {
+                Console.WriteLine("FEHLER LÖSCHEN");
+            }
+        }
+
+        public IMarker CreateMarker(IPlayer player, MarkerType type, Position pos, Rgba color)
+        {
+            unsafe
+            {
+                CheckIfCallIsValid();
+                CheckIfThreadIsValid();
+                uint pId = default;
+                var ptr = Library.Server.Core_CreateMarker(NativePointer, player?.PlayerNativePointer ?? IntPtr.Zero, (byte)type, pos, color, Resource.NativePointer, &pId);
+                if (ptr == IntPtr.Zero) return null;
+                return PoolManager.Marker.GetOrCreate(this, ptr, pId);
+            }
+        }
+
+        public INetworkObject CreateNetworkObject(uint hash, Position position, Rotation rotation, byte alpha, byte textureVariation,
+            ushort lodDistance)
+        {
+            unsafe
+            {
+                CheckIfCallIsValid();
+                CheckIfThreadIsValid();
+                uint pId = default;
+                var ptr = Library.Server.Core_CreateNetworkObject(NativePointer, hash, position, rotation, alpha, textureVariation, lodDistance, &pId);
+                if (ptr == IntPtr.Zero) return null;
+                return PoolManager.NetworkObject.GetOrCreate(this, ptr, pId);
+            }
+        }
+
+        public IVirtualEntityGroup CreateVirtualEntityGroup(uint streamingDistance)
+        {
+            unsafe
+            {
+                CheckIfCallIsValid();
+                CheckIfThreadIsValid();
+                uint pId = default;
+                var ptr = Library.Shared.Core_CreateVirtualEntityGroup(NativePointer, streamingDistance, &pId);
+                if (ptr == IntPtr.Zero) return null;
+                return PoolManager.VirtualEntityGroup.GetOrCreate(this, ptr, pId);
+            }
+        }
+
+        public IVirtualEntity CreateVirtualEntity(IVirtualEntityGroup group, Position position, uint streamingDistance,
+            Dictionary<string, object> dataDict)
         {
             unsafe
             {
@@ -1198,54 +1313,20 @@ namespace AltV.Net
 
                 uint pId = default;
                 var ptr = Library.Shared.Core_CreateVirtualEntity(NativePointer, group.VirtualEntityGroupNativePointer, position, streamingDistance, keys, values, (uint)data.Count, &pId);
-                id = pId;
 
                 foreach (var dataValue in data)
                 {
                     dataValue.Value.Dispose();
                     Marshal.FreeHGlobal(dataValue.Key);
                 }
-
-                return ptr;
+                if (ptr == IntPtr.Zero) return null;
+                return PoolManager.VirtualEntity.GetOrCreate(this, ptr, pId);
             }
         }
 
-        public IntPtr CreateVirtualEntityGroupEntity(out uint id, uint streamingDistance)
+        public IReadOnlyCollection<IMetric> GetAllMetrics()
         {
-            unsafe
-            {
-                CheckIfCallIsValid();
-                CheckIfThreadIsValid();
-                uint pId = default;
-                var ptr = Library.Shared.Core_CreateVirtualEntityGroup(NativePointer, streamingDistance, &pId);
-                id = pId;
-                return ptr;
-            }
-        }
-
-        public IntPtr CreateMarkerEntity(out uint id, IPlayer player, MarkerType type, Position pos, Rgba color)
-        {
-            unsafe
-            {
-                CheckIfCallIsValid();
-                CheckIfThreadIsValid();
-                uint pId = default;
-                var ptr = Library.Server.Core_CreateMarker(NativePointer, player?.PlayerNativePointer ?? IntPtr.Zero, (byte)type, pos, color, Resource.NativePointer, &pId);
-                id = pId;
-                return ptr;
-            }
-        }
-
-        public IBaseObject GetBaseObject(BaseObjectType type, uint id)
-        {
-            unsafe
-            {
-                CheckIfCallIsValid();
-                CheckIfThreadIsValid();
-                var ptr = Library.Shared.Core_GetBaseObjectByID(NativePointer, (byte)type, id);
-
-                return PoolManager.Get(ptr, type);
-            }
+            return metricCache.Values.ToList();
         }
     }
 }

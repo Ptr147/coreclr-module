@@ -20,15 +20,6 @@ namespace AltV.Net
         public static ICore Core => CoreImpl;
         internal static Core CoreImpl;
 
-        [Obsolete("Use Core instead")]
-        public static ICore Server
-        {
-            get
-            {
-                LogWarning("Alt.Server is deprecated, use Alt.Core instead");
-                return Core;
-            }
-        }
         public static bool CacheEntities { get => AltShared.CacheEntities; set => AltShared.CacheEntities = value; }
         public static bool ThrowIfEntityDoesNotExist = false;
 
@@ -67,6 +58,8 @@ namespace AltV.Net
 
         public static IReadOnlyCollection<IColShape> GetAllColShapes() =>Core.PoolManager.ColShape.GetAllObjects();
 
+        public static IReadOnlyCollection<IConnectionInfo> GetAllConnectionInfos() => Core.PoolManager.ConnectionInfo.GetAllObjects();
+
         public static KeyValuePair<IntPtr, IPlayer>[] GetPlayersArray() => Core.PoolManager.Player.GetEntitiesArray();
 
         public static KeyValuePair<IntPtr, IVehicle>[] GetVehiclesArray() => Core.PoolManager.Vehicle.GetEntitiesArray();
@@ -80,6 +73,7 @@ namespace AltV.Net
         public static KeyValuePair<IntPtr, IVoiceChannel>[] GetVoiceChannelsArray() => Core.PoolManager.VoiceChannel.GetObjectsArray();
 
         public static KeyValuePair<IntPtr, IColShape>[] GetColShapesArray() => Core.PoolManager.ColShape.GetObjectsArray();
+        public static KeyValuePair<IntPtr, IConnectionInfo>[] GetConnectionInfoArray() => Core.PoolManager.ConnectionInfo.GetObjectsArray();
 
         public static void ForEachPlayers(IBaseObjectCallback<IPlayer> baseObjectCallback) =>
             Core.PoolManager.Player.ForEach(baseObjectCallback);
@@ -137,5 +131,9 @@ namespace AltV.Net
 
         public static IConfig GetServerConfig() => Core.GetServerConfig();
         public static IBaseObject GetBaseObjectById(BaseObjectType type, uint id) => Core.GetBaseObjectById(type, id);
+
+        public static IMetric RegisterMetric(string name, MetricType type = MetricType.MetricTypeGauge, Dictionary<string, string> dataDict = default) => Core.RegisterMetric(name, type, dataDict);
+        public static void UnregisterMetric(IMetric metric) => Core.UnregisterMetric(metric);
+        public static IReadOnlyCollection<IMetric> GetAllMetrics() => Core.GetAllMetrics();
     }
 }

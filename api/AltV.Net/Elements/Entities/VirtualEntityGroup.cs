@@ -7,7 +7,7 @@ public class VirtualEntityGroup : BaseObject, IVirtualEntityGroup
     public IntPtr VirtualEntityGroupNativePointer { get; }
     public override IntPtr NativePointer => VirtualEntityGroupNativePointer;
 
-    private static IntPtr GetEntityPointer(ICore core, IntPtr virtualEntityGroupNativePointer)
+    private static IntPtr GetBaseObjectPointer(ICore core, IntPtr virtualEntityGroupNativePointer)
     {
         unsafe
         {
@@ -23,25 +23,19 @@ public class VirtualEntityGroup : BaseObject, IVirtualEntityGroup
         }
     }
 
-    public VirtualEntityGroup(ICore core, uint streamingDistance) : this(
-        core, core.CreateVirtualEntityGroupEntity(out var id, streamingDistance), id)
-    {
-        core.PoolManager.VirtualEntityGroup.Add(this);
-    }
-
-    public VirtualEntityGroup(ICore core, IntPtr nativePointer, uint id) : base(core, nativePointer, BaseObjectType.VirtualEntityGroup, id)
+    public VirtualEntityGroup(ICore core, IntPtr nativePointer, uint id) : base(core, GetBaseObjectPointer(core, nativePointer), BaseObjectType.VirtualEntityGroup, id)
     {
         VirtualEntityGroupNativePointer = nativePointer;
     }
 
-    public uint StreamingRangeLimit
+    public uint MaxEntitiesInStream
     {
         get
         {
             unsafe
             {
                 CheckIfEntityExists();
-                return Core.Library.Shared.VirtualEntityGroup_GetStreamingRangeLimit(VirtualEntityGroupNativePointer);
+                return Core.Library.Shared.VirtualEntityGroup_GetMaxEntitiesInStream(VirtualEntityGroupNativePointer);
             }
         }
 

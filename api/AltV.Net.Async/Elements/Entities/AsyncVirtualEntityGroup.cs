@@ -16,21 +16,15 @@ public class AsyncVirtualEntityGroup : AsyncBaseObject, IVirtualEntityGroup, IAs
     {
     }
 
-    public AsyncVirtualEntityGroup(ICore core, uint streamingDistance) : this(
-        core, core.CreateVirtualEntityGroupEntity(out var id, streamingDistance), id)
-    {
-        core.PoolManager.VirtualEntityGroup.Add(this);
-    }
-
     public uint Id => VirtualEntityGroup.Id;
-    public uint StreamingRangeLimit
+    public uint MaxEntitiesInStream
     {
         get
         {
             lock (VirtualEntityGroup)
             {
                 if (!AsyncContext.CheckIfExistsNullable(VirtualEntityGroup)) return default;
-                return VirtualEntityGroup.StreamingRangeLimit;
+                return VirtualEntityGroup.MaxEntitiesInStream;
             }
         }
     }
