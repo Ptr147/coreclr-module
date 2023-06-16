@@ -45,7 +45,7 @@ namespace AltV.Net.Client.Events
     public delegate void NetOwnerChangeDelegate(IEntity target, IPlayer? newOwner, IPlayer? oldOwner);
 
     public delegate bool WeaponDamageDelegate(IEntity target, uint weapon, ushort damage, Position shotOffset,
-        BodyPart bodyPart);
+        BodyPart bodyPart, IEntity sourceEntity);
 
     public delegate void WorldObjectPositionChangeDelegate(IWorldObject target, Position oldPosition);
     public delegate void WorldObjectStreamInDelegate(IWorldObject target);
@@ -53,6 +53,11 @@ namespace AltV.Net.Client.Events
 
     public delegate void ColShapeDelegate(IColShape colShape, IWorldObject target, bool state);
     public delegate void CheckpointDelegate(ICheckpoint checkpoint, IWorldObject target, bool state);
+
+    public delegate void PlayerStartEnterVehicleDelegate(IVehicle vehicle, IPlayer player, byte seat);
+    public delegate void PlayerStartLeaveVehicleDelegate(IVehicle vehicle, IPlayer player, byte seat);
+    public delegate void EntityHitEntityDelegate(IEntity target, IEntity damager, uint weaponHash);
+
 
 
 }

@@ -326,9 +326,10 @@ namespace AltV.Net.Client
         }
 
         public static void OnWeaponDamage(IntPtr eventPointer, IntPtr entityPointer,
-            BaseObjectType entityType, uint weapon, ushort damage, Position shotOffset, BodyPart bodyPart)
+            BaseObjectType entityType, uint weapon, ushort damage, Position shotOffset, BodyPart bodyPart,
+            IntPtr sourceEntityPointer, BaseObjectType sourceEntityType)
         {
-            _core.OnWeaponDamage(eventPointer, entityPointer, entityType, weapon, damage, shotOffset, bodyPart);
+            _core.OnWeaponDamage(eventPointer, entityPointer, entityType, weapon, damage, shotOffset, bodyPart, sourceEntityPointer, sourceEntityType);
         }
 
         public static void OnLocalMetaChange(string key, IntPtr value, IntPtr oldValue)
@@ -400,6 +401,21 @@ namespace AltV.Net.Client
         public static void OnMetaChange(IntPtr target, BaseObjectType type, string key, IntPtr value, IntPtr oldvalue)
         {
             _core.OnMetaChange(target, type, key, value, oldvalue);
+        }
+
+        public static void OnPlayerStartEnterVehicle(IntPtr targetpointer, IntPtr player, byte seat)
+        {
+            _core.OnPlayerStartEnterVehicle(targetpointer, player, seat);
+        }
+
+        public static void OnPlayerStartLeaveVehicle(IntPtr targetpointer, IntPtr player, byte seat)
+        {
+            _core.OnPlayerStartLeaveVehicle(targetpointer, player, seat);
+        }
+
+        public static void OnEntityHitEntity(IntPtr targetpointer, BaseObjectType targettype, IntPtr damagerpointer, BaseObjectType damagertype, uint weaponhash)
+        {
+            _core.OnEntityHitEntity(targetpointer, targettype, damagerpointer, damagertype, weaponhash);
         }
     }
 }
